@@ -9,25 +9,12 @@
     Friend Sub Initialize(world As IWorld)
         InitializeLocations(world)
         InitializeCharacter(world)
-        InitializeItems(world)
-    End Sub
-
-    Private Sub InitializeItems(world As IWorld)
-        For Each itemType In ItemTypes.All
-            Dim descriptor = ItemTypes.GetDescriptor(itemType)
-            For Each dummy In Enumerable.Range(0, descriptor.SpawnCount)
-                Dim location = RNG.FromEnumerable(world.Locations)
-                Dim item = world.CreateItem(itemType)
-                location.AddItem(item)
-            Next
-        Next
     End Sub
 
     Private Sub InitializeCharacter(world As IWorld)
         Dim character = world.CreateCharacter(
                         RNG.FromEnumerable(world.Locations),
-                        RNG.FromEnumerable(Direction.All),
-                        MaximumSanity)
+                        RNG.FromEnumerable(Direction.All))
         world.SetAvatar(
             character)
     End Sub

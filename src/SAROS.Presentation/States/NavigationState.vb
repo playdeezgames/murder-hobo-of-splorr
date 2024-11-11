@@ -39,11 +39,6 @@
 
     Private Sub DrawItems(displayBuffer As IPixelSink)
         Dim itemFont = Context.Font(ItemFontName)
-        If Context.Model.HasGroundItems Then
-            For Each itemGlyph In Context.Model.ItemGlyphs
-                itemFont.WriteText(displayBuffer, itemGlyph.Position, itemGlyph.Text, itemGlyph.Hue)
-            Next
-        End If
     End Sub
 
     Private Sub DrawRoomFrame(displayBuffer As IPixelSink)

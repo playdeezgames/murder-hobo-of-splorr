@@ -40,7 +40,7 @@ Public Class World
         Return New Location(WorldData, locationId)
     End Function
 
-    Public Function CreateCharacter(location As ILocation, facing As String, maximumSanity As Integer) As ICharacter Implements IWorld.CreateCharacter
+    Public Function CreateCharacter(location As ILocation, facing As String) As ICharacter Implements IWorld.CreateCharacter
         Dim characterId = WorldData.Characters.Count
         WorldData.Characters.Add(New CharacterData With
                                 {
@@ -50,11 +50,5 @@ Public Class World
         Dim result = New Character(WorldData, characterId)
         location.AddCharacter(result)
         Return result
-    End Function
-
-    Public Function CreateItem(itemType As String) As IItem Implements IWorld.CreateItem
-        Dim itemId = WorldData.Items.Count
-        WorldData.Items.Add(New ItemData With {.itemType = itemType})
-        Return New Item(WorldData, itemId)
     End Function
 End Class

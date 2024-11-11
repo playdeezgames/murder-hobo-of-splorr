@@ -97,18 +97,6 @@
         End If
     End Sub
 
-    Public Sub BeginCombat(trauma As String) Implements IWorldModel.BeginCombat
-        PreviousCombat = trauma
-        BoardRow = BoardRows \ 2
-        BoardColumn = BoardColumns
-        For Each y In Enumerable.Range(0, BoardRows)
-            For Each x In Enumerable.Range(0, BoardColumns)
-                board(x, y).Trigger = False
-                board(x, y).Visible = False
-            Next
-        Next
-    End Sub
-
     Public Sub PreviousBoardRow() Implements IWorldModel.PreviousBoardRow
         BoardRow = (BoardRow + BoardRows - 1) Mod BoardRows
     End Sub
@@ -120,62 +108,6 @@
     Public Sub EnemyMove() Implements IWorldModel.EnemyMove
         BoardColumn = RNG.FromRange(0, BoardColumns - 1)
     End Sub
-
-    Public Property PreviousCombat As String Implements IWorldModel.PreviousCombat
-
-    Public ReadOnly Property HasGroundItems As Boolean Implements IWorldModel.HasGroundItems
-        Get
-            Return World.Avatar.Location.HasItems
-        End Get
-    End Property
-
-    Public ReadOnly Property GroundItems As IReadOnlyDictionary(Of String, Integer) Implements IWorldModel.GroundItems
-        Get
-            Return World.Avatar.Location.Items.GroupBy(Function(x) x.ItemType).ToDictionary(Function(x) x.Key, Function(x) x.Count)
-        End Get
-    End Property
-
-    Public ReadOnly Property Map As IEnumerable(Of (Column As Integer, Row As Integer, Text As String, TriggerLevel As Integer, HasItems As Boolean)) Implements IWorldModel.Map
-        Get
-            Dim cells = World.Locations.Select(
-                Function(location)
-                    Dim flags = 0
-                    If location.HasDoor(Direction.North) Then
-                        flags += 1
-                    End If
-                    If location.HasDoor(Direction.East) Then
-                        flags += 2
-                    End If
-                    If location.HasDoor(Direction.South) Then
-                        flags += 4
-                    End If
-                    If location.HasDoor(Direction.West) Then
-                        flags += 8
-                    End If
-                    Return (location.Column, location.Row, $"{ChrW(flags)}", 0, location.HasItems)
-                End Function).ToList
-            Select Case World.Avatar.Facing
-                Case Direction.North
-                    cells.Add((World.Avatar.Location.Column, World.Avatar.Location.Row, ChrW(16), 0, False))
-                Case Direction.East
-                    cells.Add((World.Avatar.Location.Column, World.Avatar.Location.Row, ChrW(17), 0, False))
-                Case Direction.South
-                    cells.Add((World.Avatar.Location.Column, World.Avatar.Location.Row, ChrW(18), 0, False))
-                Case Direction.West
-                    cells.Add((World.Avatar.Location.Column, World.Avatar.Location.Row, ChrW(19), 0, False))
-            End Select
-            Return cells
-        End Get
-    End Property
-
-    Public ReadOnly Property ItemGlyphs As IEnumerable(Of (Position As (X As Integer, Y As Integer), Text As String, Hue As Integer)) Implements IWorldModel.ItemGlyphs
-        Get
-            Return GroundItems.Keys.Select(Function(x)
-                                               Dim descriptor = ItemTypes.GetDescriptor(x)
-                                               Return (descriptor.Position, descriptor.Text, descriptor.Hue)
-                                           End Function)
-        End Get
-    End Property
 
     Public ReadOnly Property SectionName As String Implements IWorldModel.SectionName
         Get
@@ -189,10 +121,6 @@
 
     Public Function IsBoardCellVisible(column As Integer, row As Integer) As Boolean Implements IWorldModel.IsBoardCellVisible
         Return board(column, row).Visible
-    End Function
-
-    Public Function GetItemTypeName(itemType As String) As String Implements IWorldModel.GetItemTypeName
-        Return ItemTypes.GetDescriptor(itemType).DisplayName
     End Function
 
     Public Sub TurnAround() Implements IWorldModel.TurnAround

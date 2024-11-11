@@ -7,9 +7,5 @@
     Sub AddCharacter(result As ICharacter)
     Function HasDoor(direction As String) As Boolean
     Sub RemoveCharacter(character As ICharacter)
-    Sub AddItem(item As IItem)
-    Sub RemoveItem(item As IItem)
     ReadOnly Property HasCharacter As Boolean
-    ReadOnly Property HasItems As Boolean
-    ReadOnly Property Items As IEnumerable(Of IItem)
 End Interface
