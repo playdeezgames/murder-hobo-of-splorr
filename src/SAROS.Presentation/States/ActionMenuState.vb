@@ -4,7 +4,6 @@
     Private Const GoBackItem As String = "GoBack"
     Private Const FaceMemoryItem As String = "FaceMemory"
     Private Const GroundItem As String = "Ground"
-    Private Const StatusItem As String = "Status"
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
         MyBase.New(parent, setState, context, "Action Menu", context.ControlsText("Select", "Cancel"), GameState.Navigation)
@@ -18,19 +17,13 @@
                 SetState(BoilerplateState.Neutral)
             Case GroundItem
                 SetState(GameState.Ground)
-            Case StatusItem
-                SetState(GameState.Status)
         End Select
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (String, String))
         Dim result As New List(Of (String, String)) From {
-            ("Go Back", GoBackItem),
-            ("Status...", StatusItem)
+            ("Go Back", GoBackItem)
         }
-        If Context.Model.TriggerLevel > 0 Then
-            result.Add(("Face memory...", FaceMemoryItem))
-        End If
         If Context.Model.HasGroundItems Then
             result.Add(("Ground...", GroundItem))
         End If

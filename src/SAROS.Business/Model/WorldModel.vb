@@ -75,15 +75,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property TriggerLevel As Integer Implements IWorldModel.TriggerLevel
-        Get
-            If String.IsNullOrEmpty(Trauma) Then
-                Return 0
-            End If
-            Return World.Avatar.GetTriggerLevel(Trauma)
-        End Get
-    End Property
-
     Public Property BoardRow As Integer Implements IWorldModel.BoardRow
 
     Public Property BoardColumn As Integer Implements IWorldModel.BoardColumn
@@ -140,15 +131,6 @@
                 board(x, y).Visible = False
             Next
         Next
-        For Each dummy In Enumerable.Range(0, Math.Min(World.Avatar.GetTriggerLevel(trauma), FilledCellMaximum))
-            Dim x As Integer
-            Dim y As Integer
-            Do
-                x = RNG.FromRange(0, BoardColumns - 1)
-                y = RNG.FromRange(0, BoardRows - 1)
-            Loop Until Not board(x, y).Trigger
-            board(x, y).Trigger = True
-        Next
     End Sub
 
     Public Sub PreviousBoardRow() Implements IWorldModel.PreviousBoardRow
@@ -189,12 +171,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Win As Boolean Implements IWorldModel.Win
-        Get
-            Return World.Avatar.Win
-        End Get
-    End Property
-
     Public ReadOnly Property Map As IEnumerable(Of (Column As Integer, Row As Integer, Text As String, TriggerLevel As Integer, HasItems As Boolean)) Implements IWorldModel.Map
         Get
             Dim cells = World.Locations.Select(
@@ -212,7 +188,7 @@
                     If location.HasDoor(Direction.West) Then
                         flags += 8
                     End If
-                    Return (location.Column, location.Row, $"{ChrW(flags)}", World.Avatar.GetTriggerLevel(location.Trauma), location.HasItems)
+                    Return (location.Column, location.Row, $"{ChrW(flags)}", 0, location.HasItems)
                 End Function).ToList
             Select Case World.Avatar.Facing
                 Case Direction.North
@@ -243,29 +219,15 @@
         End Get
     End Property
 
-    Public ReadOnly Property PostCombatTriggerLevel As Integer Implements IWorldModel.PostCombatTriggerLevel
-        Get
-            Return Math.Max(0, TriggerLevel - PlayerCombatDamage)
-        End Get
-    End Property
-
     Public ReadOnly Property SectionName As String Implements IWorldModel.SectionName
         Get
             Return $"{"ABCDEFG"(World.Avatar.Location.Column)}{World.Avatar.Location.Row + 1}"
         End Get
     End Property
 
-    Public ReadOnly Property TraumaStates As IEnumerable(Of (Trauma As String, Awareness As Integer, TriggerLevel As Integer)) Implements IWorldModel.TraumaStates
-        Get
-            Return Traumas.All.Select(Function(x) (x, 0, World.Avatar.GetTriggerLevel(x)))
-        End Get
-    End Property
-
     Public Sub CompleteCombat() Implements IWorldModel.CompleteCombat
         If IsBoardCellTrigger(BoardColumn, BoardRow) Then
             World.Avatar.Sanity -= EnemyCombatDamage
-        Else
-            World.Avatar.SetTriggerLevel(Trauma, TriggerLevel - PlayerCombatDamage)
         End If
     End Sub
 

@@ -58,15 +58,11 @@
 
     Private Sub DrawRoomFrame(displayBuffer As IPixelSink)
         Dim roomFont = Context.Font(RoomFontName)
-        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.RoomString, If(Context.Model.TriggerLevel > 0, 4, 8))
+        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.RoomString, 8)
     End Sub
 
     Public Overrides Sub OnStart()
-        If Context.Model.TriggerLevel > 0 Then
-            PlayMux("CombatTheme")
-        Else
-            PlayMux("MainTheme")
-        End If
+        PlayMux("MainTheme")
         MyBase.OnStart()
     End Sub
 End Class

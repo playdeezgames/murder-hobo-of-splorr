@@ -16,9 +16,7 @@
     Private ReadOnly stateTable As IReadOnlyList(Of (state As String, condition As Func(Of IWorldModel, Boolean))) =
         New List(Of (String, Func(Of IWorldModel, Boolean))) From
         {
-            (GameState.Win, Function(m) m.Win),
             (GameState.Lose, Function(m) m.IsInsane),
-            (GameState.Combat, Function(m) m.TriggerLevel > 0),
             (GameState.Navigation, Function(m) True)
         }
 

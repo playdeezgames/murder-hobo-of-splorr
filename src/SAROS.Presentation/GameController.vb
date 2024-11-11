@@ -12,11 +12,7 @@ Public Class GameController
         SetState(BoilerplateState.Neutral, New NeutralState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Navigation, New NavigationState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Lose, New LoseState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Combat, New CombatState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.CombatResult, New CombatResultState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Ground, New GroundState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Win, New WinState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
     End Sub
 End Class

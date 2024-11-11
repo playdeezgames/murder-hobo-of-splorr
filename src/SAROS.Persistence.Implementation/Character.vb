@@ -49,26 +49,9 @@
         End Get
     End Property
 
-    Public ReadOnly Property Win As Boolean Implements ICharacter.Win
-        Get
-            Return CharacterData.TriggerLevels.All(Function(x) x.Value <= 0)
-        End Get
-    End Property
-
     Public ReadOnly Property World As IWorld Implements ICharacter.World
         Get
             Return New World(WorldData)
         End Get
     End Property
-
-    Public Sub SetTriggerLevel(trauma As String, triggerLevel As Integer) Implements ICharacter.SetTriggerLevel
-        CharacterData.TriggerLevels(trauma) = Math.Clamp(triggerLevel, 0, 24)
-    End Sub
-
-    Public Function GetTriggerLevel(trauma As String) As Integer Implements ICharacter.GetTriggerLevel
-        If String.IsNullOrEmpty(trauma) Then
-            Return 0
-        End If
-        Return CharacterData.TriggerLevels(trauma)
-    End Function
 End Class

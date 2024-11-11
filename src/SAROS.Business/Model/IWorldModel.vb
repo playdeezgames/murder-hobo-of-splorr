@@ -24,18 +24,14 @@
     ReadOnly Property IsInsane As Boolean
     ReadOnly Property Trauma As String
     ReadOnly Property PreviousCombat As String
-    ReadOnly Property TriggerLevel As Integer
     ReadOnly Property HasGroundItems As Boolean
     ReadOnly Property GroundItems As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property ItemGlyphs As IEnumerable(Of (Position As (X As Integer, Y As Integer), Text As String, Hue As Integer))
     Function GetItemTypeName(itemType As String) As String
-    ReadOnly Property Win As Boolean
     ReadOnly Property Map As IEnumerable(Of (Column As Integer, Row As Integer, Text As String, TriggerLevel As Integer, HasItems As Boolean))
     ReadOnly Property EnemyCombatDamage As Integer
     ReadOnly Property PlayerCombatDamage As Integer
     ReadOnly Property PostCombatSanity As Integer
-    ReadOnly Property PostCombatTriggerLevel As Integer
     ReadOnly Property SectionName As String
     Sub TurnAround()
-    ReadOnly Property TraumaStates As IEnumerable(Of (Trauma As String, Awareness As Integer, TriggerLevel As Integer))
 End Interface
