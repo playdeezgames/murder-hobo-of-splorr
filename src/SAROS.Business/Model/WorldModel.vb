@@ -140,15 +140,6 @@
                 board(x, y).Visible = False
             Next
         Next
-        For Each dummy In Enumerable.Range(0, World.Avatar.GetAwarenessLevel(trauma))
-            Dim x As Integer
-            Dim y As Integer
-            Do
-                x = RNG.FromRange(0, BoardColumns - 1)
-                y = RNG.FromRange(0, BoardRows - 1)
-            Loop Until Not board(x, y).Visible
-            board(x, y).Visible = True
-        Next
         For Each dummy In Enumerable.Range(0, Math.Min(World.Avatar.GetTriggerLevel(trauma), FilledCellMaximum))
             Dim x As Integer
             Dim y As Integer
@@ -266,14 +257,11 @@
 
     Public ReadOnly Property TraumaStates As IEnumerable(Of (Trauma As String, Awareness As Integer, TriggerLevel As Integer)) Implements IWorldModel.TraumaStates
         Get
-            Return Traumas.All.Select(Function(x) (x, World.Avatar.GetAwarenessLevel(x), World.Avatar.GetTriggerLevel(x)))
+            Return Traumas.All.Select(Function(x) (x, 0, World.Avatar.GetTriggerLevel(x)))
         End Get
     End Property
 
     Public Sub CompleteCombat() Implements IWorldModel.CompleteCombat
-        If Not IsBoardCellVisible(BoardColumn, BoardRow) Then
-            World.Avatar.SetAwarenessLevel(Trauma, World.Avatar.GetAwarenessLevel(Trauma) + 1)
-        End If
         If IsBoardCellTrigger(BoardColumn, BoardRow) Then
             World.Avatar.Sanity -= EnemyCombatDamage
         Else

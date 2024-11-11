@@ -32,7 +32,6 @@
             character)
         For Each trauma In Traumas.All
             character.SetTriggerLevel(trauma, RNG.RollDice("2d6+12d1"))
-            character.SetAwarenessLevel(trauma, 0)
         Next
         character.Location.Trauma = Nothing
     End Sub

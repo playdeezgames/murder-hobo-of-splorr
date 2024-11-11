@@ -65,18 +65,10 @@
         CharacterData.TriggerLevels(trauma) = Math.Clamp(triggerLevel, 0, 24)
     End Sub
 
-    Public Sub SetAwarenessLevel(trauma As String, awarenessLevel As Integer) Implements ICharacter.SetAwarenessLevel
-        CharacterData.AwarenessLevels(trauma) = Math.Clamp(awarenessLevel, 0, 25)
-    End Sub
-
     Public Function GetTriggerLevel(trauma As String) As Integer Implements ICharacter.GetTriggerLevel
         If String.IsNullOrEmpty(trauma) Then
             Return 0
         End If
         Return CharacterData.TriggerLevels(trauma)
-    End Function
-
-    Public Function GetAwarenessLevel(trauma As String) As Integer Implements ICharacter.GetAwarenessLevel
-        Return CharacterData.AwarenessLevels(trauma)
     End Function
 End Class
