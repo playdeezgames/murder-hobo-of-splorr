@@ -30,7 +30,6 @@
                         MaximumSanity)
         world.SetAvatar(
             character)
-        character.Location.Trauma = Nothing
     End Sub
 
     Private Sub InitializeLocations(world As IWorld)
@@ -52,13 +51,6 @@
                     location.SetDoor(direction, Door.Open)
                 End If
             Next
-        Next
-        For Each trauma In Traumas.All
-            Dim location = RNG.FromEnumerable(world.Locations.Where(Function(x) Not x.HasCharacter AndAlso Not x.HasTrauma))
-            location.Trauma = trauma
-        Next
-        For Each location In world.Locations.Where(Function(x) Not x.HasCharacter AndAlso Not x.HasTrauma)
-            location.Trauma = RNG.FromEnumerable(Traumas.All)
         Next
     End Sub
 End Module

@@ -10,8 +10,6 @@
     Sub AddItem(item As IItem)
     Sub RemoveItem(item As IItem)
     ReadOnly Property HasCharacter As Boolean
-    ReadOnly Property HasTrauma As Boolean
-    Property Trauma As String
     ReadOnly Property HasItems As Boolean
     ReadOnly Property Items As IEnumerable(Of IItem)
 End Interface

@@ -51,12 +51,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Trauma As String Implements IWorldModel.Trauma
-        Get
-            Return World.Avatar.Location.Trauma
-        End Get
-    End Property
-
     Public Property BoardRow As Integer Implements IWorldModel.BoardRow
 
     Public Property BoardColumn As Integer Implements IWorldModel.BoardColumn

@@ -30,21 +30,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasTrauma As Boolean Implements ILocation.HasTrauma
-        Get
-            Return Not String.IsNullOrEmpty(Trauma)
-        End Get
-    End Property
-
-    Public Property Trauma As String Implements ILocation.Trauma
-        Get
-            Return LocationData.Trauma
-        End Get
-        Set(value As String)
-            LocationData.Trauma = value
-        End Set
-    End Property
-
     Public ReadOnly Property HasItems As Boolean Implements ILocation.HasItems
         Get
             Return LocationData.Items.Any

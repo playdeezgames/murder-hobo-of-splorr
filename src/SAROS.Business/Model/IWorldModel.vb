@@ -18,7 +18,6 @@
     ReadOnly Property RoomString As String
     ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer
-    ReadOnly Property Trauma As String
     ReadOnly Property PreviousCombat As String
     ReadOnly Property HasGroundItems As Boolean
     ReadOnly Property GroundItems As IReadOnlyDictionary(Of String, Integer)
