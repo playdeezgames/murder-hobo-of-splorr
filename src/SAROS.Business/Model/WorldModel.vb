@@ -131,9 +131,6 @@
     End Sub
 
     Public Sub BeginCombat(trauma As String) Implements IWorldModel.BeginCombat
-        If PreviousCombat = trauma Then
-            World.Avatar.SetEscalation(trauma, World.Avatar.GetEscalation(trauma) + 1)
-        End If
         PreviousCombat = trauma
         BoardRow = BoardRows \ 2
         BoardColumn = BoardColumns
@@ -188,15 +185,6 @@
     End Property
 
     Public Property PreviousCombat As String Implements IWorldModel.PreviousCombat
-
-    Public ReadOnly Property Escalation As Integer Implements IWorldModel.Escalation
-        Get
-            If String.IsNullOrEmpty(Trauma) Then
-                Return 0
-            End If
-            Return World.Avatar.GetEscalation(Trauma)
-        End Get
-    End Property
 
     Public ReadOnly Property HasGroundItems As Boolean Implements IWorldModel.HasGroundItems
         Get

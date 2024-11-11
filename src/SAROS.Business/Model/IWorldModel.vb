@@ -25,7 +25,6 @@
     ReadOnly Property Trauma As String
     ReadOnly Property PreviousCombat As String
     ReadOnly Property TriggerLevel As Integer
-    ReadOnly Property Escalation As Integer
     ReadOnly Property HasGroundItems As Boolean
     ReadOnly Property GroundItems As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property ItemGlyphs As IEnumerable(Of (Position As (X As Integer, Y As Integer), Text As String, Hue As Integer))

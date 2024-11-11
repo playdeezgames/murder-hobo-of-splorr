@@ -82,10 +82,6 @@
         CharacterData.AwarenessLevels(trauma) = Math.Clamp(awarenessLevel, 0, 25)
     End Sub
 
-    Public Sub SetEscalation(trauma As String, escalation As Integer) Implements ICharacter.SetEscalation
-        CharacterData.Escalations(trauma) = escalation
-    End Sub
-
     Public Sub AddItem(item As IItem) Implements ICharacter.AddItem
         CharacterData.Items.Add(item.Id)
     End Sub
@@ -107,10 +103,6 @@
 
     Public Function GetAwarenessLevel(trauma As String) As Integer Implements ICharacter.GetAwarenessLevel
         Return CharacterData.AwarenessLevels(trauma)
-    End Function
-
-    Public Function GetEscalation(trauma As String) As Integer Implements ICharacter.GetEscalation
-        Return CharacterData.Escalations(trauma)
     End Function
 
     Public Function KnowsLocation(location As ILocation) As Boolean Implements ICharacter.KnowsLocation
