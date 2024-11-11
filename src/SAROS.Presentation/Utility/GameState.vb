@@ -5,7 +5,6 @@
     Friend Const CombatResult = "CombatResult"
     Friend Const ActionMenu = "ActionMenu"
     Friend Const Ground = "Ground"
-    Friend Const Inventory = "Inventory"
     Friend Const Win = "Win"
     Friend Const Status = "Status"
 End Module

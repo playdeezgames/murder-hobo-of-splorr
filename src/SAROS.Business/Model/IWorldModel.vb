@@ -29,10 +29,6 @@
     ReadOnly Property GroundItems As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property ItemGlyphs As IEnumerable(Of (Position As (X As Integer, Y As Integer), Text As String, Hue As Integer))
     Function GetItemTypeName(itemType As String) As String
-    Sub PickUpItems(itemType As String)
-    Sub UseItem(itemType As String)
-    ReadOnly Property HasInventory As Boolean
-    ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property Win As Boolean
     ReadOnly Property Map As IEnumerable(Of (Column As Integer, Row As Integer, Text As String, TriggerLevel As Integer, HasItems As Boolean))
     ReadOnly Property EnemyCombatDamage As Integer
@@ -40,8 +36,6 @@
     ReadOnly Property PostCombatSanity As Integer
     ReadOnly Property PostCombatTriggerLevel As Integer
     ReadOnly Property SectionName As String
-    ReadOnly Property CanAvoid As Boolean
-    Sub Avoid()
     Sub TurnAround()
     ReadOnly Property TraumaStates As IEnumerable(Of (Trauma As String, Awareness As Integer, TriggerLevel As Integer))
 End Interface

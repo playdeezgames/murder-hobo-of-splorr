@@ -10,7 +10,6 @@
             Case GoBackItem
                 SetState(GameState.Navigation)
             Case Else
-                Context.Model.PickUpItems(value.Item2)
                 SetState(GameState.Navigation)
         End Select
     End Sub

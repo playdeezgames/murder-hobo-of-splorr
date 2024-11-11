@@ -49,18 +49,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasItems As Boolean Implements ICharacter.HasItems
-        Get
-            Return CharacterData.Items.Any
-        End Get
-    End Property
-
-    Public ReadOnly Property Items As IEnumerable(Of IItem) Implements ICharacter.Items
-        Get
-            Return CharacterData.Items.Select(Function(x) New Item(WorldData, x))
-        End Get
-    End Property
-
     Public ReadOnly Property Win As Boolean Implements ICharacter.Win
         Get
             Return CharacterData.TriggerLevels.All(Function(x) x.Value <= 0)
@@ -79,14 +67,6 @@
 
     Public Sub SetAwarenessLevel(trauma As String, awarenessLevel As Integer) Implements ICharacter.SetAwarenessLevel
         CharacterData.AwarenessLevels(trauma) = Math.Clamp(awarenessLevel, 0, 25)
-    End Sub
-
-    Public Sub AddItem(item As IItem) Implements ICharacter.AddItem
-        CharacterData.Items.Add(item.Id)
-    End Sub
-
-    Public Sub RemoveItem(item As IItem) Implements ICharacter.RemoveItem
-        CharacterData.Items.Remove(item.Id)
     End Sub
 
     Public Function GetTriggerLevel(trauma As String) As Integer Implements ICharacter.GetTriggerLevel

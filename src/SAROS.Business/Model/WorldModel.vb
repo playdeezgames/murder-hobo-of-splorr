@@ -198,18 +198,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasInventory As Boolean Implements IWorldModel.HasInventory
-        Get
-            Return World.Avatar.HasItems
-        End Get
-    End Property
-
-    Public ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer) Implements IWorldModel.Inventory
-        Get
-            Return World.Avatar.Items.GroupBy(Function(x) x.ItemType).ToDictionary(Function(x) x.Key, Function(x) x.Count)
-        End Get
-    End Property
-
     Public ReadOnly Property Win As Boolean Implements IWorldModel.Win
         Get
             Return World.Avatar.Win
@@ -276,12 +264,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property CanAvoid As Boolean Implements IWorldModel.CanAvoid
-        Get
-            Return World.Avatar.Items.Any(Function(x) x.ItemType = ItemTypes.Avoidance)
-        End Get
-    End Property
-
     Public ReadOnly Property TraumaStates As IEnumerable(Of (Trauma As String, Awareness As Integer, TriggerLevel As Integer)) Implements IWorldModel.TraumaStates
         Get
             Return Traumas.All.Select(Function(x) (x, World.Avatar.GetAwarenessLevel(x), World.Avatar.GetTriggerLevel(x)))
@@ -310,27 +292,6 @@
     Public Function GetItemTypeName(itemType As String) As String Implements IWorldModel.GetItemTypeName
         Return ItemTypes.GetDescriptor(itemType).DisplayName
     End Function
-
-    Public Sub PickUpItems(itemType As String) Implements IWorldModel.PickUpItems
-        For Each item In World.Avatar.Location.Items.Where(Function(x) x.ItemType = itemType)
-            World.Avatar.AddItem(item)
-            World.Avatar.Location.RemoveItem(item)
-        Next
-    End Sub
-
-    Public Sub UseItem(itemType As String) Implements IWorldModel.UseItem
-        Dim item = World.Avatar.Items.First(Function(x) x.ItemType = itemType)
-        Dim descriptor = ItemTypes.GetDescriptor(itemType)
-        If descriptor.IsConsumed Then
-            World.Avatar.RemoveItem(item)
-        End If
-        descriptor.Use(World.Avatar)
-    End Sub
-
-    Public Sub Avoid() Implements IWorldModel.Avoid
-        Dim item = World.Avatar.Items.First(Function(x) x.ItemType = ItemTypes.Avoidance)
-        World.Avatar.RemoveItem(item)
-    End Sub
 
     Public Sub TurnAround() Implements IWorldModel.TurnAround
         TurnRight()

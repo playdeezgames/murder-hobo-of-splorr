@@ -21,11 +21,6 @@ Friend Class CombatState
                     PlaySfx(Sfx.WooHoo)
                 End If
                 SetState(GameState.CombatResult)
-            Case Command.B
-                If Context.Model.CanAvoid Then
-                    Context.Model.Avoid()
-                    SetState(GameState.Navigation)
-                End If
         End Select
     End Sub
 
@@ -55,16 +50,7 @@ Friend Class CombatState
 
         uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, 15)
 
-        If Context.Model.CanAvoid Then
-            text = "You can avoid dealing with this... for now."
-            uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 160), text, 14)
-        End If
-
-        If Context.Model.CanAvoid Then
-            Context.ShowStatusBar(displayBuffer, uifont, "Up/Down: Select Row | A/Space: Deal! | B/Esc: Avoid!", 0, 7)
-        Else
-            Context.ShowStatusBar(displayBuffer, uifont, "Up/Down: Select Row | A/Space: Deal!", 0, 7)
-        End If
+        Context.ShowStatusBar(displayBuffer, uifont, "Up/Down: Select Row | A/Space: Deal!", 0, 7)
     End Sub
 
     Public Overrides Sub OnStart()
