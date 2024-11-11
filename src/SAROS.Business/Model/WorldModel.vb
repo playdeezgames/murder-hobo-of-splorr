@@ -51,24 +51,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Sanity As Integer Implements IWorldModel.Sanity
-        Get
-            Return World.Avatar.Sanity
-        End Get
-    End Property
-
-    Public ReadOnly Property MaximumSanity As Integer Implements IWorldModel.MaximumSanity
-        Get
-            Return World.Avatar.MaximumSanity
-        End Get
-    End Property
-
-    Public ReadOnly Property IsInsane As Boolean Implements IWorldModel.IsInsane
-        Get
-            Return World.Avatar.Sanity <= 0
-        End Get
-    End Property
-
     Public ReadOnly Property Trauma As String Implements IWorldModel.Trauma
         Get
             Return World.Avatar.Location.Trauma
@@ -145,18 +127,6 @@
         BoardColumn = RNG.FromRange(0, BoardColumns - 1)
     End Sub
 
-    Public ReadOnly Property EnemyCombatDamage As Integer Implements IWorldModel.EnemyCombatDamage
-        Get
-            Return Enumerable.Range(0, BoardRows).Where(Function(r) board(BoardColumn, r).Trigger).Count
-        End Get
-    End Property
-
-    Public ReadOnly Property PlayerCombatDamage As Integer Implements IWorldModel.PlayerCombatDamage
-        Get
-            Return Enumerable.Range(0, BoardColumns).Where(Function(c) board(c, BoardRow).Trigger).Count
-        End Get
-    End Property
-
     Public Property PreviousCombat As String Implements IWorldModel.PreviousCombat
 
     Public ReadOnly Property HasGroundItems As Boolean Implements IWorldModel.HasGroundItems
@@ -213,23 +183,11 @@
         End Get
     End Property
 
-    Public ReadOnly Property PostCombatSanity As Integer Implements IWorldModel.PostCombatSanity
-        Get
-            Return Math.Max(0, Sanity - EnemyCombatDamage)
-        End Get
-    End Property
-
     Public ReadOnly Property SectionName As String Implements IWorldModel.SectionName
         Get
             Return $"{"ABCDEFG"(World.Avatar.Location.Column)}{World.Avatar.Location.Row + 1}"
         End Get
     End Property
-
-    Public Sub CompleteCombat() Implements IWorldModel.CompleteCombat
-        If IsBoardCellTrigger(BoardColumn, BoardRow) Then
-            World.Avatar.Sanity -= EnemyCombatDamage
-        End If
-    End Sub
 
     Public Function IsBoardCellTrigger(column As Integer, row As Integer) As Boolean Implements IWorldModel.IsBoardCellTrigger
         Return board(column, row).Trigger

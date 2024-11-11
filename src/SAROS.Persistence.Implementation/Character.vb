@@ -34,21 +34,6 @@
         End Set
     End Property
 
-    Public Property Sanity As Integer Implements ICharacter.Sanity
-        Get
-            Return CharacterData.Sanity
-        End Get
-        Set(value As Integer)
-            CharacterData.Sanity = Math.Clamp(value, 0, MaximumSanity)
-        End Set
-    End Property
-
-    Public ReadOnly Property MaximumSanity As Integer Implements ICharacter.MaximumSanity
-        Get
-            Return CharacterData.MaximumSanity
-        End Get
-    End Property
-
     Public ReadOnly Property World As IWorld Implements ICharacter.World
         Get
             Return New World(WorldData)

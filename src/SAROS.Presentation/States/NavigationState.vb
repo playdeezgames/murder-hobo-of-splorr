@@ -33,16 +33,6 @@
         Dim text = $"Section {Context.Model.SectionName} Facing {Context.Model.Facing.ToUpper}"
         uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, 9)
 
-        'draw sanity
-        text = $"Sanity: {Context.Model.Sanity}/{Context.Model.MaximumSanity}"
-        Dim hue = 2
-        If Context.Model.Sanity <= 33 Then
-            hue = 4
-        ElseIf Context.Model.Sanity <= 66 Then
-            hue = 14
-        End If
-        uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 200), text, hue)
-
         'draw gutter
         Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText("Action Menu", "Game Menu"), 0, 7)
     End Sub

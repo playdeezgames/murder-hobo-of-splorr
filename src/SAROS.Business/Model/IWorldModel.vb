@@ -11,7 +11,6 @@
     Sub PreviousBoardRow()
     Sub NextBoardRow()
     Sub EnemyMove()
-    Sub CompleteCombat()
     Function IsBoardCellVisible(column As Integer, row As Integer) As Boolean
     ReadOnly Property BoardRow As Integer
     ReadOnly Property BoardColumn As Integer
@@ -19,9 +18,6 @@
     ReadOnly Property RoomString As String
     ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer
-    ReadOnly Property Sanity As Integer
-    ReadOnly Property MaximumSanity As Integer
-    ReadOnly Property IsInsane As Boolean
     ReadOnly Property Trauma As String
     ReadOnly Property PreviousCombat As String
     ReadOnly Property HasGroundItems As Boolean
@@ -29,9 +25,6 @@
     ReadOnly Property ItemGlyphs As IEnumerable(Of (Position As (X As Integer, Y As Integer), Text As String, Hue As Integer))
     Function GetItemTypeName(itemType As String) As String
     ReadOnly Property Map As IEnumerable(Of (Column As Integer, Row As Integer, Text As String, TriggerLevel As Integer, HasItems As Boolean))
-    ReadOnly Property EnemyCombatDamage As Integer
-    ReadOnly Property PlayerCombatDamage As Integer
-    ReadOnly Property PostCombatSanity As Integer
     ReadOnly Property SectionName As String
     Sub TurnAround()
 End Interface

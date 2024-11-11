@@ -45,9 +45,7 @@ Public Class World
         WorldData.Characters.Add(New CharacterData With
                                 {
                                     .LocationId = location.Id,
-                                    .Facing = facing,
-                                    .MaximumSanity = maximumSanity,
-                                    .Sanity = maximumSanity
+                                    .Facing = facing
                                 })
         Dim result = New Character(WorldData, characterId)
         location.AddCharacter(result)
