@@ -1,26 +1,17 @@
 ﻿Friend Module ItemTypes
     Friend Const SanityPotion = "SanityPotion"
     Friend Const IdeaBomb = "IdeaBomb"
-    Friend Const Compass = "Compass"
     Friend Const Avoidance = "Avoidance"
     Private ReadOnly descriptors As IReadOnlyDictionary(Of String, ItemTypeDescriptor) =
         New Dictionary(Of String, ItemTypeDescriptor) From
         {
             {SanityPotion, New ItemTypeDescriptor("Red Pill", AddressOf OnUseRedPill, (96, 160), ChrW(0), 4, spawnCount:=10)},
             {IdeaBomb, New ItemTypeDescriptor("Mindfulness", AddressOf OnUseMindfulness, (288, 160), ChrW(1), 14, spawnCount:=25)},
-            {Compass, New ItemTypeDescriptor("CBT", AddressOf OnUseCompass, (192, 160), ChrW(2), 7, spawnCount:=15)},
             {Avoidance, New ItemTypeDescriptor("Avoidance", AddressOf OnUseAvoidance, (240, 160), ChrW(4), 13, spawnCount:=15, isConsumed:=False)}
         }
 
     Private Sub OnUseAvoidance(character As ICharacter)
         'do nothing!
-    End Sub
-
-    Private Sub OnUseCompass(character As ICharacter)
-        Dim locations = character.World.Locations
-        For Each dummy In Enumerable.Range(0, 5)
-            character.AddKnownLocation(RNG.FromEnumerable(locations))
-        Next
     End Sub
 
     Private Sub OnUseMindfulness(character As ICharacter)

@@ -20,7 +20,6 @@
             If value.Id <> CharacterData.LocationId Then
                 Location.RemoveCharacter(Me)
                 CharacterData.LocationId = value.Id
-                AddKnownLocation(value)
                 Location.AddCharacter(Me)
             End If
         End Set
@@ -90,10 +89,6 @@
         CharacterData.Items.Remove(item.Id)
     End Sub
 
-    Public Sub AddKnownLocation(location As ILocation) Implements ICharacter.AddKnownLocation
-        CharacterData.KnownLocations.Add(location.Id)
-    End Sub
-
     Public Function GetTriggerLevel(trauma As String) As Integer Implements ICharacter.GetTriggerLevel
         If String.IsNullOrEmpty(trauma) Then
             Return 0
@@ -103,9 +98,5 @@
 
     Public Function GetAwarenessLevel(trauma As String) As Integer Implements ICharacter.GetAwarenessLevel
         Return CharacterData.AwarenessLevels(trauma)
-    End Function
-
-    Public Function KnowsLocation(location As ILocation) As Boolean Implements ICharacter.KnowsLocation
-        Return CharacterData.KnownLocations.Contains(location.Id)
     End Function
 End Class

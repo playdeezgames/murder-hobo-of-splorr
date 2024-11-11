@@ -18,7 +18,6 @@ Public Class GameController
         SetState(GameState.Ground, New GroundState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Inventory, New InventoryState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Win, New WinState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Map, New MapState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
     End Sub
 End Class

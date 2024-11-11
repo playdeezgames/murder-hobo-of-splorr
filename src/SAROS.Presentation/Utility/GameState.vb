@@ -7,6 +7,5 @@
     Friend Const Ground = "Ground"
     Friend Const Inventory = "Inventory"
     Friend Const Win = "Win"
-    Friend Const Map = "Map"
     Friend Const Status = "Status"
 End Module

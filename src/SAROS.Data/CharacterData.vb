@@ -6,5 +6,4 @@
     Public Property TriggerLevels As New Dictionary(Of String, Integer)
     Public Property AwarenessLevels As New Dictionary(Of String, Integer)
     Public Property Items As New HashSet(Of Integer)
-    Public Property KnownLocations As New HashSet(Of Integer)
 End Class

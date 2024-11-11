@@ -5,7 +5,6 @@
     Private Const FaceMemoryItem As String = "FaceMemory"
     Private Const GroundItem As String = "Ground"
     Private Const InventoryItem As String = "Inventory"
-    Private Const MapItem As String = "Map"
     Private Const StatusItem As String = "Status"
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
@@ -22,8 +21,6 @@
                 SetState(GameState.Ground)
             Case InventoryItem
                 SetState(GameState.Inventory)
-            Case MapItem
-                SetState(GameState.Map)
             Case StatusItem
                 SetState(GameState.Status)
         End Select
@@ -32,7 +29,6 @@
     Protected Overrides Function InitializeMenuItems() As List(Of (String, String))
         Dim result As New List(Of (String, String)) From {
             ("Go Back", GoBackItem),
-            ("Map...", MapItem),
             ("Status...", StatusItem)
         }
         If Context.Model.TriggerLevel > 0 Then
