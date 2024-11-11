@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.Text.Json
 
-Public Class SAROSSettings
+Public Class MHOSSettings
     Implements ISettings
     Sub New()
         Dim cfg = ReadConfig()
@@ -14,11 +14,11 @@ Public Class SAROSSettings
     Public Property FullScreen As Boolean Implements ISettings.FullScreen
     Public Property SfxVolume As Single Implements ISettings.SfxVolume
     Public Property MuxVolume As Single Implements ISettings.MuxVolume
-    Private Shared Function ReadConfig() As SAROSConfig
+    Private Shared Function ReadConfig() As MHOSConfig
         Try
-            Return JsonSerializer.Deserialize(Of SAROSConfig)(File.ReadAllText(ConfigFileName))
+            Return JsonSerializer.Deserialize(Of MHOSConfig)(File.ReadAllText(ConfigFileName))
         Catch ex As Exception
-            Return New SAROSConfig() With
+            Return New MHOSConfig() With
             {
                 .FullScreen = False,
                 .SfxVolume = 0.5,
@@ -32,7 +32,7 @@ Public Class SAROSSettings
         File.WriteAllText(
             ConfigFileName,
             JsonSerializer.Serialize(
-            New SAROSConfig With
+            New MHOSConfig With
             {
                 .SfxVolume = SfxVolume,
                 .MuxVolume = MuxVolume,

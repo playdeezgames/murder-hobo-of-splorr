@@ -1,7 +1,4 @@
-﻿Imports System.Drawing
-Imports System.Net.Mime
-
-Friend Class NavigationState
+﻿Friend Class NavigationState
     Inherits BaseGameState(Of IWorldModel)
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
@@ -31,9 +28,12 @@ Friend Class NavigationState
         DrawRoomFrame(displayBuffer)
         DrawItems(displayBuffer)
 
+        'draw section and facing
         Dim uifont = Context.Font(UIFontName)
         Dim text = $"Section {Context.Model.SectionName} Facing {Context.Model.Facing.ToUpper}"
         uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, 9)
+
+        'draw sanity
         text = $"Sanity: {Context.Model.Sanity}/{Context.Model.MaximumSanity}"
         Dim hue = 2
         If Context.Model.Sanity <= 33 Then
@@ -43,6 +43,7 @@ Friend Class NavigationState
         End If
         uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 200), text, hue)
 
+        'draw gutter
         Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText("Action Menu", "Game Menu"), 0, 7)
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Friend Class SAROSConfig
+﻿Friend Class MHOSConfig
     Public Property WindowWidth As Integer
     Public Property WindowHeight As Integer
     Public Property FullScreen As Boolean

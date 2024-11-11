@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 
-Public Class SAROSContext
+Public Class MHOSContext
     Inherits UIContext(Of IWorldModel)
 
     Public Sub New(fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Integer, Integer))
@@ -45,7 +45,7 @@ Public Class SAROSContext
         End With
     End Sub
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
-        Me.Font("Room").WriteText(displayBuffer, (0, 0), ChrW(7), 15)
+        Me.Font(RoomFontName).WriteText(displayBuffer, (0, 0), ChrW(7), 15)
         ShowTitle(displayBuffer, font)
         ShowSubtitle(displayBuffer, font)
         ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), 0, 7)
@@ -64,7 +64,7 @@ Public Class SAROSContext
         End With
     End Sub
 
-    Private ReadOnly aboutLines As IDictionary(Of Integer, (String, Integer)) =
+    Private ReadOnly aboutLines As IReadOnlyDictionary(Of Integer, (String, Integer)) =
         New Dictionary(Of Integer, (String, Integer)) From
         {
             {0, ("About Solitary Ancient Ruins of SPLORR!!", 11)},
