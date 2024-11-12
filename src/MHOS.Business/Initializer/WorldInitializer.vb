@@ -11,14 +11,14 @@
     End Sub
 
     Private Sub InitializeCharacter(world As IWorld, options As IEmbarkOptions)
-        Dim character = world.CreateCharacter(
+        Dim character = world.InitializeCharacter(
+                        CharacterTypes.N00b,
                         RNG.FromEnumerable(world.Locations),
                         RNG.FromEnumerable(Direction.All))
         For Each attributeType In options.Attributes
             character.SetAttribute(attributeType.AttributeType, attributeType.Value)
         Next
-        world.SetAvatar(
-            character)
+        world.SetAvatar(character)
     End Sub
 
     Private Sub InitializeLocations(world As IWorld)

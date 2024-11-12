@@ -6,4 +6,5 @@
     Sub SetAttribute(attributeType As String, value As Integer)
     Function GetAttribute(attributeType As String) As Integer
     ReadOnly Property Attributes As IEnumerable(Of String)
+    ReadOnly Property CharacterType As String
 End Interface

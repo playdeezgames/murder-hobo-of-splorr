@@ -46,6 +46,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
+        Get
+            Return CharacterData.CharacterType
+        End Get
+    End Property
+
     Public Sub SetAttribute(attributeType As String, value As Integer) Implements ICharacter.SetAttribute
         CharacterData.Attributes(attributeType) = value
     End Sub
