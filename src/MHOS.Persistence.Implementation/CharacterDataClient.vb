@@ -1,4 +1,4 @@
-﻿Imports SAROS.Data
+﻿Imports MHOS.Data
 
 Friend MustInherit Class CharacterDataClient
     Inherits WorldDataClient

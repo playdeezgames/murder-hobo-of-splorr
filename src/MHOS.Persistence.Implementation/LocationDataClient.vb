@@ -1,4 +1,4 @@
-﻿Imports SAROS.Data
+﻿Imports MHOS.Data
 
 Public MustInherit Class LocationDataClient
     Inherits WorldDataClient

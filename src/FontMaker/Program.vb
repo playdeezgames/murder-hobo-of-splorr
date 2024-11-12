@@ -5,9 +5,9 @@ Imports AOS.UI
 
 Module Program
     Sub Main(args As String())
-        'MakeFont("source.png", 384, 192, "..\..\..\..\SAROS\Content\Fonts\Room.json")
-        'MakeFont("mapsource.png", 25, 25, "..\..\..\..\SAROS\Content\Fonts\Map.json")
-        MakeFont("itemsource.png", 12, 12, "..\..\..\..\SAROS\Content\Fonts\Item.json")
+        'MakeFont("source.png", 384, 192, "..\..\..\..\MHOS\Content\Fonts\Room.json")
+        'MakeFont("mapsource.png", 25, 25, "..\..\..\..\MHOS\Content\Fonts\Map.json")
+        MakeFont("itemsource.png", 12, 12, "..\..\..\..\MHOS\Content\Fonts\Item.json")
     End Sub
     Private Sub MakeFont(inputFilename As String, cellWidth As Integer, cellHeight As Integer, outputFilename As String)
 #Disable Warning CA1416 ' Validate platform compatibility

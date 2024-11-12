@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SAROS</RootNamespace>
+    <RootNamespace>MHOS</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>SAROS.Business=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BagelQuest=True</ImportedNamespaces>
+    <ImportedNamespaces>MHOS.Business=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BagelQuest=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -151,11 +151,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AOS.Presentation\AOS.Presentation.vbproj" />
-    <ProjectReference Include="..\SAROS.Presentation\SAROS.Presentation.vbproj" />
+    <ProjectReference Include="..\MHOS.Presentation\MHOS.Presentation.vbproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Import Include="SAROS.Business" />
+    <Import Include="MHOS.Business" />
   </ItemGroup>
 
 </Project>

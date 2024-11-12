@@ -1,4 +1,4 @@
-﻿Imports SAROS.Data
+﻿Imports MHOS.Data
 
 Public Class WorldDataClient
     Protected ReadOnly WorldData As WorldData

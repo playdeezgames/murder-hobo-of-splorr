@@ -3,7 +3,7 @@ Imports System.Text.Json
 Imports AOS.Presentation
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Input
-Imports SAROS.Presentation
+Imports MHOS.Presentation
 Module Program
     Sub Main(args As String())
         Using host As New Host(

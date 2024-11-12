@@ -1,5 +1,5 @@
 ﻿Imports System.Text.Json
-Imports SAROS.Data
+Imports MHOS.Data
 
 Public Class World
     Inherits WorldDataClient
