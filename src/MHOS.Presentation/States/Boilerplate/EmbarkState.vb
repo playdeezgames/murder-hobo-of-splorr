@@ -20,7 +20,7 @@
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Model.Options.Initialize()
+        Model.Session.Options.Initialize()
         SetState(GameState.RollAttributes)
     End Sub
 End Class

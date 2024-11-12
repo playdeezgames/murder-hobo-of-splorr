@@ -17,7 +17,7 @@
         Dim font = Context.Font(UIFontName)
         font.WriteText(displayBuffer, (0, 0), "Attributes", BoilerplateHue.Orange)
         Dim y = font.Height
-        For Each attribute In Context.Model.Options.Attributes
+        For Each attribute In Context.Model.Session.Options.Attributes
             font.WriteText(displayBuffer, (0, y), $"{attribute.Name} {attribute.Value}", BoilerplateHue.LightGray)
             y += font.Height
         Next

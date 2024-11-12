@@ -16,7 +16,7 @@
     End Property
     Public Sub Embark() Implements IWorldModel.Embark
         World = New World(New WorldData)
-        WorldInitializer.Initialize(World, Options)
+        WorldInitializer.Initialize(World, Session.Options)
     End Sub
     Public Sub Abandon() Implements IWorldModel.Abandon
         World = Nothing
@@ -27,12 +27,6 @@
     Public Sub Save(filename As String) Implements IWorldModel.Save
         File.WriteAllText(filename, World.Serialized)
     End Sub
-
-    Public ReadOnly Property Options As IEmbarkOptions Implements IWorldModel.Options
-        Get
-            Return _options
-        End Get
-    End Property
 
     Public ReadOnly Property Avatar As IAvatarModel Implements IWorldModel.Avatar
         Get
