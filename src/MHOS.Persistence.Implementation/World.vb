@@ -30,13 +30,9 @@ Public Class World
         WorldData.AvatarId = character.Id
     End Sub
 
-    Public Function CreateLocation(column As Integer, row As Integer) As ILocation Implements IWorld.CreateLocation
+    Public Function CreateLocation() As ILocation Implements IWorld.CreateLocation
         Dim locationId = WorldData.Locations.Count
-        WorldData.Locations.Add(New LocationData With
-                                {
-                                    .Column = column,
-                                    .Row = row
-                                })
+        WorldData.Locations.Add(New LocationData)
         Return New Location(WorldData, locationId)
     End Function
 

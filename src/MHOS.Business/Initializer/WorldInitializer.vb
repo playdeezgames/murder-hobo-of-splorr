@@ -27,7 +27,7 @@
         Dim locations(MazeColumns, MazeRows) As ILocation
         For Each column In Enumerable.Range(0, MazeColumns)
             For Each row In Enumerable.Range(0, MazeRows)
-                locations(column, row) = world.CreateLocation(column, row)
+                locations(column, row) = world.CreateLocation()
             Next
         Next
         For Each column In Enumerable.Range(0, MazeColumns)

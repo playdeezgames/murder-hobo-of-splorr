@@ -6,18 +6,6 @@
         MyBase.New(worldData, locationId)
     End Sub
 
-    Public ReadOnly Property Column As Integer Implements ILocation.Column
-        Get
-            Return LocationData.Column
-        End Get
-    End Property
-
-    Public ReadOnly Property Row As Integer Implements ILocation.Row
-        Get
-            Return LocationData.Row
-        End Get
-    End Property
-
     Public ReadOnly Property Id As Integer Implements ILocation.Id
         Get
             Return LocationId
