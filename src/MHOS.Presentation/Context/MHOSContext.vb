@@ -98,11 +98,11 @@ Public Class MHOSContext
     End Sub
 
     Public Overrides Sub LoadGame(slot As Integer)
-        Model.Load(SlotFilename(slot))
+        Model.Session.Load(SlotFilename(slot))
     End Sub
 
     Public Overrides Sub SaveGame(slot As Integer)
-        Model.Save(SlotFilename(slot))
+        Model.Session.Save(SlotFilename(slot))
     End Sub
 
     Public Overrides Function DoesSlotExist(slot As Integer) As Boolean

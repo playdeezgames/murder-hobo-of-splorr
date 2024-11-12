@@ -14,19 +14,11 @@
             _world = value
         End Set
     End Property
-    Public Sub Load(filename As String) Implements IWorldModel.Load
-        World = New World(JsonSerializer.Deserialize(Of WorldData)(File.ReadAllText(filename)))
-    End Sub
-    Public Sub Save(filename As String) Implements IWorldModel.Save
-        File.WriteAllText(filename, World.Serialized)
-    End Sub
-
     Public ReadOnly Property Avatar As IAvatarModel Implements IWorldModel.Avatar
         Get
             Return New AvatarModel(_world)
         End Get
     End Property
-
     Public ReadOnly Property Session As IWorldSessionModel Implements IWorldModel.Session
         Get
             Return New WorldSessionModel(Sub(w) World = w, Function() World, _options)
