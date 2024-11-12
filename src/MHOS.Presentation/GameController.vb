@@ -14,5 +14,6 @@ Public Class GameController
         SetState(GameState.Navigation, New NavigationState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.RollAttributes, New RollAttributesState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Attributes, New AttributesState(Me, AddressOf SetCurrentState, context))
     End Sub
 End Class
