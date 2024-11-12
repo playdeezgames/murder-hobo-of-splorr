@@ -4,6 +4,5 @@
     Sub TurnRight()
     Sub TurnAround()
     Sub MoveAhead()
-    ReadOnly Property Facing As String
     ReadOnly Property RoomString As String
 End Interface

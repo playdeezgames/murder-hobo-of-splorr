@@ -6,12 +6,6 @@
     Sub New()
     End Sub
 
-    Public ReadOnly Property Facing As String Implements IWorldModel.Facing
-        Get
-            Return World.Avatar.Facing
-        End Get
-    End Property
-
     Private Property World As IWorld
         Get
             Return _world

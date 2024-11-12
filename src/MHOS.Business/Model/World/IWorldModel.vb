@@ -8,7 +8,6 @@
     Sub TurnRight()
     Sub TurnAround()
     Sub MoveAhead()
-    ReadOnly Property Facing As String
 
     ReadOnly Property Options As IEmbarkOptions
     ReadOnly Property Avatar As IAvatarModel

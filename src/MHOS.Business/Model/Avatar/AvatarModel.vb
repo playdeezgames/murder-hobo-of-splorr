@@ -13,12 +13,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Facing As String Implements IAvatarModel.Facing
-        Get
-            Return world.Avatar.Facing
-        End Get
-    End Property
-
     Public ReadOnly Property RoomString As String Implements IAvatarModel.RoomString
         Get
             Dim character = world.Avatar
