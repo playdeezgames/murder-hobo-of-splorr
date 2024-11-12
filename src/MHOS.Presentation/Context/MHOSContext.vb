@@ -94,7 +94,7 @@ Public Class MHOSContext
     End Sub
 
     Public Overrides Sub AbandonGame()
-        Model.Abandon()
+        Model.Session.Abandon()
     End Sub
 
     Public Overrides Sub LoadGame(slot As Integer)
