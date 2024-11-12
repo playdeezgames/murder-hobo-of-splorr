@@ -39,4 +39,10 @@
             Return New AvatarModel(_world)
         End Get
     End Property
+
+    Public ReadOnly Property Session As IWorldSessionModel Implements IWorldModel.Session
+        Get
+            Return New WorldSessionModel(Sub(w) World = w, Function() World, _options)
+        End Get
+    End Property
 End Class
