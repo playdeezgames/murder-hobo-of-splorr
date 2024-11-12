@@ -21,6 +21,6 @@
     Public Overrides Sub OnStart()
         MyBase.OnStart()
         Model.Options.Initialize()
-        SetState(GameState.FinishEmbarkation)
+        SetState(GameState.RollAttributes)
     End Sub
 End Class
