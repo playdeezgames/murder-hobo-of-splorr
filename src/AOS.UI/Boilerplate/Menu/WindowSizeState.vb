@@ -1,7 +1,7 @@
 ﻿Friend Class WindowSizeState(Of TModel)
     Inherits BasePickerState(Of TModel, (Integer, Integer))
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "<placeholder>", context.ControlsText("Select", "Cancel"), BoilerplateState.Options)
+        MyBase.New(parent, setState, context, "<placeholder>", context.ControlsText("Sel", "Cancel"), BoilerplateState.Options)
     End Sub
     Protected Overrides Sub OnActivateMenuItem(value As (String, (Integer, Integer)))
         Dim width = value.Item2.Item1

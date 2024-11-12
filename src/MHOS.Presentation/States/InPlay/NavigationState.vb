@@ -29,19 +29,19 @@
         Dim font = Context.Font(UIFontName)
         Dim y As Integer = 0
         If Model.Avatar.HasDoorAhead Then
-            font.WriteText(displayBuffer, (0, y), "There is a door ahead.", BoilerplateHue.White)
+            font.WriteText(displayBuffer, (0, y), "Door ahead.", BoilerplateHue.White)
             y += font.Height
         End If
         If Model.Avatar.HasDoorToLeft Then
-            font.WriteText(displayBuffer, (0, y), "There is a door to yer left.", BoilerplateHue.White)
+            font.WriteText(displayBuffer, (0, y), "Door to yer left.", BoilerplateHue.White)
             y += font.Height
         End If
         If Model.Avatar.HasDoorToRight Then
-            font.WriteText(displayBuffer, (0, y), "There is a door to yer right.", BoilerplateHue.White)
+            font.WriteText(displayBuffer, (0, y), "Door to yer right.", BoilerplateHue.White)
             y += font.Height
         End If
         If Model.Avatar.HasDoorBehind Then
-            font.WriteText(displayBuffer, (0, y), "There is a door behind you.", BoilerplateHue.White)
+            font.WriteText(displayBuffer, (0, y), "Door behind you.", BoilerplateHue.White)
             y += font.Height
         End If
 

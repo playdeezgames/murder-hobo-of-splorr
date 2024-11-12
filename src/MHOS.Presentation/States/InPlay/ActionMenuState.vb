@@ -5,7 +5,7 @@
     Private ReadOnly AttributesItem As String = NameOf(AttributesItem)
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
-        MyBase.New(parent, setState, context, Grimoire.ActionMenu, context.ControlsText("Select", "Cancel"), GameState.Navigation)
+        MyBase.New(parent, setState, context, Grimoire.ActionMenu, context.ControlsText("Sel", "Cancel"), GameState.Navigation)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (String, String))

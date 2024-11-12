@@ -54,7 +54,7 @@ Public MustInherit Class UIContext(Of TModel)
     Private Function CommandHint(command As String) As String
         Select Case command
             Case UI.Command.A
-                Return "Space/(A)"
+                Return "Spc/(A)"
             Case UI.Command.B
                 Return "Esc/(B)"
             Case Else

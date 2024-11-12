@@ -1,4 +1,4 @@
 ﻿Friend Module Grimoire
-    Friend Const GameMenu = "Game Menu"
-    Friend Const ActionMenu = "Action Menu"
+    Friend Const GameMenu = "Menu..."
+    Friend Const ActionMenu = "Action..."
 End Module
