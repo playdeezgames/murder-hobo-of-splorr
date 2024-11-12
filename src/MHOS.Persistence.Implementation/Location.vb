@@ -49,4 +49,8 @@
     Public Function HasDoor(direction As String) As Boolean Implements ILocation.HasDoor
         Return LocationData.Doors.ContainsKey(direction)
     End Function
+
+    Public Function GetNeighbor(direction As String) As ILocation Implements ILocation.GetNeighbor
+        Return New Location(WorldData, LocationData.Neighbors(direction))
+    End Function
 End Class

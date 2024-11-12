@@ -65,10 +65,7 @@
         Dim location = character.Location
         Dim facing = character.AheadDirection
         If location.HasDoor(facing) Then
-            Dim nextColumn = location.Column + Direction.GetDeltaX(facing)
-            Dim nextRow = location.Row + Direction.GetDeltaY(facing)
-            Dim nextLocation = World.Locations.Single(Function(l) l.Column = nextColumn AndAlso l.Row = nextRow)
-            character.Location = nextLocation
+            character.Location = location.GetNeighbor(facing)
         End If
     End Sub
 
