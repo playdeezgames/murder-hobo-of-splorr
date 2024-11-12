@@ -60,12 +60,4 @@
             CharacterData.Attributes(attributeType) = value
         End Set
     End Property
-
-    Public Sub SetAttribute(attributeType As String, value As Integer) Implements ICharacter.SetAttribute
-        CharacterData.Attributes(attributeType) = value
-    End Sub
-
-    Public Function GetAttribute(attributeType As String) As Integer Implements ICharacter.GetAttribute
-        Return CharacterData.Attributes(attributeType)
-    End Function
 End Class

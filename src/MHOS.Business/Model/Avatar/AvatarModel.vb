@@ -9,7 +9,7 @@
 
     Public ReadOnly Property Attributes As IEnumerable(Of IAttributeModel) Implements IAvatarModel.Attributes
         Get
-            Return world.Avatar.Attributes.Select(Function(x) New AttributeModel(x, world.Avatar.GetAttribute(x)))
+            Return world.Avatar.Attributes.Select(Function(x) New AttributeModel(x, world.Avatar.Attribute(x)))
         End Get
     End Property
 

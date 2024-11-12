@@ -16,7 +16,7 @@
                         RNG.FromEnumerable(world.Locations),
                         RNG.FromEnumerable(Direction.All))
         For Each attributeType In options.Attributes
-            character.SetAttribute(attributeType.AttributeType, attributeType.Value)
+            character.Attribute(attributeType.AttributeType) = attributeType.Value
         Next
         world.SetAvatar(character)
     End Sub
