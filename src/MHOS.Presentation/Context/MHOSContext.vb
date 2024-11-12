@@ -60,10 +60,10 @@ Public Class MHOSContext
         End With
     End Sub
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
-        Me.Font(RoomFontName).WriteText(displayBuffer, (0, 0), ChrW(7), 15)
+        Me.Font(RoomFontName).WriteText(displayBuffer, (0, 0), ChrW(7), BoilerplateHue.White)
         ShowTitle(displayBuffer, font)
         ShowSubtitle(displayBuffer, font)
-        ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), 0, 7)
+        ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), 0, BoilerplateHue.LightGray)
     End Sub
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
@@ -75,15 +75,15 @@ Public Class MHOSContext
                     displayBuffer,
                     (x, y),
                     text,
-                    8)
+                    BoilerplateHue.DarkGray)
         End With
     End Sub
 
     Private ReadOnly aboutLines As IReadOnlyDictionary(Of Integer, (String, Integer)) =
         New Dictionary(Of Integer, (String, Integer)) From
         {
-            {0, ("About Murder Hobo of SPLORR!!", 11)},
-            {8, ("A Production of TheGrumpyGameDev", 15)}
+            {0, ("About Murder Hobo of SPLORR!!", BoilerplateHue.Orange)},
+            {1, ("A Production of TheGrumpyGameDev", BoilerplateHue.White)}
         }
 
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)

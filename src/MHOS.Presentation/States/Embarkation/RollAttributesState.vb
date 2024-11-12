@@ -13,12 +13,12 @@
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
-        displayBuffer.Fill(0)
+        displayBuffer.Fill(BoilerplateHue.Black)
         Dim font = Context.Font(UIFontName)
-        font.WriteText(displayBuffer, (0, 0), "Attributes", 15)
+        font.WriteText(displayBuffer, (0, 0), "Attributes", BoilerplateHue.Orange)
         Dim y = font.Height
         For Each attribute In Context.Model.Options.Attributes
-            font.WriteText(displayBuffer, (0, y), $"{attribute.Name} {attribute.Value}", 15)
+            font.WriteText(displayBuffer, (0, y), $"{attribute.Name} {attribute.Value}", BoilerplateHue.LightGray)
             y += font.Height
         Next
     End Sub

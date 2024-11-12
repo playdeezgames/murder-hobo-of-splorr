@@ -1,18 +1,18 @@
-﻿Friend Module BoilerplateHue
-    Friend Const Black = 0
-    Friend Const Blue = 1
-    Friend Const Green = 2
-    Friend Const Cyan = 3
-    Friend Const Red = 4
-    Friend Const Purple = 5
-    Friend Const Brown = 6
-    Friend Const LightGray = 7
-    Friend Const DarkGray = 8
-    Friend Const LightBlue = 9
-    Friend Const LightGreen = 10
-    Friend Const Orange = 11
-    Friend Const Pink = 12
-    Friend Const Tan = 13
-    Friend Const Yellow = 14
-    Friend Const White = 15
+﻿Public Module BoilerplateHue
+    Public Const Black = 0
+    Public Const Blue = 1
+    Public Const Green = 2
+    Public Const Cyan = 3
+    Public Const Red = 4
+    Public Const Purple = 5
+    Public Const Brown = 6
+    Public Const LightGray = 7
+    Public Const DarkGray = 8
+    Public Const LightBlue = 9
+    Public Const LightGreen = 10
+    Public Const Orange = 11
+    Public Const Pink = 12
+    Public Const Tan = 13
+    Public Const Yellow = 14
+    Public Const White = 15
 End Module

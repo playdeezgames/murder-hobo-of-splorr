@@ -24,13 +24,13 @@
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
-        displayBuffer.Fill(0)
+        displayBuffer.Fill(BoilerplateHue.Black)
         DrawRoomFrame(displayBuffer)
 
         'draw section and facing
         Dim uifont = Context.Font(UIFontName)
         Dim text = $"Section {Context.Model.SectionName} Facing {Context.Model.Facing.ToUpper}"
-        uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, 9)
+        uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, BoilerplateHue.LightBlue)
 
         'draw gutter
         Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
@@ -38,7 +38,7 @@
 
     Private Sub DrawRoomFrame(displayBuffer As IPixelSink)
         Dim roomFont = Context.Font(RoomFontName)
-        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.RoomString, 8)
+        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.RoomString, BoilerplateHue.DarkGray)
     End Sub
 
     Public Overrides Sub OnStart()
