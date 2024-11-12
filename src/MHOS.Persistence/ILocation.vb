@@ -1,4 +1,5 @@
 ﻿Public Interface ILocation
+    ReadOnly Property LocationType As String
     Sub SetNeighbor(direction As String, nextLocation As ILocation)
     Function GetNeighbor(direction As String) As ILocation
     ReadOnly Property Id As Integer

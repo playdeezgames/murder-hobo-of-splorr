@@ -1,5 +1,6 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Attributes As IEnumerable(Of IAttributeModel)
+    ReadOnly Property Location As ILocationModel
     Sub TurnLeft()
     Sub TurnRight()
     Sub TurnAround()

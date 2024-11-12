@@ -69,6 +69,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Location As ILocationModel Implements IAvatarModel.Location
+        Get
+            Return New LocationModel(world.Avatar.Location)
+        End Get
+    End Property
+
     Public Sub TurnLeft() Implements IAvatarModel.TurnLeft
         world.Avatar.Facing = world.Avatar.LeftDirection
     End Sub

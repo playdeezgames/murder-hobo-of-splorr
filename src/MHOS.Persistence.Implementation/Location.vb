@@ -18,6 +18,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property LocationType As String Implements ILocation.LocationType
+        Get
+            Return LocationData.LocationType
+        End Get
+    End Property
+
     Public Sub SetNeighbor(direction As String, nextLocation As ILocation) Implements ILocation.SetNeighbor
         LocationData.Neighbors(direction) = nextLocation.Id
     End Sub

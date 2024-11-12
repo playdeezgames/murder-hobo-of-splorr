@@ -28,6 +28,8 @@
 
         Dim font = Context.Font(UIFontName)
         Dim y As Integer = 0
+        font.WriteText(displayBuffer, (0, y), $"In {Model.Avatar.Location.Name}.", BoilerplateHue.White)
+        y += font.Height
         If Model.Avatar.HasDoorAhead Then
             font.WriteText(displayBuffer, (0, y), "Door ahead.", BoilerplateHue.White)
             y += font.Height
