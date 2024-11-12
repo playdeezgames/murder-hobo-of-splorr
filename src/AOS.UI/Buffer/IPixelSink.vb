@@ -16,4 +16,6 @@
     Sub Fill(location As (Integer, Integer), size As (Integer, Integer), hue As Integer)
     Sub Fill(hue As Integer)
     Sub Frame(location As (Integer, Integer), size As (Integer, Integer), hue As Integer)
+    ReadOnly Property Height As Integer
+    ReadOnly Property Width As Integer
 End Interface

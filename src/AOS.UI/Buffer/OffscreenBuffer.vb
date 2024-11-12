@@ -14,6 +14,19 @@
         Return _buffer(x + y * _size.Item1)
     End Function
     Const Zero = 0
+
+    Public Overrides ReadOnly Property Height As Integer
+        Get
+            Return _size.Item2
+        End Get
+    End Property
+
+    Public Overrides ReadOnly Property Width As Integer
+        Get
+            Return _size.Item1
+        End Get
+    End Property
+
     Public Shared Function Create(transform As Func(Of Char, Integer), ParamArray lines As String()) As OffscreenBuffer
         Dim buffer As New OffscreenBuffer((lines.First.Length, lines.Length))
         For y = Zero To lines.Length - 1

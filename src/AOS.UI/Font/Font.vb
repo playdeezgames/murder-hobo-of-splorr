@@ -22,6 +22,12 @@
             position = (position.Item1 + buffer.Width, position.Item2)
         Next
     End Sub
+    Public Sub WriteCenteredText(sink As IPixelSink, y As Integer, text As String, hue As Integer)
+        If text Is Nothing Then
+            Return
+        End If
+        WriteText(sink, ((sink.Width - TextWidth(text)) \ 2, y), text, hue)
+    End Sub
     Const Zero = 0
     Public Function TextWidth(text As String) As Integer
         Dim result = Zero

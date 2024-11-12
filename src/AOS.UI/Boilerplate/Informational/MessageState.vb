@@ -18,12 +18,11 @@
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(BoilerplateHue.Black)
         Dim font = Context.Font(UIFont)
-        Dim y = 0
         Dim message = Context.CurrentMessage
-        font.WriteText(displayBuffer, (0, y), message.MessageTitle, BoilerplateHue.Orange)
-        y += font.Height
+        Context.ShowHeader(displayBuffer, font, message.MessageTitle, BoilerplateHue.Orange, BoilerplateHue.Black)
+        Dim y = displayBuffer.Height \ 2 - message.MessageLines.Count * font.HalfHeight
         For Each line In message.MessageLines
-            font.WriteText(displayBuffer, (0, y), line, BoilerplateHue.White)
+            font.WriteCenteredText(displayBuffer, y, line, BoilerplateHue.White)
             y += font.Height
         Next
         Context.ShowStatusBar(displayBuffer, font, Context.ControlsText("Continue", String.Empty), 0, 15)

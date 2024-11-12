@@ -2,6 +2,9 @@
     Implements IPixelSink
     Public MustOverride Sub SetPixel(x As Integer, y As Integer, hue As Integer) Implements IPixelSink.SetPixel
     Const Zero = 0
+    Public MustOverride ReadOnly Property Height As Integer Implements IPixelSink.Height
+    Public MustOverride ReadOnly Property Width As Integer Implements IPixelSink.Width
+
     Public Sub Fill(location As (Integer, Integer), size As (Integer, Integer), hue As Integer) Implements IPixelSink.Fill
         For x = Zero To size.Item1 - 1
             For y = Zero To size.Item2 - 1

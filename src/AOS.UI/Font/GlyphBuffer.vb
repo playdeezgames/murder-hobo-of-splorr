@@ -1,11 +1,7 @@
 ﻿Public Class GlyphBuffer
     Inherits OffscreenBuffer
-    Public ReadOnly Property Width As Integer
-    Public ReadOnly Property Height As Integer
     Public Sub New(font As FontData, glyph As Char)
         MyBase.New((font.Glyphs(glyph).Width, font.Height))
-        Height = font.Height
-        Width = font.Glyphs(glyph).Width
         For Each row In font.Glyphs(glyph).Lines
             For Each column In row.Value
                 SetPixel(column, row.Key, 1)

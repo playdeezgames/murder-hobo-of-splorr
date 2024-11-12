@@ -1,12 +1,8 @@
 ﻿Public Class Sprite
     Inherits OffscreenBuffer
-    Public ReadOnly Property Width As Integer
-    Public ReadOnly Property Height As Integer
     Const Zero = 0
     Public Sub New(lines As IReadOnlyList(Of String), transform As Func(Of Char, Integer))
         MyBase.New((lines.First.Length, lines.Count))
-        Width = lines.First.Length
-        Height = lines.Count
         Dim y = Zero
         For Each line In lines
             Dim x = Zero

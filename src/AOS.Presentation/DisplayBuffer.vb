@@ -13,6 +13,19 @@
         _texture.SetData(_buffer)
     End Sub
     Const Zero = 0
+
+    Public Overrides ReadOnly Property Height As Integer
+        Get
+            Return _texture.Height
+        End Get
+    End Property
+
+    Public Overrides ReadOnly Property Width As Integer
+        Get
+            Return _texture.Width
+        End Get
+    End Property
+
     Public Overrides Sub SetPixel(x As Integer, y As Integer, hue As Integer) Implements IDisplayBuffer.SetPixel
         If x < Zero OrElse y < Zero OrElse x >= _texture.Width OrElse y >= _texture.Height Then
             Return
