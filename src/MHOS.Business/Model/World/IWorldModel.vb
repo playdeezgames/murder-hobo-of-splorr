@@ -13,4 +13,5 @@
     ReadOnly Property SectionName As String
     Sub TurnAround()
     ReadOnly Property Options As IEmbarkOptions
+    ReadOnly Property Avatar As IAvatarModel
 End Interface

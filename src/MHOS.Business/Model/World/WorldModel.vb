@@ -96,6 +96,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Avatar As IAvatarModel Implements IWorldModel.Avatar
+        Get
+            Return New AvatarModel(_world)
+        End Get
+    End Property
+
     Public Sub TurnAround() Implements IWorldModel.TurnAround
         TurnRight()
         TurnRight()

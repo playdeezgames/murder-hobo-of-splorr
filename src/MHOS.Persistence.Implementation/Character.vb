@@ -40,7 +40,17 @@
         End Get
     End Property
 
+    Public ReadOnly Property Attributes As IEnumerable(Of String) Implements ICharacter.Attributes
+        Get
+            Return CharacterData.Attributes.Keys
+        End Get
+    End Property
+
     Public Sub SetAttribute(attributeType As String, value As Integer) Implements ICharacter.SetAttribute
         CharacterData.Attributes(attributeType) = value
     End Sub
+
+    Public Function GetAttribute(attributeType As String) As Integer Implements ICharacter.GetAttribute
+        Return CharacterData.Attributes(attributeType)
+    End Function
 End Class
