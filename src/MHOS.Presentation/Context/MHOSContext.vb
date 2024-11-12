@@ -6,10 +6,25 @@ Public Class MHOSContext
     Public Sub New(fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Integer, Integer))
         MyBase.New(New WorldModel, fontFilenames, viewSize)
     End Sub
+
+    Private Const ScumSlotFilename As String = "scum.json"
+    Private Const Slot1Filename As String = "slot1.json"
+    Private Const Slot2Filename As String = "slot2.json"
+    Private Const Slot3Filename As String = "slot3.json"
+    Private Const Slot4Filename As String = "slot4.json"
+    Private Const Slot5Filename As String = "slot5.json"
     Private ReadOnly multipliers As IReadOnlyList(Of Integer) =
         New List(Of Integer) From
         {
-            3, 4, 5, 9, 10, 14, 15, 19, 20
+            3,
+            4,
+            5,
+            9,
+            10,
+            14,
+            15,
+            19,
+            20
         }
 
     Public Overrides ReadOnly Property AvailableWindowSizes As IEnumerable(Of (Integer, Integer))
@@ -98,11 +113,11 @@ Public Class MHOSContext
     Private ReadOnly SlotFilename As IReadOnlyDictionary(Of Integer, String) =
         New Dictionary(Of Integer, String) From
         {
-            {0, "scum.json"},
-            {1, "slot1.json"},
-            {2, "slot2.json"},
-            {3, "slot3.json"},
-            {4, "slot4.json"},
-            {5, "slot5.json"}
+            {0, ScumSlotFilename},
+            {1, Slot1Filename},
+            {2, Slot2Filename},
+            {3, Slot3Filename},
+            {4, Slot4Filename},
+            {5, Slot5Filename}
         }
 End Class

@@ -10,7 +10,6 @@
     Friend Const ContinueText = "Continue"
     Friend Const UIFontName = "UIFont"
     Friend Const RoomFontName = "Room"
-    Friend Const ItemFontName = "Item"
 
     Friend Const ActionMenu = "Action Menu"
     Friend Const GameMenu = "Game Menu"
