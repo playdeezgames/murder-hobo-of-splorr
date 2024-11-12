@@ -35,7 +35,7 @@
 
     Private Sub DrawRoomFrame(displayBuffer As IPixelSink)
         Dim roomFont = Context.Font(RoomFontName)
-        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.RoomString, BoilerplateHue.DarkGray)
+        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.Avatar.RoomString, BoilerplateHue.DarkGray)
     End Sub
 
     Public Overrides Sub OnStart()

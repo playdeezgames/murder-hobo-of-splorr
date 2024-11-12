@@ -9,7 +9,6 @@
     Sub TurnAround()
     Sub MoveAhead()
     ReadOnly Property Facing As String
-    ReadOnly Property RoomString As String
 
     ReadOnly Property Options As IEmbarkOptions
     ReadOnly Property Avatar As IAvatarModel

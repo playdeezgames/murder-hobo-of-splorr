@@ -6,24 +6,6 @@
     Sub New()
     End Sub
 
-    Public ReadOnly Property RoomString As String Implements IWorldModel.RoomString
-        Get
-            Dim character = World.Avatar
-            Dim location = character.Location
-            Dim frame As Integer = 0
-            If location.HasDoor(character.LeftDirection) Then
-                frame += 1
-            End If
-            If location.HasDoor(character.AheadDirection) Then
-                frame += 2
-            End If
-            If location.HasDoor(character.RightDirection) Then
-                frame += 4
-            End If
-            Return ChrW(frame)
-        End Get
-    End Property
-
     Public ReadOnly Property Facing As String Implements IWorldModel.Facing
         Get
             Return World.Avatar.Facing
