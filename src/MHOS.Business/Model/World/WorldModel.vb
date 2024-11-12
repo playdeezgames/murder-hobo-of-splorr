@@ -36,15 +36,6 @@
         World.Avatar.Facing = World.Avatar.RightDirection
     End Sub
 
-    Public Sub MoveAhead() Implements IWorldModel.MoveAhead
-        Dim character = World.Avatar
-        Dim location = character.Location
-        Dim facing = character.AheadDirection
-        If location.HasDoor(facing) Then
-            character.Location = location.GetNeighbor(facing)
-        End If
-    End Sub
-
     Public ReadOnly Property Options As IEmbarkOptions Implements IWorldModel.Options
         Get
             Return _options

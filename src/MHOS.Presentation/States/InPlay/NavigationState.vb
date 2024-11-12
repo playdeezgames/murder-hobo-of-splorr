@@ -16,7 +16,7 @@
             Case Command.Right
                 Context.Model.TurnRight()
             Case Command.Up
-                Context.Model.MoveAhead()
+                Context.Model.Avatar.MoveAhead()
                 SetState(BoilerplateState.Neutral)
             Case Command.Down
                 Context.Model.TurnAround()
