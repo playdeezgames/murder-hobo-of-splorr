@@ -4,7 +4,7 @@
     Public Const ViewHeight = 216
     Public Const ViewWidth = 384
     Public Const GameTitle = "Murder Hobo of SPLORR!!"
-    Public Const GameSubtitle = "Homelessness and Death!"
+    Public Const GameSubtitle = "Itinerance and slaughter!"
 
     Friend Const ConfigFileName = "config.json"
     Friend Const ContinueText = "Cont"
