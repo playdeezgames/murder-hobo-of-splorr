@@ -31,9 +31,6 @@
     <None Remove="Content\EnemyHit.wav" />
     <None Remove="Content\EnemyMiss.wav" />
     <None Remove="Content\font.json" />
-    <None Remove="Content\Fonts\Item.json" />
-    <None Remove="Content\Fonts\Map.json" />
-    <None Remove="Content\Fonts\Room.json" />
     <None Remove="Content\hue.json" />
     <None Remove="Content\keys.json" />
     <None Remove="Content\MainTheme.ogg" />
@@ -120,15 +117,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Audio\Sfx\Yoink.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Fonts\Item.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Fonts\Map.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Fonts\Room.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\hue.json">

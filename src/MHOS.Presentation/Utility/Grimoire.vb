@@ -9,7 +9,6 @@
     Friend Const ConfigFileName = "config.json"
     Friend Const ContinueText = "Continue"
     Friend Const UIFontName = "UIFont"
-    Friend Const RoomFontName = "Room"
 
     Friend Const ActionMenu = "Action Menu"
     Friend Const GameMenu = "Game Menu"

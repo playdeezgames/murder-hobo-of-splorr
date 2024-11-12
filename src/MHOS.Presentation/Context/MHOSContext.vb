@@ -60,7 +60,6 @@ Public Class MHOSContext
         End With
     End Sub
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
-        Me.Font(RoomFontName).WriteText(displayBuffer, (0, 0), ChrW(7), BoilerplateHue.White)
         ShowTitle(displayBuffer, font)
         ShowSubtitle(displayBuffer, font)
         ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), 0, BoilerplateHue.LightGray)

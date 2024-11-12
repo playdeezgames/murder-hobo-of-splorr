@@ -25,17 +25,28 @@
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(BoilerplateHue.Black)
-        DrawRoomFrame(displayBuffer)
 
-        'draw section and facing
-        Dim uifont = Context.Font(UIFontName)
+        Dim font = Context.Font(UIFontName)
+        Dim y As Integer = 0
+        If Model.Avatar.HasDoorAhead Then
+            font.WriteText(displayBuffer, (0, y), "There is a door ahead.", BoilerplateHue.White)
+            y += font.Height
+        End If
+        If Model.Avatar.HasDoorToLeft Then
+            font.WriteText(displayBuffer, (0, y), "There is a door to yer left.", BoilerplateHue.White)
+            y += font.Height
+        End If
+        If Model.Avatar.HasDoorToRight Then
+            font.WriteText(displayBuffer, (0, y), "There is a door to yer right.", BoilerplateHue.White)
+            y += font.Height
+        End If
+        If Model.Avatar.HasDoorBehind Then
+            font.WriteText(displayBuffer, (0, y), "There is a door behind you.", BoilerplateHue.White)
+            y += font.Height
+        End If
+
         'draw gutter
-        Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
-    End Sub
-
-    Private Sub DrawRoomFrame(displayBuffer As IPixelSink)
-        Dim roomFont = Context.Font(RoomFontName)
-        roomFont.WriteText(displayBuffer, (0, 8), Context.Model.Avatar.RoomString, BoilerplateHue.DarkGray)
+        Context.ShowStatusBar(displayBuffer, font, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
     End Sub
 
     Public Overrides Sub OnStart()
