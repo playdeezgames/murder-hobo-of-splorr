@@ -9,4 +9,5 @@
     ReadOnly Property HasDoorToLeft As Boolean
     ReadOnly Property HasDoorToRight As Boolean
     ReadOnly Property HasDoorBehind As Boolean
+    ReadOnly Property Name As String
 End Interface

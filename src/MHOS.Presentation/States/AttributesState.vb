@@ -14,6 +14,8 @@
         Dim font = Context.Font(UIFontName)
         font.WriteText(displayBuffer, (0, 0), "Attributes", BoilerplateHue.Orange)
         Dim y As Integer = font.Height
+        font.WriteText(displayBuffer, (0, y), $"Name: {Context.Model.Avatar.Name}", BoilerplateHue.LightGray)
+        y += font.Height
         For Each attribute In Context.Model.Avatar.Attributes
             font.WriteText(displayBuffer, (0, y), $"{attribute.Name} {attribute.Value}", BoilerplateHue.LightGray)
             y += font.Height

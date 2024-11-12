@@ -2,7 +2,7 @@
     Inherits CharacterTypeDescriptor
 
     Public Sub New()
-        MyBase.New(CharacterTypes.N00b)
+        MyBase.New(CharacterTypes.N00b, "N00b")
     End Sub
 
     Public Overrides ReadOnly Property Attributes As IEnumerable(Of String)

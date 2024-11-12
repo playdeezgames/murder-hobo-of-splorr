@@ -63,6 +63,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Name As String Implements IAvatarModel.Name
+        Get
+            Return CharacterTypes.Descriptors(world.Avatar.CharacterType).Name
+        End Get
+    End Property
+
     Public Sub TurnLeft() Implements IAvatarModel.TurnLeft
         world.Avatar.Facing = world.Avatar.LeftDirection
     End Sub
