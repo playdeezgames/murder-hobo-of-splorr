@@ -3,6 +3,7 @@ Imports System.Text.Json
 Public MustInherit Class UIContext(Of TModel)
     Implements IUIContext(Of TModel)
     Private ReadOnly fonts As New Dictionary(Of String, Font)
+    Private ReadOnly messages As New Queue(Of Message)
     ReadOnly Property ViewSize As (Integer, Integer) Implements IUIContext(Of TModel).ViewSize
     Public MustOverride ReadOnly Property AvailableWindowSizes As IEnumerable(Of (Integer, Integer)) Implements IUIContext(Of TModel).AvailableWindowSizes
 
@@ -11,6 +12,18 @@ Public MustInherit Class UIContext(Of TModel)
     Public ReadOnly Property ViewCenter As (X As Integer, Y As Integer) Implements IUIContext(Of TModel).ViewCenter
         Get
             Return (ViewSize.Item1 \ 2, ViewSize.Item2 \ 2)
+        End Get
+    End Property
+
+    Public ReadOnly Property HasMessage As Boolean Implements IUIContext(Of TModel).HasMessage
+        Get
+            Return messages.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property CurrentMessage As Message Implements IUIContext(Of TModel).CurrentMessage
+        Get
+            Return messages.Peek
         End Get
     End Property
 
@@ -57,4 +70,12 @@ Public MustInherit Class UIContext(Of TModel)
     Public MustOverride Sub LoadGame(slot As Integer) Implements IUIContext(Of TModel).LoadGame
     Public MustOverride Sub SaveGame(slot As Integer) Implements IUIContext(Of TModel).SaveGame
     Public MustOverride Function DoesSlotExist(slot As Integer) As Boolean Implements IUIContext(Of TModel).DoesSlotExist
+
+    Public Sub AddMessage(messageTitle As String, ParamArray messageLines() As String) Implements IUIContext(Of TModel).AddMessage
+        messages.Enqueue(New Message(messageTitle, messageLines))
+    End Sub
+
+    Public Sub DismissMessage() Implements IUIContext(Of TModel).DismissMessage
+        messages.Dequeue()
+    End Sub
 End Class

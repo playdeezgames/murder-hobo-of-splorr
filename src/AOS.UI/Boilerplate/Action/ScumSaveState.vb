@@ -16,6 +16,7 @@
     Public Overrides Sub OnStart()
         MyBase.OnStart()
         Context.SaveGame(0)
-        SetState(BoilerplateState.Neutral)
+        Context.AddMessage("Operation Successful!", "You saved the game to the scum slot.")
+        SetState(BoilerplateState.Message)
     End Sub
 End Class

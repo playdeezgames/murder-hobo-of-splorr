@@ -1,6 +1,7 @@
 ﻿Friend Class ScumLoadState(Of TModel)
     Inherits BaseGameState(Of TModel)
     Private ReadOnly Property ReturnState As String
+    Const ScumSlot = 0
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel), returnState As String)
         MyBase.New(parent, setState, context)
@@ -17,9 +18,10 @@
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        If Context.DoesSlotExist(0) Then
-            Context.LoadGame(0)
-            SetState(Neutral)
+        If Context.DoesSlotExist(ScumSlot) Then
+            Context.LoadGame(ScumSlot)
+            Context.AddMessage("Operation Complete!", "You have successfully loaded the scum slot, you dirty dog!")
+            SetState(BoilerplateState.Message)
             Return
         End If
         SetState(ReturnState)

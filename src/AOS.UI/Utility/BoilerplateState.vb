@@ -6,6 +6,7 @@
     Public Const GameMenu = "GameMenu"
     Public Const Load = "Load"
     Public Const MainMenu = "MainMenu"
+    Public Const Message = "Message"
     Public Const Neutral = "Neutral"
     Public Const Options = "Options"
     Public Const Save = "Save"

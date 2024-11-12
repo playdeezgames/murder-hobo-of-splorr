@@ -67,14 +67,8 @@ Public Class MHOSContext
     Private ReadOnly aboutLines As IReadOnlyDictionary(Of Integer, (String, Integer)) =
         New Dictionary(Of Integer, (String, Integer)) From
         {
-            {0, ("About Solitary Ancient Ruins of SPLORR!!", 11)},
-            {2, ("Art:", 15)},
-            {3, ("https://vurmux.itch.io/urizen-onebit-tileset", 15)},
-            {5, ("Victory Theme:", 15)},
-            {6, ("https://zooperdan.itch.io/", 15)},
-            {8, ("A Production of TheGrumpyGameDev", 15)},
-            {10, ("For Dungeon Crawler Jam 2024", 15)},
-            {12, ("See 'aboot.txt'", 15)}
+            {0, ("About Murder Hobo of SPLORR!!", 11)},
+            {8, ("A Production of TheGrumpyGameDev", 15)}
         }
 
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)

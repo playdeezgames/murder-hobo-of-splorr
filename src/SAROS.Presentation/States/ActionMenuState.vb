@@ -4,7 +4,7 @@
     Private Const GoBackItem As String = "GoBack"
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
-        MyBase.New(parent, setState, context, "Action Menu", context.ControlsText("Select", "Cancel"), GameState.Navigation)
+        MyBase.New(parent, setState, context, Grimoire.ActionMenu, context.ControlsText("Select", "Cancel"), GameState.Navigation)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (String, String))

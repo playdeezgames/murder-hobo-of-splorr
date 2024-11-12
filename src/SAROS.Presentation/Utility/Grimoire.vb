@@ -3,13 +3,15 @@
     Public Const DefaultScreenHeight = ViewHeight * 3
     Public Const ViewHeight = 216
     Public Const ViewWidth = 384
-    Public Const GameTitle = "Solitary Ancient Ruins of SPLORR!!"
-    Public Const GameSubtitle = "The Cosmic Horror of Infinity"
+    Public Const GameTitle = "Murder Hobo of SPLORR!!"
+    Public Const GameSubtitle = "Homelessness and Death!"
 
     Friend Const ConfigFileName = "config.json"
     Friend Const ContinueText = "Continue"
     Friend Const UIFontName = "UIFont"
     Friend Const RoomFontName = "Room"
-    Friend Const MapFontName = "Map"
     Friend Const ItemFontName = "Item"
+
+    Friend Const ActionMenu = "Action Menu"
+    Friend Const GameMenu = "Game Menu"
 End Module

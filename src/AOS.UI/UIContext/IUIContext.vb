@@ -13,4 +13,8 @@
     Sub LoadGame(slot As Integer)
     Sub SaveGame(slot As Integer)
     Function DoesSlotExist(slot As Integer) As Boolean
+    Sub AddMessage(messageTitle As String, ParamArray messageLines As String())
+    Sub DismissMessage()
+    ReadOnly Property HasMessage As Boolean
+    ReadOnly Property CurrentMessage As Message
 End Interface

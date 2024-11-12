@@ -26,7 +26,6 @@
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(0)
         DrawRoomFrame(displayBuffer)
-        DrawItems(displayBuffer)
 
         'draw section and facing
         Dim uifont = Context.Font(UIFontName)
@@ -34,11 +33,7 @@
         uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, 9)
 
         'draw gutter
-        Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText("Action Menu", "Game Menu"), 0, 7)
-    End Sub
-
-    Private Sub DrawItems(displayBuffer As IPixelSink)
-        Dim itemFont = Context.Font(ItemFontName)
+        Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
     End Sub
 
     Private Sub DrawRoomFrame(displayBuffer As IPixelSink)
