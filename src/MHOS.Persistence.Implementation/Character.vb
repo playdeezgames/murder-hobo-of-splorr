@@ -39,4 +39,8 @@
             Return New World(WorldData)
         End Get
     End Property
+
+    Public Sub SetAttribute(attributeType As String, value As Integer) Implements ICharacter.SetAttribute
+        CharacterData.Attributes(attributeType) = value
+    End Sub
 End Class

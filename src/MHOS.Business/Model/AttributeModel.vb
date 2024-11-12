@@ -1,6 +1,5 @@
 ﻿Friend Class AttributeModel
     Implements IAttributeModel
-    Private ReadOnly attributeType As String
     Private ReadOnly Property Descriptor As AttributeTypeDescriptor
         Get
             Return AttributeTypes.Descriptors(attributeType)
@@ -16,4 +15,6 @@
         End Get
     End Property
     Public ReadOnly Property Value As Integer Implements IAttributeModel.Value
+
+    Public ReadOnly Property AttributeType As String Implements IAttributeModel.AttributeType
 End Class

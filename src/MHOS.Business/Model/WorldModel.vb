@@ -2,7 +2,7 @@
     Implements IWorldModel
 
     Private _world As IWorld
-    Private _options As IEmbarkOptions = New EmbarkOptions()
+    Private ReadOnly _options As IEmbarkOptions = New EmbarkOptions()
     Sub New()
     End Sub
 
@@ -52,7 +52,7 @@
     End Property
     Public Sub Embark() Implements IWorldModel.Embark
         World = New World(New WorldData)
-        WorldInitializer.Initialize(World)
+        WorldInitializer.Initialize(World, Options)
     End Sub
     Public Sub Abandon() Implements IWorldModel.Abandon
         World = Nothing
