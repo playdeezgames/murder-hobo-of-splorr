@@ -24,21 +24,25 @@
     Private Sub InitializeLocations(world As IWorld)
         Dim maze As New Maze(Of String)(MazeColumns, MazeRows, directions)
         maze.Generate()
+        Dim locations(MazeColumns, MazeRows) As ILocation
         For Each column In Enumerable.Range(0, MazeColumns)
             For Each row In Enumerable.Range(0, MazeRows)
-                world.CreateLocation(column, row)
+                locations(column, row) = world.CreateLocation(column, row)
             Next
         Next
-        For Each location In world.Locations
-            Dim mazeCell = maze.GetCell(location.Column, location.Row)
-            For Each direction In mazeCell.Directions
-                If mazeCell.GetDoor(direction).Open Then
-                    Dim nextColumn = location.Column + directions(direction).DeltaX
-                    Dim nextRow = location.Row + directions(direction).DeltaY
-                    Dim nextLocation = world.Locations.Single(Function(x) x.Column = nextColumn AndAlso x.Row = nextRow)
-                    location.SetNeighbor(direction, nextLocation)
-                    location.SetDoor(direction, Door.Open)
-                End If
+        For Each column In Enumerable.Range(0, MazeColumns)
+            For Each row In Enumerable.Range(0, MazeRows)
+                Dim location = locations(column, row)
+                Dim mazeCell = maze.GetCell(column, row)
+                For Each direction In mazeCell.Directions
+                    If mazeCell.GetDoor(direction).Open Then
+                        Dim nextColumn = CInt(column + directions(direction).DeltaX)
+                        Dim nextRow = CInt(row + directions(direction).DeltaY)
+                        Dim nextLocation = locations(nextColumn, nextRow)
+                        location.SetNeighbor(direction, nextLocation)
+                        Location.SetDoor(direction, Door.Open)
+                    End If
+                Next
             Next
         Next
     End Sub

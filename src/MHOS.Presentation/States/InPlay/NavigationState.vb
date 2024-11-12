@@ -29,9 +29,6 @@
 
         'draw section and facing
         Dim uifont = Context.Font(UIFontName)
-        Dim text = $"Section {Context.Model.SectionName} Facing {Context.Model.Facing.ToUpper}"
-        uifont.WriteText(displayBuffer, ((ViewWidth - uifont.TextWidth(text)) \ 2, 0), text, BoilerplateHue.LightBlue)
-
         'draw gutter
         Context.ShowStatusBar(displayBuffer, uifont, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
     End Sub

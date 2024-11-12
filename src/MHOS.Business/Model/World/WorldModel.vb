@@ -24,18 +24,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Column As Integer Implements IWorldModel.Column
-        Get
-            Return World.Avatar.Location.Column
-        End Get
-    End Property
-
-    Public ReadOnly Property Row As Integer Implements IWorldModel.Row
-        Get
-            Return World.Avatar.Location.Row
-        End Get
-    End Property
-
     Public ReadOnly Property Facing As String Implements IWorldModel.Facing
         Get
             Return World.Avatar.Facing
@@ -83,12 +71,6 @@
             character.Location = nextLocation
         End If
     End Sub
-
-    Public ReadOnly Property SectionName As String Implements IWorldModel.SectionName
-        Get
-            Return $"{"ABCDEFG"(World.Avatar.Location.Column)}{World.Avatar.Location.Row + 1}"
-        End Get
-    End Property
 
     Public ReadOnly Property Options As IEmbarkOptions Implements IWorldModel.Options
         Get

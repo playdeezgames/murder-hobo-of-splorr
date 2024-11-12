@@ -8,9 +8,6 @@
     Sub MoveAhead()
     ReadOnly Property Facing As String
     ReadOnly Property RoomString As String
-    ReadOnly Property Column As Integer
-    ReadOnly Property Row As Integer
-    ReadOnly Property SectionName As String
     Sub TurnAround()
     ReadOnly Property Options As IEmbarkOptions
     ReadOnly Property Avatar As IAvatarModel
