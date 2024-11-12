@@ -7,9 +7,9 @@
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
-            Case Command.A
+            Case Command.A, Command.Start
                 SetState(GameState.ActionMenu)
-            Case Command.B
+            Case Command.B, Command.Select
                 SetState(BoilerplateState.GameMenu)
             Case Command.Left
                 Context.Model.TurnLeft()
