@@ -14,7 +14,7 @@
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Model.Embark()
+        Model.Session.Embark()
         SetState(Neutral)
     End Sub
 End Class

@@ -14,10 +14,6 @@
             _world = value
         End Set
     End Property
-    Public Sub Embark() Implements IWorldModel.Embark
-        World = New World(New WorldData)
-        WorldInitializer.Initialize(World, Session.Options)
-    End Sub
     Public Sub Load(filename As String) Implements IWorldModel.Load
         World = New World(JsonSerializer.Deserialize(Of WorldData)(File.ReadAllText(filename)))
     End Sub
