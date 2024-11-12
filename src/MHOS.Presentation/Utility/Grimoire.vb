@@ -1,8 +1,8 @@
 ﻿Public Module Grimoire
     Public Const DefaultScreenWidth = ViewWidth * 3
     Public Const DefaultScreenHeight = ViewHeight * 3
-    Public Const ViewHeight = 108
-    Public Const ViewWidth = 192
+    Public Const ViewHeight = 216
+    Public Const ViewWidth = 384
     Public Const GameTitle = "Murder Hobo of SPLORR!!"
     Public Const GameSubtitle = "Homelessness and Death!"
 
