@@ -12,14 +12,14 @@
             Case Command.B, Command.Select
                 SetState(BoilerplateState.GameMenu)
             Case Command.Left
-                Context.Model.TurnLeft()
+                Context.Model.Avatar.TurnLeft()
             Case Command.Right
-                Context.Model.TurnRight()
+                Context.Model.Avatar.TurnRight()
             Case Command.Up
                 Context.Model.Avatar.MoveAhead()
                 SetState(BoilerplateState.Neutral)
             Case Command.Down
-                Context.Model.TurnAround()
+                Context.Model.Avatar.TurnAround()
         End Select
     End Sub
 

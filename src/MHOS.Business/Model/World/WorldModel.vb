@@ -28,14 +28,6 @@
         File.WriteAllText(filename, World.Serialized)
     End Sub
 
-    Public Sub TurnLeft() Implements IWorldModel.TurnLeft
-        World.Avatar.Facing = World.Avatar.LeftDirection
-    End Sub
-
-    Public Sub TurnRight() Implements IWorldModel.TurnRight
-        World.Avatar.Facing = World.Avatar.RightDirection
-    End Sub
-
     Public ReadOnly Property Options As IEmbarkOptions Implements IWorldModel.Options
         Get
             Return _options
@@ -47,9 +39,4 @@
             Return New AvatarModel(_world)
         End Get
     End Property
-
-    Public Sub TurnAround() Implements IWorldModel.TurnAround
-        TurnRight()
-        TurnRight()
-    End Sub
 End Class
