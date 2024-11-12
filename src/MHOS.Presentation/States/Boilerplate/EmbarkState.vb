@@ -20,6 +20,7 @@
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
+        Model.Options.Initialize()
         SetState(GameState.FinishEmbarkation)
     End Sub
 End Class

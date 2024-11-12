@@ -1,7 +1,6 @@
 ﻿Friend Module WorldInitializer
     Const MazeColumns = 7
     Const MazeRows = 7
-    Const MaximumSanity = 99
     Private ReadOnly directions As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
         Direction.All.ToDictionary(
             Function(x) x,

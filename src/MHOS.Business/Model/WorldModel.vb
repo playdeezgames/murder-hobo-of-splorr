@@ -1,18 +1,9 @@
 ﻿Public Class WorldModel
     Implements IWorldModel
-    Public Const BoardColumns = 5
-    Public Const BoardRows = 5
-    Public Const FilledCellMaximum = BoardColumns * BoardRows - 1
-    Private ReadOnly board(BoardColumns, BoardRows) As BoardCell
 
     Private _world As IWorld
+    Private _options As IEmbarkOptions = New EmbarkOptions()
     Sub New()
-        BoardRow = BoardRows \ 2
-        For Each y In Enumerable.Range(0, BoardRows)
-            For Each x In Enumerable.Range(0, BoardColumns)
-                board(x, y) = New BoardCell
-            Next
-        Next
     End Sub
 
     Public ReadOnly Property RoomString As String Implements IWorldModel.RoomString
@@ -50,10 +41,6 @@
             Return World.Avatar.Facing
         End Get
     End Property
-
-    Public Property BoardRow As Integer Implements IWorldModel.BoardRow
-
-    Public Property BoardColumn As Integer Implements IWorldModel.BoardColumn
 
     Private Property World As IWorld
         Get
@@ -97,31 +84,17 @@
         End If
     End Sub
 
-    Public Sub PreviousBoardRow() Implements IWorldModel.PreviousBoardRow
-        BoardRow = (BoardRow + BoardRows - 1) Mod BoardRows
-    End Sub
-
-    Public Sub NextBoardRow() Implements IWorldModel.NextBoardRow
-        BoardRow = (BoardRow + 1) Mod BoardRows
-    End Sub
-
-    Public Sub EnemyMove() Implements IWorldModel.EnemyMove
-        BoardColumn = RNG.FromRange(0, BoardColumns - 1)
-    End Sub
-
     Public ReadOnly Property SectionName As String Implements IWorldModel.SectionName
         Get
             Return $"{"ABCDEFG"(World.Avatar.Location.Column)}{World.Avatar.Location.Row + 1}"
         End Get
     End Property
 
-    Public Function IsBoardCellTrigger(column As Integer, row As Integer) As Boolean Implements IWorldModel.IsBoardCellTrigger
-        Return board(column, row).Trigger
-    End Function
-
-    Public Function IsBoardCellVisible(column As Integer, row As Integer) As Boolean Implements IWorldModel.IsBoardCellVisible
-        Return board(column, row).Visible
-    End Function
+    Public ReadOnly Property Options As IEmbarkOptions Implements IWorldModel.Options
+        Get
+            Return _options
+        End Get
+    End Property
 
     Public Sub TurnAround() Implements IWorldModel.TurnAround
         TurnRight()
