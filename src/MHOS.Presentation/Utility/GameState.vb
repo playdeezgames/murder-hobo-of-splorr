@@ -1,4 +1,5 @@
 ﻿Friend Module GameState
-    Friend Const Navigation = "Navigation"
-    Friend Const ActionMenu = "ActionMenu"
+    Friend ReadOnly Navigation As String = NameOf(Navigation)
+    Friend ReadOnly ActionMenu As String = NameOf(ActionMenu)
+    Friend ReadOnly FinishEmbarkation As String = NameOf(FinishEmbarkation)
 End Module

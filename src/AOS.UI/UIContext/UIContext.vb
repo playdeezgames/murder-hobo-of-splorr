@@ -51,18 +51,26 @@ Public MustInherit Class UIContext(Of TModel)
         font.WriteText(displayBuffer, (ViewSize.Item1 \ 2 - font.TextWidth(text) \ 2, 0), text, foreground)
     End Sub
 
-    Public Function ControlsText(aButtonText As String, bButtonText As String) As String Implements IUIContext(Of TModel).ControlsText
-        Dim result As String = ""
+    Private Function CommandHint(command As String) As String
+        Select Case command
+            Case UI.Command.A
+                Return "Space/(A)"
+            Case UI.Command.B
+                Return "Esc/(B)"
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+
+    Public Function ControlsText(Optional aButtonText As String = Nothing, Optional bButtonText As String = Nothing) As String Implements IUIContext(Of TModel).ControlsText
+        Dim controlsList As New List(Of String)
         If Not String.IsNullOrEmpty(aButtonText) Then
-            result = $"Space/(A) - {aButtonText}"
+            controlsList.Add($"{CommandHint(UI.Command.A)} - {aButtonText}")
         End If
         If Not String.IsNullOrEmpty(bButtonText) Then
-            If Not String.IsNullOrEmpty(result) Then
-                result &= " | "
-            End If
-            result &= $"Esc/(B) - {bButtonText}"
+            controlsList.Add($"{CommandHint(UI.Command.B)} - {bButtonText}")
         End If
-        Return result
+        Return String.Join(" | ", controlsList)
     End Function
 
     Public MustOverride Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font) Implements IUIContext(Of TModel).ShowAboutContent

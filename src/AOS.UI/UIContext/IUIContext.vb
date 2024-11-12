@@ -7,7 +7,7 @@
     ReadOnly Property ViewCenter As (X As Integer, Y As Integer)
     Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
     Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
-    Function ControlsText(aButtonText As String, bButtonText As String) As String
+    Function ControlsText(Optional aButtonText As String = Nothing, Optional bButtonText As String = Nothing) As String
     ReadOnly Property AvailableWindowSizes As IEnumerable(Of (Width As Integer, Height As Integer))
     Sub AbandonGame()
     Sub LoadGame(slot As Integer)

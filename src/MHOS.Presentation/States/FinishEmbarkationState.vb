@@ -1,14 +1,8 @@
-﻿Friend Class EmbarkState
+﻿Friend Class FinishEmbarkationState
     Inherits BaseGameState(Of IWorldModel)
 
-    Public Sub New(
-                  parent As IGameController,
-                  setState As Action(Of String, Boolean),
-                  context As IUIContext(Of IWorldModel))
-        MyBase.New(
-            parent,
-            setState,
-            context)
+    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
+        MyBase.New(parent, setState, context)
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
@@ -20,6 +14,7 @@
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        SetState(GameState.FinishEmbarkation)
+        Model.Embark()
+        SetState(Neutral)
     End Sub
 End Class
