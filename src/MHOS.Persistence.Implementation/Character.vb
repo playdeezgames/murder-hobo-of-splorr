@@ -52,6 +52,15 @@
         End Get
     End Property
 
+    Public Property Attribute(attributeType As String) As Integer Implements ICharacter.Attribute
+        Get
+            Return CharacterData.Attributes(attributeType)
+        End Get
+        Set(value As Integer)
+            CharacterData.Attributes(attributeType) = value
+        End Set
+    End Property
+
     Public Sub SetAttribute(attributeType As String, value As Integer) Implements ICharacter.SetAttribute
         CharacterData.Attributes(attributeType) = value
     End Sub

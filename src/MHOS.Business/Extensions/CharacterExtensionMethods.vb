@@ -17,9 +17,13 @@
     End Function
     <Extension>
     Sub Initialize(character As ICharacter)
-        Dim descriptor = CharacterTypes.Descriptors(character.CharacterType)
+        Dim descriptor = character.Descriptor
         For Each attribute In descriptor.Attributes
             character.SetAttribute(attribute, descriptor.GenerateAttribute(attribute))
         Next
     End Sub
+    <Extension>
+    Function Descriptor(character As ICharacter) As CharacterTypeDescriptor
+        Return CharacterTypes.Descriptors(character.CharacterType)
+    End Function
 End Module
