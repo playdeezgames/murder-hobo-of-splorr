@@ -33,10 +33,6 @@
         Return ($"{attributeDescriptor.Name} {avatar.Attribute(attributeType)}", Moods.Normal)
     End Function
 
-    Public Overrides Function CanEnterGameMenu(world As IWorld) As Boolean
-        Return False
-    End Function
-
     Public Overrides Function GoBackChoiceMode(world As IWorld) As String
         Return ChoiceModes.Neutral
     End Function

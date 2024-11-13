@@ -14,6 +14,9 @@
             Case Command.B, Command.Select
                 If Context.Model.CanEnterGameMenu Then
                     SetState(BoilerplateState.GameMenu)
+                Else
+                    Context.Model.GoBack()
+                    SetState(BoilerplateState.Neutral)
                 End If
             Case Command.A, Command.Start
                 Context.Model.MakeChoice(choices(currentChoice).Choice)

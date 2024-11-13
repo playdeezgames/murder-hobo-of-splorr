@@ -5,10 +5,6 @@
         MyBase.New(ChoiceModes.RollAttributes)
     End Sub
 
-    Public Overrides Function CanEnterGameMenu(world As IWorld) As Boolean
-        Return False
-    End Function
-
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return {
             Choices.Next

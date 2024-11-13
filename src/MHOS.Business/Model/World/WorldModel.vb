@@ -12,6 +12,10 @@
             MakeChoice(World, choice)
     End Sub
 
+    Public Sub GoBack() Implements IWorldModel.GoBack
+        choiceMode = ChoiceModes.Descriptors(choiceMode).GoBackChoiceMode(World)
+    End Sub
+
     Private Property World As IWorld
         Get
             Return _world
@@ -34,7 +38,7 @@
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return ChoiceModes.Descriptors(choiceMode).CanEnterGameMenu(World)
+            Return String.IsNullOrEmpty(ChoiceModes.Descriptors(choiceMode).GoBackChoiceMode(World))
         End Get
     End Property
 
