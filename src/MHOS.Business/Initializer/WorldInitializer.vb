@@ -4,7 +4,7 @@
     Private ReadOnly directions As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
         Direction.All.ToDictionary(
             Function(x) x,
-            Function(x) Direction.ToMazeDirection(x))
+            Function(x) Business.Directions.Descriptors(x).ToMazeDirection())
     Friend Sub Initialize(world As IWorld, options As IEmbarkOptions)
         InitializeLocations(world)
         InitializeCharacter(world, options)

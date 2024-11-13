@@ -5,15 +5,15 @@
     End Function
     <Extension>
     Function LeftDirection(character As ICharacter) As String
-        Return Direction.GetLeft(character.Facing)
+        Return Directions.Descriptors(character.Facing).LeftDirection
     End Function
     <Extension>
     Function RightDirection(character As ICharacter) As String
-        Return Direction.GetRight(character.Facing)
+        Return Directions.Descriptors(character.Facing).RightDirection
     End Function
     <Extension>
     Function OppositeDirection(character As ICharacter) As String
-        Return Direction.GetOpposite(character.Facing)
+        Return Directions.Descriptors(character.Facing).OppositeDirection
     End Function
     <Extension>
     Sub Initialize(character As ICharacter)
