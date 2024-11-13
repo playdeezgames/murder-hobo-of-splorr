@@ -1,13 +1,14 @@
 ﻿Friend Class CancelChoiceDescriptor
-    Inherits ChoiceDescriptor
+    Inherits BaseChoiceDescriptor
 
     Public Sub New()
         MyBase.New(Choices.Cancel, "Cancel")
     End Sub
 
-    Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
-        Select Case choiceMode
+    Friend Overrides Function Choose(world As IWorld, dialog As String) As String
+        Select Case dialog
             Case Dialogs.Status, Dialogs.TurnMenu
+                world.Avatar.ClearMessages()
                 Return Dialogs.Neutral
             Case Else
                 Throw New NotImplementedException

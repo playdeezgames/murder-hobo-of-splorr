@@ -8,8 +8,8 @@
     Friend ReadOnly Initialize As String = NameOf(Initialize)
     Friend ReadOnly [Next] As String = NameOf([Next])
     Friend ReadOnly TurnMenu As String = NameOf(TurnMenu)
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ChoiceDescriptor) =
-        New List(Of ChoiceDescriptor) From
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
+        New List(Of BaseChoiceDescriptor) From
         {
             New MoveAheadChoiceDescriptor(),
             New TurnLeftChoiceDescriptor(),

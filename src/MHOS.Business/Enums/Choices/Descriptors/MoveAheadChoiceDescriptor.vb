@@ -1,11 +1,11 @@
 ﻿Friend Class MoveAheadChoiceDescriptor
-    Inherits ChoiceDescriptor
+    Inherits BaseChoiceDescriptor
 
     Public Sub New()
         MyBase.New(Choices.MoveAhead, "Move Ahead")
     End Sub
 
-    Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
+    Friend Overrides Function Choose(world As IWorld, dialog As String) As String
         Dim avatar = world.Avatar
         Dim location = avatar.Location
         avatar.ClearMessages()
