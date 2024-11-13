@@ -7,12 +7,6 @@
         Me.world = world
     End Sub
 
-    Public ReadOnly Property Attributes As IEnumerable(Of IAttributeModel) Implements IAvatarModel.Attributes
-        Get
-            Return world.Avatar.Attributes.Select(Function(x) New AttributeModel(x, world.Avatar.Attribute(x)))
-        End Get
-    End Property
-
     Private ReadOnly Property HasDoorAhead As Boolean
         Get
             Dim character = world.Avatar
@@ -45,13 +39,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Name As String Implements IAvatarModel.Name
-        Get
-            Return CharacterTypes.Descriptors(world.Avatar.CharacterType).Name
-        End Get
-    End Property
-
-    Public ReadOnly Property Location As ILocationModel Implements IAvatarModel.Location
+    Private ReadOnly Property Location As ILocationModel
         Get
             Return New LocationModel(world.Avatar.Location)
         End Get
