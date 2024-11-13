@@ -20,10 +20,10 @@
 
     Public Property LocationType As String Implements ILocation.LocationType
         Get
-            Return LocationData.LocationType
+            Return LocationData.EntityType
         End Get
         Set(value As String)
-            LocationData.LocationType = value
+            LocationData.EntityType = value
         End Set
     End Property
 
@@ -40,7 +40,7 @@
             direction,
             New Data.RouteData With
             {
-                .RouteType = routeType,
+                .EntityType = routeType,
                 .DestinationLocationId = destination.Id
             })
         Return New Route(WorldData, LocationId, direction)

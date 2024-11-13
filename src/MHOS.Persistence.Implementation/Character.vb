@@ -48,7 +48,7 @@
 
     Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
         Get
-            Return CharacterData.CharacterType
+            Return CharacterData.EntityType
         End Get
     End Property
 

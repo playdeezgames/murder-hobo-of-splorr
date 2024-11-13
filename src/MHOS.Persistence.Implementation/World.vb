@@ -35,7 +35,7 @@ Public Class World
 
     Public Function CreateLocation(locationType As String) As ILocation Implements IWorld.CreateLocation
         Dim locationId = WorldData.Locations.Count
-        WorldData.Locations.Add(New LocationData With {.LocationType = locationType})
+        WorldData.Locations.Add(New LocationData With {.EntityType = locationType})
         Return New Location(WorldData, locationId)
     End Function
 
@@ -43,7 +43,7 @@ Public Class World
         Dim characterId = WorldData.Characters.Count
         WorldData.Characters.Add(New CharacterData With
                                 {
-                                    .CharacterType = characterType,
+                                    .EntityType = characterType,
                                     .LocationId = location.Id,
                                     .Facing = facing
                                 })

@@ -1,4 +1,4 @@
 ﻿Public Class RouteData
-    Public Property RouteType As String
+    Inherits EntityData
     Public Property DestinationLocationId As Integer
 End Class
