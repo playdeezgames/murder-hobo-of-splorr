@@ -2,9 +2,9 @@
     Const MazeColumns = 7
     Const MazeRows = 7
     Private ReadOnly directions As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
-        Direction.All.ToDictionary(
-            Function(x) x,
-            Function(x) Business.Directions.Descriptors(x).ToMazeDirection())
+        Business.Directions.Descriptors.ToDictionary(
+            Function(x) x.Key,
+            Function(x) x.Value.ToMazeDirection())
     Friend Sub Initialize(world As IWorld, options As IEmbarkOptions)
         InitializeLocations(world)
         InitializeCharacter(world, options)
@@ -14,7 +14,7 @@
         Dim character = world.InitializeCharacter(
                         CharacterTypes.N00b,
                         RNG.FromEnumerable(world.Locations),
-                        RNG.FromEnumerable(Direction.All))
+                        RNG.FromEnumerable(Business.Directions.Descriptors.Keys))
         For Each attributeType In options.Attributes
             character.Attribute(attributeType.AttributeType) = attributeType.Value
         Next
