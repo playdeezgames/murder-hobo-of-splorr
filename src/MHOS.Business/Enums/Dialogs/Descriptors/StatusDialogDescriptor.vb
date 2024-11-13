@@ -13,20 +13,20 @@
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
-            ShowAttribute(world, AttributeTypes.Strength),
-            ShowAttribute(world, AttributeTypes.Intelligence),
-            ShowAttribute(world, AttributeTypes.Wisdom),
-            ShowAttribute(world, AttributeTypes.Dexterity),
-            ShowAttribute(world, AttributeTypes.Constitution),
-            ShowAttribute(world, AttributeTypes.Charisma)
+            ShowAttribute(world, CounterTypes.Strength),
+            ShowAttribute(world, CounterTypes.Intelligence),
+            ShowAttribute(world, CounterTypes.Wisdom),
+            ShowAttribute(world, CounterTypes.Dexterity),
+            ShowAttribute(world, CounterTypes.Constitution),
+            ShowAttribute(world, CounterTypes.Charisma)
         }
         Return result
     End Function
 
     Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)
-        Dim attributeDescriptor = AttributeTypes.Descriptors(attributeType)
+        Dim attributeDescriptor = CounterTypes.Descriptors(attributeType)
         Dim avatar = world.Avatar
-        Return ($"{attributeDescriptor.Name} {avatar.Attribute(attributeType)}", Moods.Normal)
+        Return ($"{attributeDescriptor.Name} {avatar.Counter(attributeType)}", Moods.Normal)
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As String

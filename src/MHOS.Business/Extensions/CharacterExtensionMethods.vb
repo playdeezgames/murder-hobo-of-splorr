@@ -19,7 +19,7 @@
     Sub Initialize(character As ICharacter)
         Dim descriptor = character.Descriptor
         For Each attribute In descriptor.Attributes
-            character.Attribute(attribute) = descriptor.GenerateAttribute(attribute)
+            character.Counter(attribute) = descriptor.GenerateAttribute(attribute)
         Next
     End Sub
     <Extension>

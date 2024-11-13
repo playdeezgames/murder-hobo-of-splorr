@@ -7,13 +7,13 @@
 
     Public Overrides ReadOnly Property Attributes As IEnumerable(Of String)
         Get
-            Return {AttributeTypes.Strength, AttributeTypes.Intelligence, AttributeTypes.Wisdom, AttributeTypes.Dexterity, AttributeTypes.Constitution, AttributeTypes.Charisma}
+            Return {CounterTypes.Strength, CounterTypes.Intelligence, CounterTypes.Wisdom, CounterTypes.Dexterity, CounterTypes.Constitution, CounterTypes.Charisma}
         End Get
     End Property
 
-    Public Overrides Function GenerateAttribute(attributeType As String) As Integer
-        Select Case attributeType
-            Case AttributeTypes.Strength, AttributeTypes.Intelligence, AttributeTypes.Wisdom, AttributeTypes.Dexterity, AttributeTypes.Constitution, AttributeTypes.Charisma
+    Public Overrides Function GenerateAttribute(counterType As String) As Integer
+        Select Case counterType
+            Case CounterTypes.Strength, CounterTypes.Intelligence, CounterTypes.Wisdom, CounterTypes.Dexterity, CounterTypes.Constitution, CounterTypes.Charisma
                 Return RNG.RollDice("3d6")
             Case Else
                 Throw New NotImplementedException

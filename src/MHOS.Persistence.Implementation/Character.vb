@@ -40,7 +40,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Attributes As IEnumerable(Of String) Implements ICharacter.Attributes
+    Public ReadOnly Property CounterTypes As IEnumerable(Of String) Implements ICharacter.CounterTypes
         Get
             Return CharacterData.Attributes.Keys
         End Get
@@ -52,12 +52,12 @@
         End Get
     End Property
 
-    Public Property Attribute(attributeType As String) As Integer Implements ICharacter.Attribute
+    Public Property Counter(counterType As String) As Integer Implements ICharacter.Counter
         Get
-            Return CharacterData.Attributes(attributeType)
+            Return CharacterData.Attributes(counterType)
         End Get
         Set(value As Integer)
-            CharacterData.Attributes(attributeType) = value
+            CharacterData.Attributes(counterType) = value
         End Set
     End Property
 
