@@ -5,6 +5,12 @@
         MyBase.New(ChoiceModes.Status)
     End Sub
 
+    Public Overrides ReadOnly Property CanEnterGameMenu As Boolean
+        Get
+            Return False
+        End Get
+    End Property
+
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return {
             Choices.Cancel
@@ -12,10 +18,12 @@
     End Function
 
     Public Overrides Function MakeChoice(world As IWorld, choice As String) As String
-        Throw New NotImplementedException()
+        Return ChoiceModes.Navigation
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
-        Throw New NotImplementedException()
+        Return {
+            ("TODO: Status", Moods.Normal)
+            }
     End Function
 End Class

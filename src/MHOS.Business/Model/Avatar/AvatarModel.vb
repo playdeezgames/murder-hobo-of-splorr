@@ -2,120 +2,36 @@
     Implements IAvatarModel
 
     Private ReadOnly world As IWorld
-    Private choiceMode As String = ChoiceModes.Navigation
+    Private Shared choiceMode As String = ChoiceModes.Navigation
 
     Public Sub New(world As IWorld)
         Me.world = world
     End Sub
 
-    Private ReadOnly Property HasDoorAhead As Boolean
-        Get
-            Dim character = world.Avatar
-            Dim location = character.Location
-            Return location.HasRoute(character.AheadDirection)
-        End Get
-    End Property
-
-    Private ReadOnly Property HasDoorToLeft As Boolean
-        Get
-            Dim character = world.Avatar
-            Dim location = character.Location
-            Return location.HasRoute(character.LeftDirection)
-        End Get
-    End Property
-
-    Private ReadOnly Property HasDoorToRight As Boolean
-        Get
-            Dim character = world.Avatar
-            Dim location = character.Location
-            Return location.HasRoute(character.RightDirection)
-        End Get
-    End Property
-
-    Private ReadOnly Property HasDoorBehind As Boolean
-        Get
-            Dim character = world.Avatar
-            Dim location = character.Location
-            Return location.HasRoute(character.OppositeDirection)
-        End Get
-    End Property
-
-    Private ReadOnly Property Location As ILocationModel
-        Get
-            Return New LocationModel(world.Avatar.Location)
-        End Get
-    End Property
-
     Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IAvatarModel.Description
         Get
-            Dim result As New List(Of (Text As String, Mood As String))
-            result.Add(($"In {Location.Name}.", Moods.Normal))
-            If HasDoorAhead Then
-                result.Add(("Door ahead.", Moods.Normal))
-            End If
-            If HasDoorToLeft Then
-                result.Add(("Door to yer left.", Moods.Normal))
-            End If
-            If HasDoorToRight Then
-                result.Add(("Door to yer right.", Moods.Normal))
-            End If
-            If HasDoorBehind Then
-                result.Add(("Door behind you.", Moods.Normal))
-            End If
-            Return result
+            Return ChoiceModes.Descriptors(choiceMode).Description(world)
         End Get
     End Property
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IAvatarModel.CanEnterGameMenu
         Get
-            Return True
+            Return ChoiceModes.Descriptors(choiceMode).CanEnterGameMenu
         End Get
     End Property
 
     Public ReadOnly Property AvailableChoices As (Text As String, Choice As String)() Implements IAvatarModel.AvailableChoices
         Get
-            Return {
-                    Choices.MoveAhead,
-                    Choices.TurnRight,
-                    Choices.TurnLeft,
-                    Choices.TurnAround,
-                    Choices.Status
-                }.Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray
+            Return ChoiceModes.
+                Descriptors(choiceMode).
+                AvailableChoices(world).
+                Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray
         End Get
     End Property
 
-    Private Sub TurnLeft()
-        world.Avatar.Facing = world.Avatar.LeftDirection
-    End Sub
-
-    Private Sub TurnRight()
-        world.Avatar.Facing = world.Avatar.RightDirection
-    End Sub
-
-    Private Sub TurnAround()
-        TurnRight()
-        TurnRight()
-    End Sub
-
-    Private Sub MoveAhead()
-        Dim character = world.Avatar
-        Dim location = character.Location
-        Dim facing = character.AheadDirection
-        If location.HasRoute(facing) Then
-            character.Location = location.GetRoute(facing).Destination
-        End If
-    End Sub
-
     Public Sub MakeChoice(choice As String) Implements IAvatarModel.MakeChoice
-        Select Case choice
-            Case Choices.TurnAround
-                TurnAround()
-            Case Choices.TurnRight
-                TurnRight()
-            Case Choices.TurnLeft
-                TurnLeft()
-            Case Choices.MoveAhead
-                MoveAhead()
-        End Select
+        choiceMode = ChoiceModes.
+            Descriptors(choiceMode).
+            MakeChoice(world, choice)
     End Sub
 End Class
