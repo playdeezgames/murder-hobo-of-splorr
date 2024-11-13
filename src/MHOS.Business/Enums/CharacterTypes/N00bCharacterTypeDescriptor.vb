@@ -1,5 +1,5 @@
 ﻿Friend Class N00bCharacterTypeDescriptor
-    Inherits CharacterTypeDescriptor
+    Inherits BaseCharacterTypeDescriptor
 
     Public Sub New()
         MyBase.New(CharacterTypes.N00b, "N00b")
@@ -11,7 +11,7 @@
         End Get
     End Property
 
-    Public Overrides Function GenerateAttribute(counterType As String) As Integer
+    Public Overrides Function GenerateCounter(counterType As String) As Integer
         Select Case counterType
             Case CounterTypes.Strength, CounterTypes.Intelligence, CounterTypes.Wisdom, CounterTypes.Dexterity, CounterTypes.Constitution, CounterTypes.Charisma
                 Return RNG.RollDice("3d6")

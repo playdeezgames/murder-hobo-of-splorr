@@ -19,11 +19,11 @@
     Sub Initialize(character As ICharacter)
         Dim descriptor = character.Descriptor
         For Each attribute In descriptor.Attributes
-            character.LegacyCounter(attribute) = descriptor.GenerateAttribute(attribute)
+            character.Counter(attribute) = descriptor.GenerateCounter(attribute)
         Next
     End Sub
     <Extension>
-    Function Descriptor(character As ICharacter) As CharacterTypeDescriptor
+    Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
         Return CharacterTypes.Descriptors(character.CharacterType)
     End Function
 End Module

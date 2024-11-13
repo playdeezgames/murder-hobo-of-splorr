@@ -13,12 +13,12 @@
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
-            ShowAttribute(world, CounterTypes.Strength),
-            ShowAttribute(world, CounterTypes.Intelligence),
-            ShowAttribute(world, CounterTypes.Wisdom),
-            ShowAttribute(world, CounterTypes.Dexterity),
-            ShowAttribute(world, CounterTypes.Constitution),
-            ShowAttribute(world, CounterTypes.Charisma)
+            ShowCounter(world, CounterTypes.Strength),
+            ShowCounter(world, CounterTypes.Intelligence),
+            ShowCounter(world, CounterTypes.Wisdom),
+            ShowCounter(world, CounterTypes.Dexterity),
+            ShowCounter(world, CounterTypes.Constitution),
+            ShowCounter(world, CounterTypes.Charisma)
         }
         Return result
     End Function
@@ -27,9 +27,9 @@
         Return Dialogs.RollAttributes
     End Function
 
-    Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)
-        Dim attributeDescriptor = CounterTypes.Descriptors(attributeType)
+    Private Function ShowCounter(world As IWorld, counterType As String) As (Text As String, Mood As String)
+        Dim attributeDescriptor = CounterTypes.Descriptors(counterType)
         Dim avatar = world.Avatar
-        Return ($"{attributeDescriptor.Name} {avatar.LegacyCounter(attributeType)}", Moods.Normal)
+        Return ($"{attributeDescriptor.Name} {avatar.Counter(counterType).Value}", Moods.Normal)
     End Function
 End Class

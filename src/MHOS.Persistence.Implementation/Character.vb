@@ -52,15 +52,6 @@
         End Get
     End Property
 
-    Public Property LegacyCounter(counterType As String) As Integer Implements ICharacter.LegacyCounter
-        Get
-            Return CharacterData.Counters(counterType)
-        End Get
-        Set(value As Integer)
-            CharacterData.Counters(counterType) = value
-        End Set
-    End Property
-
     Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements ICharacter.Messages
         Get
             Return CharacterData.Messages.Select(Function(x) (x.Text, x.Mood))
