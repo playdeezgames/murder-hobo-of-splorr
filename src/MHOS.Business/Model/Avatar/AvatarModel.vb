@@ -13,7 +13,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDoorAhead As Boolean Implements IAvatarModel.HasDoorAhead
+    Private ReadOnly Property HasDoorAhead As Boolean
         Get
             Dim character = world.Avatar
             Dim location = character.Location
@@ -21,7 +21,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDoorToLeft As Boolean Implements IAvatarModel.HasDoorToLeft
+    Private ReadOnly Property HasDoorToLeft As Boolean
         Get
             Dim character = world.Avatar
             Dim location = character.Location
@@ -29,7 +29,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDoorToRight As Boolean Implements IAvatarModel.HasDoorToRight
+    Private ReadOnly Property HasDoorToRight As Boolean
         Get
             Dim character = world.Avatar
             Dim location = character.Location
@@ -37,7 +37,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDoorBehind As Boolean Implements IAvatarModel.HasDoorBehind
+    Private ReadOnly Property HasDoorBehind As Boolean
         Get
             Dim character = world.Avatar
             Dim location = character.Location
@@ -83,25 +83,49 @@
         End Get
     End Property
 
-    Public Sub TurnLeft() Implements IAvatarModel.TurnLeft
+    Public ReadOnly Property AvailableChoices As (Text As String, Choice As String)() Implements IAvatarModel.AvailableChoices
+        Get
+            Return {
+                    ("Move Ahead", Choices.MoveAhead),
+                    ("Turn Right", Choices.TurnRight),
+                    ("Turn Left", Choices.TurnLeft),
+                    ("Turn Around", Choices.TurnAround)
+                }
+        End Get
+    End Property
+
+    Private Sub TurnLeft()
         world.Avatar.Facing = world.Avatar.LeftDirection
     End Sub
 
-    Public Sub TurnRight() Implements IAvatarModel.TurnRight
+    Private Sub TurnRight()
         world.Avatar.Facing = world.Avatar.RightDirection
     End Sub
 
-    Public Sub TurnAround() Implements IAvatarModel.TurnAround
+    Private Sub TurnAround()
         TurnRight()
         TurnRight()
     End Sub
 
-    Public Sub MoveAhead() Implements IAvatarModel.MoveAhead
+    Private Sub MoveAhead()
         Dim character = world.Avatar
         Dim location = character.Location
         Dim facing = character.AheadDirection
         If location.HasRoute(facing) Then
             character.Location = location.GetRoute(facing).Destination
         End If
+    End Sub
+
+    Public Sub MakeChoice(choice As String) Implements IAvatarModel.MakeChoice
+        Select Case choice
+            Case Choices.TurnAround
+                TurnAround()
+            Case Choices.TurnRight
+                TurnRight()
+            Case Choices.TurnLeft
+                TurnLeft()
+            Case Choices.MoveAhead
+                MoveAhead()
+        End Select
     End Sub
 End Class
