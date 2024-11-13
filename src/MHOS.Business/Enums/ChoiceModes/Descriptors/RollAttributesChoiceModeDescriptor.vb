@@ -31,6 +31,10 @@
         Return result
     End Function
 
+    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
+        Return ChoiceModes.RollAttributes
+    End Function
+
     Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)
         Dim attributeDescriptor = AttributeTypes.Descriptors(attributeType)
         Dim avatar = world.Avatar

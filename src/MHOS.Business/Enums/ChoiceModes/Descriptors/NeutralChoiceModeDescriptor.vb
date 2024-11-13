@@ -52,4 +52,11 @@
     Public Overrides Function CanEnterGameMenu(world As IWorld) As Boolean
         Return world.Avatar IsNot Nothing
     End Function
+
+    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
+        If world.Avatar IsNot Nothing Then
+            Return ChoiceModes.Neutral
+        End If
+        Return Nothing
+    End Function
 End Class
