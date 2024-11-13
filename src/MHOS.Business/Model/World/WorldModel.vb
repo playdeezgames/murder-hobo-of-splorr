@@ -21,11 +21,6 @@
             _world = value
         End Set
     End Property
-    Public ReadOnly Property Avatar As IAvatarModel Implements IWorldModel.Avatar
-        Get
-            Return New AvatarModel(_world)
-        End Get
-    End Property
     Public ReadOnly Property Session As IWorldSessionModel Implements IWorldModel.Session
         Get
             Return New WorldSessionModel(Sub(w) World = w, Function() World, _options)

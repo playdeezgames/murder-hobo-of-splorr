@@ -12,16 +12,16 @@
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
             Case Command.B, Command.Select
-                If Context.Model.Avatar.CanEnterGameMenu Then
+                If Context.Model.CanEnterGameMenu Then
                     SetState(BoilerplateState.GameMenu)
                 End If
             Case Command.A, Command.Start
-                Context.Model.Avatar.MakeChoice(choices(currentChoice).Choice)
+                Context.Model.MakeChoice(choices(currentChoice).Choice)
                 SetState(BoilerplateState.Neutral)
             Case Command.Right
-                currentChoice = (currentChoice + 1) Mod Context.Model.Avatar.AvailableChoices.Length
+                currentChoice = (currentChoice + 1) Mod Context.Model.AvailableChoices.Length
             Case Command.Left
-                currentChoice = (currentChoice + Context.Model.Avatar.AvailableChoices.Length - 1) Mod Context.Model.Avatar.AvailableChoices.Length
+                currentChoice = (currentChoice + Context.Model.AvailableChoices.Length - 1) Mod Context.Model.AvailableChoices.Length
         End Select
     End Sub
 
@@ -36,7 +36,7 @@
 
         Dim font = Context.Font(UIFontName)
         Dim y As Integer = 0
-        For Each line In Context.Model.Avatar.Description
+        For Each line In Context.Model.Description
             font.WriteText(displayBuffer, (0, y), line.Text, moodHues(line.Mood))
             y += font.Height
         Next
@@ -63,7 +63,7 @@
     End Sub
 
     Public Overrides Sub OnStart()
-        choices = Context.Model.Avatar.AvailableChoices
+        choices = Context.Model.AvailableChoices
         If currentChoice >= choices.Length Then
             currentChoice = 0
         End If
