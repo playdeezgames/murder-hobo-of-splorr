@@ -9,9 +9,6 @@ Public Class GameController
 
     Private Sub SetBoilerplateStates(context As IUIContext(Of IWorldModel))
         SetState(BoilerplateState.Embark, New EmbarkState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.FinishEmbarkation, New FinishEmbarkationState(Me, AddressOf SetCurrentState, context))
         SetState(BoilerplateState.Neutral, New NeutralState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Navigation, New NavigationState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.RollAttributes, New RollAttributesState(Me, AddressOf SetCurrentState, context))
     End Sub
 End Class

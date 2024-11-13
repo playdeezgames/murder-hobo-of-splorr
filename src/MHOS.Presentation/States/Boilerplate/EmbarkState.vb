@@ -21,6 +21,7 @@
     Public Overrides Sub OnStart()
         MyBase.OnStart()
         Model.Session.Options.Initialize()
-        SetState(GameState.RollAttributes)
+        Model.Session.Embark()
+        SetState(BoilerplateState.Neutral)
     End Sub
 End Class
