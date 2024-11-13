@@ -19,9 +19,13 @@
                 Context.Model.MakeChoice(choices(currentChoice).Choice)
                 SetState(BoilerplateState.Neutral)
             Case Command.Right
-                currentChoice = (currentChoice + 1) Mod Context.Model.AvailableChoices.Length
+                currentChoice = Math.Min(currentChoice + 1, Context.Model.AvailableChoices.Length - 1)
             Case Command.Left
-                currentChoice = (currentChoice + Context.Model.AvailableChoices.Length - 1) Mod Context.Model.AvailableChoices.Length
+                currentChoice = Math.Max(currentChoice - 1, 0)
+            Case Command.Up
+                currentChoice = Math.Max(currentChoice - ChoiceColumns, 0)
+            Case Command.Down
+                currentChoice = Math.Min(currentChoice + ChoiceColumns, Context.Model.AvailableChoices.Length - 1)
         End Select
     End Sub
 
