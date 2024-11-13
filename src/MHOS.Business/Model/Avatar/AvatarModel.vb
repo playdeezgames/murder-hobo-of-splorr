@@ -2,6 +2,7 @@
     Implements IAvatarModel
 
     Private ReadOnly world As IWorld
+    Private choiceMode As String = ChoiceModes.Navigation
 
     Public Sub New(world As IWorld)
         Me.world = world
@@ -74,11 +75,12 @@
     Public ReadOnly Property AvailableChoices As (Text As String, Choice As String)() Implements IAvatarModel.AvailableChoices
         Get
             Return {
-                    ("Move Ahead", Choices.MoveAhead),
-                    ("Turn Right", Choices.TurnRight),
-                    ("Turn Left", Choices.TurnLeft),
-                    ("Turn Around", Choices.TurnAround)
-                }
+                    Choices.MoveAhead,
+                    Choices.TurnRight,
+                    Choices.TurnLeft,
+                    Choices.TurnAround,
+                    Choices.Status
+                }.Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray
         End Get
     End Property
 
