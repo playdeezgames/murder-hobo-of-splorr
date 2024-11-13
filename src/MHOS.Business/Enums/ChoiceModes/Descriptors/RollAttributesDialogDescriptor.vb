@@ -1,8 +1,8 @@
-﻿Friend Class RollAttributesChoiceModeDescriptor
-    Inherits ChoiceModeDescriptor
+﻿Friend Class RollAttributesDialogDescriptor
+    Inherits BaseDialogDescriptor
 
     Public Sub New()
-        MyBase.New(ChoiceModes.RollAttributes)
+        MyBase.New(Dialogs.RollAttributes)
     End Sub
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
@@ -23,8 +23,8 @@
         Return result
     End Function
 
-    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
-        Return ChoiceModes.RollAttributes
+    Public Overrides Function GoBackDialog(world As IWorld) As String
+        Return Dialogs.RollAttributes
     End Function
 
     Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)

@@ -2,18 +2,18 @@
     Implements IWorldModel
 
     Private _world As IWorld
-    Private choiceMode As String = ChoiceModes.Neutral
+    Private choiceMode As String = Dialogs.Neutral
     Sub New()
     End Sub
 
     Public Sub MakeChoice(choice As String) Implements IWorldModel.MakeChoice
-        choiceMode = ChoiceModes.
+        choiceMode = Dialogs.
             Descriptors(choiceMode).
             MakeChoice(World, choice)
     End Sub
 
     Public Sub GoBack() Implements IWorldModel.GoBack
-        choiceMode = ChoiceModes.Descriptors(choiceMode).GoBackChoiceMode(World)
+        choiceMode = Dialogs.Descriptors(choiceMode).GoBackDialog(World)
     End Sub
 
     Private Property World As IWorld
@@ -32,19 +32,19 @@
 
     Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IWorldModel.Description
         Get
-            Return ChoiceModes.Descriptors(choiceMode).Description(World)
+            Return Dialogs.Descriptors(choiceMode).Description(World)
         End Get
     End Property
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return String.IsNullOrEmpty(ChoiceModes.Descriptors(choiceMode).GoBackChoiceMode(World))
+            Return String.IsNullOrEmpty(Dialogs.Descriptors(choiceMode).GoBackDialog(World))
         End Get
     End Property
 
     Public ReadOnly Property AvailableChoices As (Text As String, Choice As String)() Implements IWorldModel.AvailableChoices
         Get
-            Return ChoiceModes.
+            Return Dialogs.
                 Descriptors(choiceMode).
                 AvailableChoices(World).
                 Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray

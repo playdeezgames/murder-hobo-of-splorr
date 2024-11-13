@@ -1,8 +1,8 @@
-﻿Friend Class NeutralChoiceModeDescriptor
-    Inherits ChoiceModeDescriptor
+﻿Friend Class NeutralDialogDescriptor
+    Inherits BaseDialogDescriptor
 
     Public Sub New()
-        MyBase.New(ChoiceModes.Neutral)
+        MyBase.New(Dialogs.Neutral)
     End Sub
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
@@ -43,9 +43,9 @@
         Return result
     End Function
 
-    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
+    Public Overrides Function GoBackDialog(world As IWorld) As String
         If world.Avatar Is Nothing Then
-            Return ChoiceModes.Neutral
+            Return Dialogs.Neutral
         End If
         Return Nothing
     End Function

@@ -8,6 +8,6 @@
     Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
         Dim avatar = world.Avatar
         avatar.Facing = Directions.Descriptors(avatar.Facing).RightDirection
-        Return ChoiceModes.Neutral
+        Return Dialogs.Neutral
     End Function
 End Class

@@ -11,6 +11,6 @@
         If location.HasRoute(avatar.Facing) Then
             avatar.Location = location.GetRoute(avatar.Facing).Destination
         End If
-        Return ChoiceModes.Neutral
+        Return Dialogs.Neutral
     End Function
 End Class

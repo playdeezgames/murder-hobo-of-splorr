@@ -1,8 +1,8 @@
-﻿Friend Class StatusChoiceModeDescriptor
-    Inherits ChoiceModeDescriptor
+﻿Friend Class StatusDialogDescriptor
+    Inherits BaseDialogDescriptor
 
     Public Sub New()
-        MyBase.New(ChoiceModes.Status)
+        MyBase.New(Dialogs.Status)
     End Sub
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
@@ -29,7 +29,7 @@
         Return ($"{attributeDescriptor.Name} {avatar.Attribute(attributeType)}", Moods.Normal)
     End Function
 
-    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
-        Return ChoiceModes.Neutral
+    Public Overrides Function GoBackDialog(world As IWorld) As String
+        Return Dialogs.Neutral
     End Function
 End Class

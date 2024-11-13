@@ -1,12 +1,12 @@
-﻿Friend Class TurnMenuChoiceModeDescriptor
-    Inherits ChoiceModeDescriptor
+﻿Friend Class TurnMenuDialogDescriptor
+    Inherits BaseDialogDescriptor
 
     Public Sub New()
-        MyBase.New(ChoiceModes.TurnMenu)
+        MyBase.New(Dialogs.TurnMenu)
     End Sub
 
-    Public Overrides Function GoBackChoiceMode(world As IWorld) As String
-        Return ChoiceModes.Neutral
+    Public Overrides Function GoBackDialog(world As IWorld) As String
+        Return Dialogs.Neutral
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)

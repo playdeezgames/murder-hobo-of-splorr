@@ -6,6 +6,6 @@
     End Sub
 
     Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
-        Return ChoiceModes.Status
+        Return Dialogs.Status
     End Function
 End Class
