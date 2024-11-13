@@ -52,7 +52,7 @@
         End Get
     End Property
 
-    Public Property Counter(counterType As String) As Integer Implements ICharacter.Counter
+    Public Property LegacyCounter(counterType As String) As Integer Implements ICharacter.LegacyCounter
         Get
             Return CharacterData.Attributes(counterType)
         End Get

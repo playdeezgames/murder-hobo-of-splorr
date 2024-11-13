@@ -26,7 +26,7 @@
     Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)
         Dim attributeDescriptor = CounterTypes.Descriptors(attributeType)
         Dim avatar = world.Avatar
-        Return ($"{attributeDescriptor.Name} {avatar.Counter(attributeType)}", Moods.Normal)
+        Return ($"{attributeDescriptor.Name} {avatar.LegacyCounter(attributeType)}", Moods.Normal)
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As String
