@@ -14,7 +14,7 @@
     Public Overrides Function GenerateAttribute(attributeType As String) As Integer
         Select Case attributeType
             Case AttributeTypes.Strength, AttributeTypes.Intelligence, AttributeTypes.Wisdom, AttributeTypes.Dexterity, AttributeTypes.Constitution, AttributeTypes.Charisma
-                Return 10
+                Return RNG.RollDice("3d6")
             Case Else
                 Throw New NotImplementedException
         End Select
