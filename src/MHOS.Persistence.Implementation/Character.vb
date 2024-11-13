@@ -42,7 +42,7 @@
 
     Public ReadOnly Property CounterTypes As IEnumerable(Of String) Implements ICharacter.CounterTypes
         Get
-            Return CharacterData.Attributes.Keys
+            Return CharacterData.Counters.Keys
         End Get
     End Property
 
@@ -54,10 +54,10 @@
 
     Public Property LegacyCounter(counterType As String) As Integer Implements ICharacter.LegacyCounter
         Get
-            Return CharacterData.Attributes(counterType)
+            Return CharacterData.Counters(counterType)
         End Get
         Set(value As Integer)
-            CharacterData.Attributes(counterType) = value
+            CharacterData.Counters(counterType) = value
         End Set
     End Property
 
@@ -65,6 +65,23 @@
         Get
             Return CharacterData.Messages.Select(Function(x) (x.Text, x.Mood))
         End Get
+    End Property
+
+    Public Property Counter(counterType As String) As Integer? Implements ICharacter.Counter
+        Get
+            Dim counterValue As Integer = 0
+            If CharacterData.Counters.TryGetValue(counterType, counterValue) Then
+                Return counterValue
+            End If
+            Return Nothing
+        End Get
+        Set(value As Integer?)
+            If value.HasValue Then
+                CharacterData.Counters(counterType) = value.Value
+            Else
+                CharacterData.Counters.Remove(counterType)
+            End If
+        End Set
     End Property
 
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
