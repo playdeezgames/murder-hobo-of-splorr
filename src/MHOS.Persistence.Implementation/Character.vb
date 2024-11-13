@@ -60,4 +60,18 @@
             CharacterData.Attributes(attributeType) = value
         End Set
     End Property
+
+    Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements ICharacter.Messages
+        Get
+            Return CharacterData.Messages.Select(Function(x) (x.Text, x.Mood))
+        End Get
+    End Property
+
+    Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
+        CharacterData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
+    End Sub
+
+    Public Sub ClearMessages() Implements ICharacter.ClearMessages
+        CharacterData.Messages.Clear()
+    End Sub
 End Class

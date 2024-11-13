@@ -26,6 +26,9 @@
         End If
         Dim result As New List(Of (Text As String, Mood As String))
         Dim avatar = world.Avatar
+        For Each message In avatar.Messages
+            result.Add(message)
+        Next
         Dim location = avatar.Location
         result.Add(($"In {location.Descriptor.Name}.", Moods.Normal))
         If location.HasRoute(avatar.Facing) Then
