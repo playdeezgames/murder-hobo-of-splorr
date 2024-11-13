@@ -5,13 +5,18 @@
         MyBase.New(ChoiceModes.Navigation)
     End Sub
 
-    Public Overrides ReadOnly Property CanEnterGameMenu As Boolean
+    Public Overrides ReadOnly Property LegacyCanEnterGameMenu As Boolean
         Get
             Return True
         End Get
     End Property
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
+        If world.Avatar Is Nothing Then
+            Return {
+                Choices.Initialize
+                }
+        End If
         Return {
                 Choices.MoveAhead,
                 Choices.TurnRight,
@@ -26,6 +31,11 @@
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
+        If world.Avatar Is Nothing Then
+            Return {
+                ("The world is without form and void.", Moods.Normal)
+                }
+        End If
         Dim result As New List(Of (Text As String, Mood As String))
         Dim avatar = world.Avatar
         Dim location = avatar.Location
@@ -43,5 +53,9 @@
             result.Add(("Door behind you.", Moods.Normal))
         End If
         Return result
+    End Function
+
+    Public Overrides Function CanEnterGameMenu(world As IWorld) As Boolean
+        Return world.Avatar IsNot Nothing
     End Function
 End Class

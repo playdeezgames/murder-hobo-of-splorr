@@ -2,17 +2,13 @@
     Implements IWorldSessionModel
     Private setWorld As Action(Of IWorld)
     Private getWorld As Func(Of IWorld)
-    Sub New(setWorld As Action(Of IWorld), getWorld As Func(Of IWorld), options As IEmbarkOptions)
+    Sub New(setWorld As Action(Of IWorld), getWorld As Func(Of IWorld))
         Me.setWorld = setWorld
         Me.getWorld = getWorld
-        Me.Options = options
     End Sub
-
-    Public ReadOnly Property Options As IEmbarkOptions Implements IWorldSessionModel.Options
 
     Public Sub Embark() Implements IWorldSessionModel.Embark
         setWorld(New World(New WorldData))
-        WorldInitializer.Initialize(getWorld(), Options)
     End Sub
 
     Public Sub Abandon() Implements IWorldSessionModel.Abandon

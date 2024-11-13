@@ -20,7 +20,6 @@
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Model.Session.Options.Initialize()
         Model.Session.Embark()
         SetState(BoilerplateState.Neutral)
     End Sub

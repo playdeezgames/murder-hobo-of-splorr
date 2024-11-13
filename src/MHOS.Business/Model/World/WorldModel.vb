@@ -2,7 +2,6 @@
     Implements IWorldModel
 
     Private _world As IWorld
-    Private ReadOnly _options As IEmbarkOptions = New EmbarkOptions()
     Private choiceMode As String = ChoiceModes.Navigation
     Sub New()
     End Sub
@@ -23,7 +22,7 @@
     End Property
     Public ReadOnly Property Session As IWorldSessionModel Implements IWorldModel.Session
         Get
-            Return New WorldSessionModel(Sub(w) World = w, Function() World, _options)
+            Return New WorldSessionModel(Sub(w) World = w, Function() World)
         End Get
     End Property
 
@@ -35,7 +34,7 @@
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return ChoiceModes.Descriptors(choiceMode).CanEnterGameMenu
+            Return ChoiceModes.Descriptors(choiceMode).LegacyCanEnterGameMenu
         End Get
     End Property
 

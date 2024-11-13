@@ -5,21 +5,18 @@
         Business.Directions.Descriptors.ToDictionary(
             Function(x) x.Key,
             Function(x) x.Value.ToMazeDirection())
-    Friend Sub Initialize(world As IWorld, options As IEmbarkOptions)
+    Friend Sub Initialize(world As IWorld)
         InitializeLocations(world)
-        InitializeCharacter(world, options)
+        InitializeCharacter(world)
     End Sub
 
-    Private Sub InitializeCharacter(world As IWorld, options As IEmbarkOptions)
+    Private Sub InitializeCharacter(world As IWorld)
         Dim location = RNG.FromEnumerable(world.Locations)
         location.LocationType = LocationTypes.Initial
         Dim character = world.InitializeCharacter(
                         CharacterTypes.N00b,
                         location,
                         RNG.FromEnumerable(Business.Directions.Descriptors.Keys))
-        For Each attributeType In options.Attributes
-            character.Attribute(attributeType.AttributeType) = attributeType.Value
-        Next
         world.SetAvatar(character)
     End Sub
 

@@ -22,6 +22,9 @@ Public Class World
 
     Public ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
+            If Not WorldData.AvatarId.HasValue Then
+                Return Nothing
+            End If
             Return New Character(WorldData, WorldData.AvatarId.Value)
         End Get
     End Property

@@ -5,7 +5,7 @@
         MyBase.New(ChoiceModes.Status)
     End Sub
 
-    Public Overrides ReadOnly Property CanEnterGameMenu As Boolean
+    Public Overrides ReadOnly Property LegacyCanEnterGameMenu As Boolean
         Get
             Return False
         End Get
@@ -25,5 +25,9 @@
         Return {
             ("TODO: Status", Moods.Normal)
             }
+    End Function
+
+    Public Overrides Function CanEnterGameMenu(world As IWorld) As Boolean
+        Return False
     End Function
 End Class
