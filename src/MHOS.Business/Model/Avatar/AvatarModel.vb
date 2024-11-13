@@ -13,29 +13,11 @@
         End Get
     End Property
 
-    Public ReadOnly Property RoomString As String Implements IAvatarModel.RoomString
-        Get
-            Dim character = world.Avatar
-            Dim location = character.Location
-            Dim frame As Integer = 0
-            If location.HasDoor(character.LeftDirection) Then
-                frame += 1
-            End If
-            If location.HasDoor(character.AheadDirection) Then
-                frame += 2
-            End If
-            If location.HasDoor(character.RightDirection) Then
-                frame += 4
-            End If
-            Return ChrW(frame)
-        End Get
-    End Property
-
     Public ReadOnly Property HasDoorAhead As Boolean Implements IAvatarModel.HasDoorAhead
         Get
             Dim character = world.Avatar
             Dim location = character.Location
-            Return location.HasDoor(character.AheadDirection)
+            Return location.HasRoute(character.AheadDirection)
         End Get
     End Property
 
@@ -43,7 +25,7 @@
         Get
             Dim character = world.Avatar
             Dim location = character.Location
-            Return location.HasDoor(character.LeftDirection)
+            Return location.HasRoute(character.LeftDirection)
         End Get
     End Property
 
@@ -51,7 +33,7 @@
         Get
             Dim character = world.Avatar
             Dim location = character.Location
-            Return location.HasDoor(character.RightDirection)
+            Return location.HasRoute(character.RightDirection)
         End Get
     End Property
 
@@ -59,7 +41,7 @@
         Get
             Dim character = world.Avatar
             Dim location = character.Location
-            Return location.HasDoor(character.OppositeDirection)
+            Return location.HasRoute(character.OppositeDirection)
         End Get
     End Property
 
@@ -92,8 +74,8 @@
         Dim character = world.Avatar
         Dim location = character.Location
         Dim facing = character.AheadDirection
-        If location.HasDoor(facing) Then
-            character.Location = location.GetNeighbor(facing)
+        If location.HasRoute(facing) Then
+            character.Location = location.GetRoute(facing).Destination
         End If
     End Sub
 End Class
