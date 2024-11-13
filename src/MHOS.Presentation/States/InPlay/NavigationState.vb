@@ -8,7 +8,9 @@
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
             Case Command.B, Command.Select
-                SetState(BoilerplateState.GameMenu)
+                If Context.Model.Avatar.CanEnterGameMenu Then
+                    SetState(BoilerplateState.GameMenu)
+                End If
         End Select
     End Sub
 

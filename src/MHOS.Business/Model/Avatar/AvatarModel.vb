@@ -1,6 +1,4 @@
-﻿Imports System.Reflection
-
-Friend Class AvatarModel
+﻿Friend Class AvatarModel
     Implements IAvatarModel
 
     Private ReadOnly world As IWorld
@@ -76,6 +74,12 @@ Friend Class AvatarModel
                 result.Add(("Door behind you.", Moods.Normal))
             End If
             Return result
+        End Get
+    End Property
+
+    Public ReadOnly Property CanEnterGameMenu As Boolean Implements IAvatarModel.CanEnterGameMenu
+        Get
+            Return True
         End Get
     End Property
 
