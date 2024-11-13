@@ -2,7 +2,7 @@
     Implements IWorldModel
 
     Private _world As IWorld
-    Private choiceMode As String = ChoiceModes.Navigation
+    Private choiceMode As String = ChoiceModes.Neutral
     Sub New()
     End Sub
 

@@ -6,6 +6,6 @@
     End Sub
 
     Friend Overrides Function Choose(world As IWorld) As String
-        Return ChoiceModes.Navigation
+        Return ChoiceModes.Neutral
     End Function
 End Class

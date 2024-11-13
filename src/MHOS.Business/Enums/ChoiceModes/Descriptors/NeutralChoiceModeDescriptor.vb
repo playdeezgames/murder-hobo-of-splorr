@@ -1,8 +1,8 @@
-﻿Friend Class NavigationChoiceModeDescriptor
+﻿Friend Class NeutralChoiceModeDescriptor
     Inherits ChoiceModeDescriptor
 
     Public Sub New()
-        MyBase.New(ChoiceModes.Navigation)
+        MyBase.New(ChoiceModes.Neutral)
     End Sub
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)

@@ -7,6 +7,6 @@
 
     Friend Overrides Function Choose(world As IWorld) As String
         WorldInitializer.Initialize(world)
-        Return ChoiceModes.Navigation
+        Return ChoiceModes.Neutral
     End Function
 End Class
