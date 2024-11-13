@@ -7,48 +7,26 @@
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
-            Case Command.A, Command.Start
-                SetState(GameState.ActionMenu)
             Case Command.B, Command.Select
                 SetState(BoilerplateState.GameMenu)
-            Case Command.Left
-                Context.Model.Avatar.TurnLeft()
-            Case Command.Right
-                Context.Model.Avatar.TurnRight()
-            Case Command.Up
-                Context.Model.Avatar.MoveAhead()
-                SetState(BoilerplateState.Neutral)
-            Case Command.Down
-                Context.Model.Avatar.TurnAround()
         End Select
     End Sub
+
+    Private Shared ReadOnly moodHues As IReadOnlyDictionary(Of String, Integer) =
+        New Dictionary(Of String, Integer) From
+        {
+            {Moods.Normal, BoilerplateHue.LightGray}
+        }
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(BoilerplateHue.Black)
 
         Dim font = Context.Font(UIFontName)
         Dim y As Integer = 0
-        font.WriteText(displayBuffer, (0, y), $"In {Model.Avatar.Location.Name}.", BoilerplateHue.White)
-        y += font.Height
-        If Model.Avatar.HasDoorAhead Then
-            font.WriteText(displayBuffer, (0, y), "Door ahead.", BoilerplateHue.White)
+        For Each line In Context.Model.Avatar.Description
+            font.WriteText(displayBuffer, (0, y), line.Text, moodHues(line.Mood))
             y += font.Height
-        End If
-        If Model.Avatar.HasDoorToLeft Then
-            font.WriteText(displayBuffer, (0, y), "Door to yer left.", BoilerplateHue.White)
-            y += font.Height
-        End If
-        If Model.Avatar.HasDoorToRight Then
-            font.WriteText(displayBuffer, (0, y), "Door to yer right.", BoilerplateHue.White)
-            y += font.Height
-        End If
-        If Model.Avatar.HasDoorBehind Then
-            font.WriteText(displayBuffer, (0, y), "Door behind you.", BoilerplateHue.White)
-            y += font.Height
-        End If
-
-        'draw gutter
-        Context.ShowStatusBar(displayBuffer, font, Context.ControlsText(Grimoire.ActionMenu, Grimoire.GameMenu), 0, 7)
+        Next
     End Sub
 
     Public Overrides Sub OnStart()

@@ -10,4 +10,5 @@
     ReadOnly Property HasDoorToRight As Boolean
     ReadOnly Property HasDoorBehind As Boolean
     ReadOnly Property Name As String
+    ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
 End Interface

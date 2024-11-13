@@ -1,4 +1,6 @@
-﻿Friend Class AvatarModel
+﻿Imports System.Reflection
+
+Friend Class AvatarModel
     Implements IAvatarModel
 
     Private ReadOnly world As IWorld
@@ -54,6 +56,26 @@
     Public ReadOnly Property Location As ILocationModel Implements IAvatarModel.Location
         Get
             Return New LocationModel(world.Avatar.Location)
+        End Get
+    End Property
+
+    Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IAvatarModel.Description
+        Get
+            Dim result As New List(Of (Text As String, Mood As String))
+            result.Add(($"In {Location.Name}.", Moods.Normal))
+            If HasDoorAhead Then
+                result.Add(("Door ahead.", Moods.Normal))
+            End If
+            If HasDoorToLeft Then
+                result.Add(("Door to yer left.", Moods.Normal))
+            End If
+            If HasDoorToRight Then
+                result.Add(("Door to yer right.", Moods.Normal))
+            End If
+            If HasDoorBehind Then
+                result.Add(("Door behind you.", Moods.Normal))
+            End If
+            Return result
         End Get
     End Property
 
