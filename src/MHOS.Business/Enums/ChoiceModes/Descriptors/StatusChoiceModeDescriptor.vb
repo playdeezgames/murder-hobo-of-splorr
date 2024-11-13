@@ -11,10 +11,6 @@
             }
     End Function
 
-    Public Overrides Function MakeChoice(world As IWorld, choice As String) As String
-        Return ChoiceModes.Neutral
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
             ShowAttribute(world, AttributeTypes.Strength),

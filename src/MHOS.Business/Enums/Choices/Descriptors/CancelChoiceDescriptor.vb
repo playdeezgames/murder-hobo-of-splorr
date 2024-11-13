@@ -7,7 +7,7 @@
 
     Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
         Select Case choiceMode
-            Case ChoiceModes.Status
+            Case ChoiceModes.Status, ChoiceModes.TurnMenu
                 Return ChoiceModes.Neutral
             Case Else
                 Throw New NotImplementedException

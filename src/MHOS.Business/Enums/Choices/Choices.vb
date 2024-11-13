@@ -7,6 +7,7 @@
     Friend ReadOnly Cancel As String = NameOf(Cancel)
     Friend ReadOnly Initialize As String = NameOf(Initialize)
     Friend ReadOnly [Next] As String = NameOf([Next])
+    Friend ReadOnly TurnMenu As String = NameOf(TurnMenu)
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ChoiceDescriptor) =
         New List(Of ChoiceDescriptor) From
         {
@@ -17,6 +18,7 @@
             New StatusChoiceDescriptor(),
             New CancelChoiceDescriptor(),
             New InitializeChoiceDescriptor(),
-            New NextChoiceDescriptor()
+            New NextChoiceDescriptor(),
+            New TurnMenuChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

@@ -5,6 +5,8 @@
     End Sub
     MustOverride Function GoBackChoiceMode(world As IWorld) As String
     MustOverride Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
-    MustOverride Function MakeChoice(world As IWorld, choice As String) As String
     MustOverride Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
+    Public Function MakeChoice(world As IWorld, choice As String) As String
+        Return Choices.Descriptors(choice).Choose(world, ChoiceMode)
+    End Function
 End Class
