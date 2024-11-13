@@ -5,12 +5,6 @@
         MyBase.New(ChoiceModes.Status)
     End Sub
 
-    Public Overrides ReadOnly Property LegacyCanEnterGameMenu As Boolean
-        Get
-            Return False
-        End Get
-    End Property
-
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return {
             Choices.Cancel

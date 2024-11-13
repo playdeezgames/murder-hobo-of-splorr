@@ -5,12 +5,6 @@
         MyBase.New(ChoiceModes.Navigation)
     End Sub
 
-    Public Overrides ReadOnly Property LegacyCanEnterGameMenu As Boolean
-        Get
-            Return True
-        End Get
-    End Property
-
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
         If world.Avatar Is Nothing Then
             Return {

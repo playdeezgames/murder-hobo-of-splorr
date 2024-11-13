@@ -34,7 +34,7 @@
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return ChoiceModes.Descriptors(choiceMode).LegacyCanEnterGameMenu
+            Return ChoiceModes.Descriptors(choiceMode).CanEnterGameMenu(World)
         End Get
     End Property
 
