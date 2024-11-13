@@ -8,4 +8,7 @@
     Function HasDoor(direction As String) As Boolean
     Sub RemoveCharacter(character As ICharacter)
     ReadOnly Property HasCharacter As Boolean
+    Function CreateRoute(direction As String, routeType As String, destination As ILocation) As IRoute
+    Function HasRoute(direction As String) As Boolean
+    Function GetRoute(direction As String) As IRoute
 End Interface

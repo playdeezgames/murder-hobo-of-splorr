@@ -47,4 +47,26 @@
     Public Function GetNeighbor(direction As String) As ILocation Implements ILocation.GetNeighbor
         Return New Location(WorldData, LocationData.Neighbors(direction))
     End Function
+
+    Public Function CreateRoute(direction As String, routeType As String, destination As ILocation) As IRoute Implements ILocation.CreateRoute
+        LocationData.Routes.Add(
+            direction,
+            New Data.RouteData With
+            {
+                .RouteType = routeType,
+                .DestinationLocationId = destination.Id
+            })
+        Return New Route(WorldData, LocationId, direction)
+    End Function
+
+    Public Function HasRoute(direction As String) As Boolean Implements ILocation.HasRoute
+        Return LocationData.Routes.ContainsKey(direction)
+    End Function
+
+    Public Function GetRoute(direction As String) As IRoute Implements ILocation.GetRoute
+        If Not HasRoute(direction) Then
+            Return Nothing
+        End If
+        Return New Route(WorldData, LocationId, direction)
+    End Function
 End Class

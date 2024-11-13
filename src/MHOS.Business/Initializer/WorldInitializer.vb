@@ -39,8 +39,9 @@
                         Dim nextColumn = CInt(column + directions(direction).DeltaX)
                         Dim nextRow = CInt(row + directions(direction).DeltaY)
                         Dim nextLocation = locations(nextColumn, nextRow)
+                        location.CreateRoute(direction, RouteTypes.Door, nextLocation)
                         location.SetNeighbor(direction, nextLocation)
-                        Location.SetDoor(direction, Door.Open)
+                        location.SetDoor(direction, Door.Open)
                     End If
                 Next
             Next
