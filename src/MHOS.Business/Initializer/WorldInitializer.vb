@@ -11,9 +11,11 @@
     End Sub
 
     Private Sub InitializeCharacter(world As IWorld, options As IEmbarkOptions)
+        Dim location = RNG.FromEnumerable(world.Locations)
+        location.LocationType = LocationTypes.Initial
         Dim character = world.InitializeCharacter(
                         CharacterTypes.N00b,
-                        RNG.FromEnumerable(world.Locations),
+                        location,
                         RNG.FromEnumerable(Business.Directions.Descriptors.Keys))
         For Each attributeType In options.Attributes
             character.Attribute(attributeType.AttributeType) = attributeType.Value
@@ -34,14 +36,19 @@
             For Each row In Enumerable.Range(0, MazeRows)
                 Dim location = locations(column, row)
                 Dim mazeCell = maze.GetCell(column, row)
+                Dim door As Integer = 0
                 For Each direction In mazeCell.Directions
                     If mazeCell.GetDoor(direction).Open Then
+                        door += 1
                         Dim nextColumn = CInt(column + directions(direction).DeltaX)
                         Dim nextRow = CInt(row + directions(direction).DeltaY)
                         Dim nextLocation = locations(nextColumn, nextRow)
                         location.CreateRoute(direction, RouteTypes.Door, nextLocation)
                     End If
                 Next
+                If door = 1 Then
+                    location.LocationType = LocationTypes.DeadEnd
+                End If
             Next
         Next
     End Sub

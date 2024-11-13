@@ -1,5 +1,5 @@
 ﻿Public Interface ILocation
-    ReadOnly Property LocationType As String
+    Property LocationType As String
     ReadOnly Property Id As Integer
     Sub AddCharacter(result As ICharacter)
     Sub RemoveCharacter(character As ICharacter)

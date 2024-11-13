@@ -18,10 +18,13 @@
         End Get
     End Property
 
-    Public ReadOnly Property LocationType As String Implements ILocation.LocationType
+    Public Property LocationType As String Implements ILocation.LocationType
         Get
             Return LocationData.LocationType
         End Get
+        Set(value As String)
+            LocationData.LocationType = value
+        End Set
     End Property
 
     Public Sub AddCharacter(character As ICharacter) Implements ILocation.AddCharacter
