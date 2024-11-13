@@ -5,7 +5,7 @@
         MyBase.New(Choices.MoveAhead, "Move Ahead")
     End Sub
 
-    Friend Overrides Function Choose(world As IWorld) As String
+    Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
         Dim avatar = world.Avatar
         Dim location = avatar.Location
         If location.HasRoute(avatar.Facing) Then

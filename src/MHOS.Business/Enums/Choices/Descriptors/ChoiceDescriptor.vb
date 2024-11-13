@@ -6,5 +6,5 @@
         Me.Text = text
     End Sub
 
-    Friend MustOverride Function Choose(world As IWorld) As String
+    Friend MustOverride Function Choose(world As IWorld, choiceMode As String) As String
 End Class

@@ -5,7 +5,7 @@
         MyBase.New(Choices.Next, "Next")
     End Sub
 
-    Friend Overrides Function Choose(world As IWorld) As String
+    Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
         Return ChoiceModes.Neutral
     End Function
 End Class

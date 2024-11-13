@@ -16,7 +16,7 @@
     End Function
 
     Public Overrides Function MakeChoice(world As IWorld, choice As String) As String
-        Return Choices.Descriptors(choice).Choose(world)
+        Return Choices.Descriptors(choice).Choose(world, ChoiceMode)
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
