@@ -21,17 +21,17 @@
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
-            DoStuff(world, AttributeTypes.Strength),
-            DoStuff(world, AttributeTypes.Intelligence),
-            DoStuff(world, AttributeTypes.Wisdom),
-            DoStuff(world, AttributeTypes.Dexterity),
-            DoStuff(world, AttributeTypes.Constitution),
-            DoStuff(world, AttributeTypes.Charisma)
+            ShowAttribute(world, AttributeTypes.Strength),
+            ShowAttribute(world, AttributeTypes.Intelligence),
+            ShowAttribute(world, AttributeTypes.Wisdom),
+            ShowAttribute(world, AttributeTypes.Dexterity),
+            ShowAttribute(world, AttributeTypes.Constitution),
+            ShowAttribute(world, AttributeTypes.Charisma)
         }
         Return result
     End Function
 
-    Private Function DoStuff(world As IWorld, attributeType As String) As (Text As String, Mood As String)
+    Private Function ShowAttribute(world As IWorld, attributeType As String) As (Text As String, Mood As String)
         Dim attributeDescriptor = AttributeTypes.Descriptors(attributeType)
         Dim avatar = world.Avatar
         Return ($"{attributeDescriptor.Name} {avatar.Attribute(attributeType)}", Moods.Normal)

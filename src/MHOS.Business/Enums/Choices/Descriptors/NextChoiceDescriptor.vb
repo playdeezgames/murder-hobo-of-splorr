@@ -6,6 +6,11 @@
     End Sub
 
     Friend Overrides Function Choose(world As IWorld, choiceMode As String) As String
-        Return ChoiceModes.Neutral
+        Select Case choiceMode
+            Case ChoiceModes.RollAttributes
+                Return ChoiceModes.Neutral
+            Case Else
+                Throw New NotImplementedException
+        End Select
     End Function
 End Class
