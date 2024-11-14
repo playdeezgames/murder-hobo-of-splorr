@@ -1,5 +1,7 @@
-﻿Friend Class Location
-    Inherits LocationDataClient
+﻿Imports MHOS.Data
+
+Friend Class Location
+    Inherits Entity(Of LocationData, Integer)
     Implements ILocation
 
     Public Sub New(worldData As Data.WorldData, locationId As Integer)
@@ -8,52 +10,58 @@
 
     Public ReadOnly Property Id As Integer Implements ILocation.Id
         Get
-            Return LocationId
+            Return EntityId
         End Get
     End Property
 
     Public ReadOnly Property HasCharacter As Boolean Implements ILocation.HasCharacter
         Get
-            Return LocationData.Characters.Any
+            Return EntityData.Characters.Any
         End Get
     End Property
 
     Public Property LocationType As String Implements ILocation.LocationType
         Get
-            Return LocationData.EntityType
+            Return EntityData.EntityType
         End Get
         Set(value As String)
-            LocationData.EntityType = value
+            EntityData.EntityType = value
         End Set
     End Property
 
+    Protected Overrides ReadOnly Property EntityData As LocationData
+        Get
+            Return WorldData.Locations(EntityId)
+        End Get
+    End Property
+
     Public Sub AddCharacter(character As ICharacter) Implements ILocation.AddCharacter
-        LocationData.Characters.Add(character.Id)
+        EntityData.Characters.Add(character.Id)
     End Sub
 
     Public Sub RemoveCharacter(character As ICharacter) Implements ILocation.RemoveCharacter
-        LocationData.Characters.Remove(character.Id)
+        EntityData.Characters.Remove(character.Id)
     End Sub
 
     Public Function CreateRoute(direction As String, routeType As String, destination As ILocation) As IRoute Implements ILocation.CreateRoute
-        LocationData.Routes.Add(
+        EntityData.Routes.Add(
             direction,
             New Data.RouteData With
             {
                 .EntityType = routeType,
                 .DestinationLocationId = destination.Id
             })
-        Return New Route(WorldData, LocationId, direction)
+        Return New Route(WorldData, EntityId, direction)
     End Function
 
     Public Function HasRoute(direction As String) As Boolean Implements ILocation.HasRoute
-        Return LocationData.Routes.ContainsKey(direction)
+        Return EntityData.Routes.ContainsKey(direction)
     End Function
 
     Public Function GetRoute(direction As String) As IRoute Implements ILocation.GetRoute
         If Not HasRoute(direction) Then
             Return Nothing
         End If
-        Return New Route(WorldData, LocationId, direction)
+        Return New Route(WorldData, EntityId, direction)
     End Function
 End Class
