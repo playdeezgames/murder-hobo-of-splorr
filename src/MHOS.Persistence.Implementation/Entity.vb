@@ -46,4 +46,19 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
             End If
         End Set
     End Property
+
+    Public Property Metadata(metadataType As String) As String Implements IEntity(Of TIdentifier).Metadata
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As String)
+            Throw New NotImplementedException()
+        End Set
+    End Property
+
+    Public ReadOnly Property MetadataTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).MetadataTypes
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
 End Class

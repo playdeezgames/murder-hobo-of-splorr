@@ -8,13 +8,18 @@
     Friend Sub Initialize(world As IWorld)
         InitializeLocations(world)
         InitializeCharacter(world)
+        PopulateLocations(world)
+    End Sub
+
+    Private Sub PopulateLocations(world As IWorld)
+        'TODO: add enemies
     End Sub
 
     Private Sub InitializeCharacter(world As IWorld)
-        Dim location = RNG.FromEnumerable(world.Locations)
+        Dim location = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Room))
         location.EntityType = LocationTypes.Initial
         Dim character = world.InitializeCharacter(
-                        CharacterTypes.N00b,
+                        CharacterTypes.Player,
                         location)
         world.SetAvatar(character)
     End Sub
@@ -32,17 +37,17 @@
             For Each row In Enumerable.Range(0, MazeRows)
                 Dim location = locations(column, row)
                 Dim mazeCell = maze.GetCell(column, row)
-                Dim door As Integer = 0
+                Dim doorCount As Integer = 0
                 For Each direction In mazeCell.Directions
                     If mazeCell.GetDoor(direction).Open Then
-                        door += 1
+                        doorCount += 1
                         Dim nextColumn = CInt(column + directions(direction).DeltaX)
                         Dim nextRow = CInt(row + directions(direction).DeltaY)
                         Dim nextLocation = locations(nextColumn, nextRow)
                         location.CreateRoute(direction, RouteTypes.Door, nextLocation)
                     End If
                 Next
-                If door = 1 Then
+                If doorCount = 1 Then
                     location.EntityType = LocationTypes.DeadEnd
                 End If
             Next

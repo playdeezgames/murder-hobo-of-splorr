@@ -6,9 +6,7 @@
     End Sub
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return {
-            Choices.Next
-            }
+        Return Races.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) x.Choice)
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
@@ -20,6 +18,7 @@
             ShowCounter(world, CounterTypes.Constitution),
             ShowCounter(world, CounterTypes.Charisma)
         }
+        result.Add(("Choose a race:", Moods.Normal))
         Return result
     End Function
 

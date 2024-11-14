@@ -1,8 +1,8 @@
-﻿Friend Class N00bCharacterTypeDescriptor
+﻿Friend Class PlayerCharacterTypeDescriptor
     Inherits BaseCharacterTypeDescriptor
 
     Public Sub New()
-        MyBase.New(CharacterTypes.N00b, "N00b")
+        MyBase.New(CharacterTypes.Player, "N00b")
     End Sub
 
     Public Overrides Sub Initialize(character As ICharacter)

@@ -8,6 +8,10 @@
     Friend ReadOnly MoveEast As String = NameOf(MoveEast)
     Friend ReadOnly MoveSouth As String = NameOf(MoveSouth)
     Friend ReadOnly MoveWest As String = NameOf(MoveWest)
+    Friend ReadOnly Dwarf As String = NameOf(Dwarf)
+    Friend ReadOnly Elf As String = NameOf(Elf)
+    Friend ReadOnly Halfling As String = NameOf(Halfling)
+    Friend ReadOnly Human As String = NameOf(Human)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
@@ -20,6 +24,10 @@
             New MoveNorthChoiceDescriptor(),
             New MoveEastChoiceDescriptor(),
             New MoveSouthChoiceDescriptor(),
-            New MoveWestChoiceDescriptor()
+            New MoveWestChoiceDescriptor(),
+            New DwarfChoiceDescriptor(),
+            New ElfChoiceDescriptor(),
+            New HalflingChoiceDescriptor(),
+            New HumanChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

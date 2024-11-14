@@ -1,8 +1,8 @@
 ﻿Friend Module CharacterTypes
-    Friend ReadOnly N00b As String = NameOf(N00b)
+    Friend ReadOnly Player As String = NameOf(Player)
     Friend Descriptors As IReadOnlyDictionary(Of String, BaseCharacterTypeDescriptor) =
         New List(Of BaseCharacterTypeDescriptor) From
         {
-            New N00bCharacterTypeDescriptor()
+            New PlayerCharacterTypeDescriptor()
         }.ToDictionary(Function(x) x.CharacterType, Function(x) x)
 End Module

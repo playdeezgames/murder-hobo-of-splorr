@@ -3,4 +3,6 @@
     Property EntityType As String
     Property Counter(counterType As String) As Integer?
     ReadOnly Property CounterTypes As IEnumerable(Of String)
+    Property Metadata(metadataType As String) As String
+    ReadOnly Property MetadataTypes As IEnumerable(Of String)
 End Interface
