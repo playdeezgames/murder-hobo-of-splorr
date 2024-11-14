@@ -8,6 +8,12 @@
     Friend ReadOnly Initialize As String = NameOf(Initialize)
     Friend ReadOnly [Next] As String = NameOf([Next])
     Friend ReadOnly TurnMenu As String = NameOf(TurnMenu)
+    Friend ReadOnly MoveMenu As String = NameOf(MoveMenu)
+    Friend ReadOnly MoveNorth As String = NameOf(MoveNorth)
+    Friend ReadOnly MoveEast As String = NameOf(MoveEast)
+    Friend ReadOnly MoveSouth As String = NameOf(MoveSouth)
+    Friend ReadOnly MoveWest As String = NameOf(MoveWest)
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
         {
@@ -19,6 +25,11 @@
             New CancelChoiceDescriptor(),
             New InitializeChoiceDescriptor(),
             New NextChoiceDescriptor(),
-            New TurnMenuChoiceDescriptor()
+            New TurnMenuChoiceDescriptor(),
+            New MoveMenuChoiceDescriptor(),
+            New MoveNorthChoiceDescriptor(),
+            New MoveEastChoiceDescriptor(),
+            New MoveSouthChoiceDescriptor(),
+            New MoveWestChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

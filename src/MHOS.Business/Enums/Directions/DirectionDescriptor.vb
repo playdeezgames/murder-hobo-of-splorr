@@ -5,8 +5,10 @@
     ReadOnly Property OppositeDirection As String
     ReadOnly Property DeltaX As Integer
     ReadOnly Property DeltaY As Integer
+    ReadOnly Property Name As String
     Sub New(
            direction As String,
+           name As String,
            rightDirection As String,
            oppositeDirection As String,
            leftDirection As String,
@@ -18,6 +20,7 @@
         Me.LeftDirection = leftDirection
         Me.DeltaX = deltaX
         Me.DeltaY = deltaY
+        Me.Name = name
     End Sub
     Friend Function ToMazeDirection() As MazeDirection(Of String)
         Return New MazeDirection(Of String)(

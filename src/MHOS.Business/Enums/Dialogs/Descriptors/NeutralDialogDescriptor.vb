@@ -12,6 +12,7 @@
                 }
         End If
         Return {
+                Choices.MoveMenu,
                 Choices.MoveAhead,
                 Choices.TurnMenu,
                 Choices.Status
@@ -31,17 +32,17 @@
         Next
         Dim location = avatar.Location
         result.Add(($"In {location.Descriptor.Name}.", Moods.Normal))
-        If location.HasRoute(avatar.Facing) Then
-            result.Add(("Door ahead.", Moods.Normal))
+        If location.HasRoute(Directions.North) Then
+            result.Add(("Door to the north.", Moods.Normal))
         End If
-        If location.HasRoute(Directions.Descriptors(avatar.Facing).LeftDirection) Then
-            result.Add(("Door to yer left.", Moods.Normal))
+        If location.HasRoute(Directions.East) Then
+            result.Add(("Door to the east.", Moods.Normal))
         End If
-        If location.HasRoute(Directions.Descriptors(avatar.Facing).RightDirection) Then
-            result.Add(("Door to yer right.", Moods.Normal))
+        If location.HasRoute(Directions.South) Then
+            result.Add(("Door to the south.", Moods.Normal))
         End If
-        If location.HasRoute(Directions.Descriptors(avatar.Facing).OppositeDirection) Then
-            result.Add(("Door behind you.", Moods.Normal))
+        If location.HasRoute(Directions.West) Then
+            result.Add(("Door to the west.", Moods.Normal))
         End If
         Return result
     End Function

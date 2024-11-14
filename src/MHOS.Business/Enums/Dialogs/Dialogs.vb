@@ -3,12 +3,14 @@
     Friend ReadOnly Status As String = NameOf(Status)
     Friend ReadOnly RollAttributes As String = NameOf(RollAttributes)
     Friend ReadOnly TurnMenu As String = NameOf(TurnMenu)
+    Friend ReadOnly MoveMenu As String = NameOf(MoveMenu)
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseDialogDescriptor) =
         New List(Of BaseDialogDescriptor) From
         {
             New NeutralDialogDescriptor(),
             New StatusDialogDescriptor(),
             New RollAttributesDialogDescriptor(),
-            New TurnMenuDialogDescriptor()
+            New TurnMenuDialogDescriptor(),
+            New MoveMenuDialogDescriptor()
         }.ToDictionary(Function(x) x.ChoiceMode, Function(x) x)
 End Module
