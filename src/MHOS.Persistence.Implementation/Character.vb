@@ -1,8 +1,13 @@
 ﻿Imports MHOS.Data
 
 Friend Class Character
-    Inherits CharacterDataClient
+    Inherits Entity(Of CharacterData, Integer)
     Implements ICharacter
+    Protected Overrides ReadOnly Property EntityData As CharacterData
+        Get
+            Return WorldData.Characters(EntityId)
+        End Get
+    End Property
 
     Public Sub New(worldData As Data.WorldData, characterId As Integer)
         MyBase.New(worldData, characterId)
