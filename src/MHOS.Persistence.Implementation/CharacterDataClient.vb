@@ -1,7 +1,8 @@
 ﻿Imports MHOS.Data
 
 Friend MustInherit Class CharacterDataClient
-    Inherits WorldDataClient
+    Inherits Entity(Of CharacterData)
+    Protected ReadOnly worldData As WorldData
     Protected CharacterId As Integer
     Protected ReadOnly Property CharacterData As CharacterData
         Get
@@ -10,6 +11,6 @@ Friend MustInherit Class CharacterDataClient
     End Property
 
     Public Sub New(worldData As Data.WorldData, characterId As Integer)
-        MyBase.New(worldData)
+        Me.worldData = worldData
     End Sub
 End Class

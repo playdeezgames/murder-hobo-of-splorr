@@ -1,4 +1,6 @@
-﻿Friend Class Character
+﻿Imports MHOS.Data
+
+Friend Class Character
     Inherits CharacterDataClient
     Implements ICharacter
 

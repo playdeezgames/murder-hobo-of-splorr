@@ -1,4 +1,5 @@
 ﻿Public Interface ICharacter
+    Inherits IEntity
     ReadOnly Property Id As Integer
     Property Location As ILocation
     Property Facing As String
