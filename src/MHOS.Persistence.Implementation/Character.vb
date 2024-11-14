@@ -13,12 +13,6 @@ Friend Class Character
         MyBase.New(worldData, characterId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ICharacter.Id
-        Get
-            Return EntityId
-        End Get
-    End Property
-
     Public Property Location As ILocation Implements ICharacter.Location
         Get
             Return New Location(worldData, EntityData.LocationId)

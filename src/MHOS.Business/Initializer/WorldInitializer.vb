@@ -12,7 +12,7 @@
 
     Private Sub InitializeCharacter(world As IWorld)
         Dim location = RNG.FromEnumerable(world.Locations)
-        location.LocationType = LocationTypes.Initial
+        location.EntityType = LocationTypes.Initial
         Dim character = world.InitializeCharacter(
                         CharacterTypes.N00b,
                         location,
@@ -44,7 +44,7 @@
                     End If
                 Next
                 If door = 1 Then
-                    location.LocationType = LocationTypes.DeadEnd
+                    location.EntityType = LocationTypes.DeadEnd
                 End If
             Next
         Next

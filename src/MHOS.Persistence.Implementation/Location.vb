@@ -8,19 +8,13 @@ Friend Class Location
         MyBase.New(worldData, locationId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ILocation.Id
-        Get
-            Return EntityId
-        End Get
-    End Property
-
     Public ReadOnly Property HasCharacter As Boolean Implements ILocation.HasCharacter
         Get
             Return EntityData.Characters.Any
         End Get
     End Property
 
-    Public Property LocationType As String Implements ILocation.LocationType
+    Public Property EntityType As String Implements ILocation.EntityType
         Get
             Return EntityData.EntityType
         End Get

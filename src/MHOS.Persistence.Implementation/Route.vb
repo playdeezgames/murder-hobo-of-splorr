@@ -15,7 +15,7 @@ Friend Class Route
             direction))
     End Sub
 
-    Public ReadOnly Property RouteType As String Implements IRoute.RouteType
+    Public ReadOnly Property EntityType As String Implements IRoute.EntityType
         Get
             Return EntityData.EntityType
         End Get
