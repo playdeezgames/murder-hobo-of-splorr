@@ -2,10 +2,10 @@
 Imports MHOS.Data
 
 Public Class World
-    Inherits WorldDataClient
     Implements IWorld
-    Public Sub New(worldData As WorldData)
-        MyBase.New(worldData)
+    Protected ReadOnly WorldData As WorldData
+    Sub New(worldData As WorldData)
+        Me.WorldData = worldData
     End Sub
 
     Public ReadOnly Property Serialized As String Implements IWorld.Serialized

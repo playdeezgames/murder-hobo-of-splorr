@@ -1,6 +1,8 @@
 ﻿
+Imports MHOS.Data
+
 Friend Class Route
-    Inherits RouteDataClient
+    Inherits Entity(Of RouteData, (LocationId As Integer, Direction As String))
     Implements IRoute
 
     Public Sub New(
@@ -9,19 +11,25 @@ Friend Class Route
                   direction As String)
         MyBase.New(
             worldData,
-            locationId,
-            direction)
+            (locationId,
+            direction))
     End Sub
 
     Public ReadOnly Property RouteType As String Implements IRoute.RouteType
         Get
-            Return RouteData.EntityType
+            Return EntityData.EntityType
         End Get
     End Property
 
     Public ReadOnly Property Destination As ILocation Implements IRoute.Destination
         Get
-            Return New Location(WorldData, RouteData.DestinationLocationId)
+            Return New Location(WorldData, EntityData.DestinationLocationId)
+        End Get
+    End Property
+
+    Protected Overrides ReadOnly Property EntityData As RouteData
+        Get
+            Return WorldData.Locations(EntityId.LocationId).Routes(EntityId.Direction)
         End Get
     End Property
 End Class
