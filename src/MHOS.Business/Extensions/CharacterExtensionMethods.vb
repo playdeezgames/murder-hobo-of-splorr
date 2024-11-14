@@ -17,10 +17,7 @@
     End Function
     <Extension>
     Sub Initialize(character As ICharacter)
-        Dim descriptor = character.Descriptor
-        For Each attribute In descriptor.Attributes
-            character.Counter(attribute) = descriptor.GenerateCounter(attribute)
-        Next
+        character.Descriptor.Initialize(character)
     End Sub
     <Extension>
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
