@@ -15,8 +15,7 @@
         location.EntityType = LocationTypes.Initial
         Dim character = world.InitializeCharacter(
                         CharacterTypes.N00b,
-                        location,
-                        RNG.FromEnumerable(Business.Directions.Descriptors.Keys))
+                        location)
         world.SetAvatar(character)
     End Sub
 

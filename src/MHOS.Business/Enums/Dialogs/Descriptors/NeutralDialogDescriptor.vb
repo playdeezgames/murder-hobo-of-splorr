@@ -13,8 +13,6 @@
         End If
         Return {
                 Choices.MoveMenu,
-                Choices.MoveAhead,
-                Choices.TurnMenu,
                 Choices.Status
                }
     End Function

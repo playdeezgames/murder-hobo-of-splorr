@@ -7,7 +7,7 @@
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
         Select Case dialog
-            Case Dialogs.Status, Dialogs.TurnMenu, Dialogs.MoveMenu
+            Case Dialogs.Status, Dialogs.MoveMenu
                 world.Avatar.ClearMessages()
                 Return Dialogs.Neutral
             Case Else

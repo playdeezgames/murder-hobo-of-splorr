@@ -26,15 +26,6 @@ Friend Class Character
         End Set
     End Property
 
-    Public Property Facing As String Implements ICharacter.Facing
-        Get
-            Return EntityData.Facing
-        End Get
-        Set(value As String)
-            EntityData.Facing = value
-        End Set
-    End Property
-
     Public ReadOnly Property World As IWorld Implements ICharacter.World
         Get
             Return New World(worldData)
