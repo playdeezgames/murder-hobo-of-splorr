@@ -41,33 +41,10 @@ Friend Class Character
         End Get
     End Property
 
-    Public ReadOnly Property CounterTypes As IEnumerable(Of String) Implements ICharacter.CounterTypes
-        Get
-            Return EntityData.Counters.Keys
-        End Get
-    End Property
-
     Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements ICharacter.Messages
         Get
             Return EntityData.Messages.Select(Function(x) (x.Text, x.Mood))
         End Get
-    End Property
-
-    Public Property Counter(counterType As String) As Integer? Implements ICharacter.Counter
-        Get
-            Dim counterValue As Integer = 0
-            If EntityData.Counters.TryGetValue(counterType, counterValue) Then
-                Return counterValue
-            End If
-            Return Nothing
-        End Get
-        Set(value As Integer?)
-            If value.HasValue Then
-                EntityData.Counters(counterType) = value.Value
-            Else
-                EntityData.Counters.Remove(counterType)
-            End If
-        End Set
     End Property
 
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
