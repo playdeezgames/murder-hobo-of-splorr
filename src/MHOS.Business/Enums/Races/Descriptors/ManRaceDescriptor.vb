@@ -1,13 +1,13 @@
-﻿Friend Class HumanRaceDescriptor
+﻿Friend Class ManRaceDescriptor
     Inherits BaseRaceDescriptor
 
     Public Sub New()
-        MyBase.New(Races.Human)
+        MyBase.New(Races.Man, "Man")
     End Sub
 
     Public Overrides ReadOnly Property Choice As String
         Get
-            Return Choices.Human
+            Return Choices.Man
         End Get
     End Property
 

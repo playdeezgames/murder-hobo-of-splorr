@@ -2,7 +2,7 @@
     Inherits BaseRaceDescriptor
 
     Public Sub New()
-        MyBase.New(Races.Halfling)
+        MyBase.New(Races.Halfling, "Halfling")
     End Sub
 
     Public Overrides ReadOnly Property Choice As String

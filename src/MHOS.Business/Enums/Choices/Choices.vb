@@ -11,7 +11,7 @@
     Friend ReadOnly Dwarf As String = NameOf(Dwarf)
     Friend ReadOnly Elf As String = NameOf(Elf)
     Friend ReadOnly Halfling As String = NameOf(Halfling)
-    Friend ReadOnly Human As String = NameOf(Human)
+    Friend ReadOnly Man As String = NameOf(Man)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
@@ -28,6 +28,6 @@
             New DwarfChoiceDescriptor(),
             New ElfChoiceDescriptor(),
             New HalflingChoiceDescriptor(),
-            New HumanChoiceDescriptor()
+            New ManChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

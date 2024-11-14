@@ -20,6 +20,7 @@
             ShowCounter(world, CounterTypes.Constitution),
             ShowCounter(world, CounterTypes.Charisma)
         }
+        result.Add(($"Race: {Races.Descriptors(world.Avatar.Metadata(MetadataTypes.Race)).Name}", Moods.Normal))
         Return result
     End Function
 

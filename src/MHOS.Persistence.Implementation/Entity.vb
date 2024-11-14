@@ -49,16 +49,22 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
 
     Public Property Metadata(metadataType As String) As String Implements IEntity(Of TIdentifier).Metadata
         Get
-            Throw New NotImplementedException()
+            Dim value As String = Nothing
+            EntityData.Metadatas.TryGetValue(metadataType, value)
+            Return value
         End Get
         Set(value As String)
-            Throw New NotImplementedException()
+            If String.IsNullOrEmpty(value) Then
+                EntityData.Metadatas.remove(metadataType)
+            Else
+                EntityData.Metadatas(metadataType) = value
+            End If
         End Set
     End Property
 
     Public ReadOnly Property MetadataTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).MetadataTypes
         Get
-            Throw New NotImplementedException()
+            Return EntityData.Metadatas.Keys
         End Get
     End Property
 End Class
