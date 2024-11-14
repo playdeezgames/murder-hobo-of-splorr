@@ -24,6 +24,6 @@
     End Sub
     <Extension>
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
-        Return CharacterTypes.Descriptors(character.CharacterType)
+        Return CharacterTypes.Descriptors(character.EntityType)
     End Function
 End Module

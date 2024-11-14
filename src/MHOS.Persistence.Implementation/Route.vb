@@ -15,12 +15,6 @@ Friend Class Route
             direction))
     End Sub
 
-    Public ReadOnly Property EntityType As String Implements IRoute.EntityType
-        Get
-            Return EntityData.EntityType
-        End Get
-    End Property
-
     Public ReadOnly Property Destination As ILocation Implements IRoute.Destination
         Get
             Return New Location(WorldData, EntityData.DestinationLocationId)

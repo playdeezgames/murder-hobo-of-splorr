@@ -14,15 +14,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property EntityType As String Implements ILocation.EntityType
-        Get
-            Return EntityData.EntityType
-        End Get
-        Set(value As String)
-            EntityData.EntityType = value
-        End Set
-    End Property
-
     Protected Overrides ReadOnly Property EntityData As LocationData
         Get
             Return WorldData.Locations(EntityId)

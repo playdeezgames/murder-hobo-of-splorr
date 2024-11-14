@@ -47,12 +47,6 @@ Friend Class Character
         End Get
     End Property
 
-    Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
-        Get
-            Return EntityData.EntityType
-        End Get
-    End Property
-
     Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements ICharacter.Messages
         Get
             Return EntityData.Messages.Select(Function(x) (x.Text, x.Mood))

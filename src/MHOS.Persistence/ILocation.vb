@@ -1,6 +1,5 @@
 ﻿Public Interface ILocation
     Inherits IEntity(Of Integer)
-    Property EntityType As String
     Sub AddCharacter(character As ICharacter)
     Sub RemoveCharacter(character As ICharacter)
     ReadOnly Property HasCharacter As Boolean

@@ -1,6 +1,6 @@
 ﻿Imports MHOS.Data
 
-Friend MustInherit Class Entity(Of TEntityData, TIdentifier)
+Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
     Implements IEntity(Of TIdentifier)
     Protected ReadOnly WorldData As WorldData
     Protected ReadOnly EntityId As TIdentifier
@@ -13,5 +13,14 @@ Friend MustInherit Class Entity(Of TEntityData, TIdentifier)
         Get
             Return EntityId
         End Get
+    End Property
+
+    Public Property EntityType As String Implements IEntity(Of TIdentifier).EntityType
+        Get
+            Return EntityData.EntityType
+        End Get
+        Set(value As String)
+            EntityData.EntityType = value
+        End Set
     End Property
 End Class
