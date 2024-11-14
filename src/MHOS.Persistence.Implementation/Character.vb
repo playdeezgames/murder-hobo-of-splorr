@@ -10,18 +10,18 @@ Friend Class Character
 
     Public ReadOnly Property Id As Integer Implements ICharacter.Id
         Get
-            Return CharacterId
+            Return EntityId
         End Get
     End Property
 
     Public Property Location As ILocation Implements ICharacter.Location
         Get
-            Return New Location(WorldData, CharacterData.LocationId)
+            Return New Location(worldData, EntityData.LocationId)
         End Get
         Set(value As ILocation)
-            If value.Id <> CharacterData.LocationId Then
+            If value.Id <> EntityData.LocationId Then
                 Location.RemoveCharacter(Me)
-                CharacterData.LocationId = value.Id
+                EntityData.LocationId = value.Id
                 Location.AddCharacter(Me)
             End If
         End Set
@@ -29,59 +29,59 @@ Friend Class Character
 
     Public Property Facing As String Implements ICharacter.Facing
         Get
-            Return CharacterData.Facing
+            Return EntityData.Facing
         End Get
         Set(value As String)
-            CharacterData.Facing = value
+            EntityData.Facing = value
         End Set
     End Property
 
     Public ReadOnly Property World As IWorld Implements ICharacter.World
         Get
-            Return New World(WorldData)
+            Return New World(worldData)
         End Get
     End Property
 
     Public ReadOnly Property CounterTypes As IEnumerable(Of String) Implements ICharacter.CounterTypes
         Get
-            Return CharacterData.Counters.Keys
+            Return EntityData.Counters.Keys
         End Get
     End Property
 
     Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
         Get
-            Return CharacterData.EntityType
+            Return EntityData.EntityType
         End Get
     End Property
 
     Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements ICharacter.Messages
         Get
-            Return CharacterData.Messages.Select(Function(x) (x.Text, x.Mood))
+            Return EntityData.Messages.Select(Function(x) (x.Text, x.Mood))
         End Get
     End Property
 
     Public Property Counter(counterType As String) As Integer? Implements ICharacter.Counter
         Get
             Dim counterValue As Integer = 0
-            If CharacterData.Counters.TryGetValue(counterType, counterValue) Then
+            If EntityData.Counters.TryGetValue(counterType, counterValue) Then
                 Return counterValue
             End If
             Return Nothing
         End Get
         Set(value As Integer?)
             If value.HasValue Then
-                CharacterData.Counters(counterType) = value.Value
+                EntityData.Counters(counterType) = value.Value
             Else
-                CharacterData.Counters.Remove(counterType)
+                EntityData.Counters.Remove(counterType)
             End If
         End Set
     End Property
 
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
-        CharacterData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
+        EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub
 
     Public Sub ClearMessages() Implements ICharacter.ClearMessages
-        CharacterData.Messages.Clear()
+        EntityData.Messages.Clear()
     End Sub
 End Class

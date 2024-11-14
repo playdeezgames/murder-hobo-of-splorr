@@ -3,14 +3,15 @@
 Friend MustInherit Class CharacterDataClient
     Inherits Entity(Of CharacterData)
     Protected ReadOnly worldData As WorldData
-    Protected CharacterId As Integer
-    Protected ReadOnly Property CharacterData As CharacterData
+    Protected ReadOnly EntityId As Integer
+    Protected ReadOnly Property EntityData As CharacterData
         Get
-            Return WorldData.Characters(CharacterId)
+            Return worldData.Characters(EntityId)
         End Get
     End Property
 
-    Public Sub New(worldData As Data.WorldData, characterId As Integer)
+    Public Sub New(worldData As Data.WorldData, entityId As Integer)
         Me.worldData = worldData
+        Me.EntityId = entityId
     End Sub
 End Class
