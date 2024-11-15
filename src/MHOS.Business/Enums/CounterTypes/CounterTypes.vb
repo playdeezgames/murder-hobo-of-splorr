@@ -9,6 +9,7 @@
     Private ReadOnly HitDieRoll As String = NameOf(HitDieRoll)
     Private Const FirstLevel As Integer = 1
     Private Const LevelCount As Integer = 20
+    Friend ReadOnly HitPoints As String = NameOf(HitPoints)
     Friend ReadOnly Property LevelHitDieRoll(level As Integer) As String
         Get
             Return $"{HitDieRoll}{level}"
@@ -27,7 +28,8 @@
             New DexterityCounterTypeDescriptor(),
             New ConstitutionCounterTypeDescriptor(),
             New CharismaCounterTypeDescriptor(),
-            New ExperiencePointsCounterTypeDescriptor()
+            New ExperiencePointsCounterTypeDescriptor(),
+            New HitPointsCounterTypeDescriptor()
         }
         For Each level In Enumerable.Range(FirstLevel, LevelCount)
             result.Add(New LevelHitDieRollCounterTypeDescriptor(level))

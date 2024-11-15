@@ -8,6 +8,11 @@
             Return CounterTypes.LevelHitDieRoll(Level)
         End Get
     End Property
+    ReadOnly Property HasConstitutionBonus As Boolean
+        Get
+            Return HitDice > 0
+        End Get
+    End Property
     Sub New(level As Integer, hitDice As Integer, hitPoints As Integer, experiencePoints As Integer)
         Me.Level = level
         Me.HitDice = hitDice

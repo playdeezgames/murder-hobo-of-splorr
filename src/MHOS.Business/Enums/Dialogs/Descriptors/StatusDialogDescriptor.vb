@@ -12,15 +12,17 @@
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
-        Dim result As New List(Of (Text As String, Mood As String)) From {
-            ($"Race: {world.Avatar.RaceName}", Moods.Normal),
-            ($"Class: {world.Avatar.ClassName}", Moods.Normal),
-            ($"Experience Level: {world.Avatar.ExperienceLevel}", Moods.Normal),
-            ($"Experience Points: {world.Avatar.ExperiencePoints}", Moods.Normal),
-            ($"Maximum Hit Points: {world.Avatar.MaximumHitPoints}", Moods.Normal)
-        }
-        result.AddRange(world.Avatar.DescribeAttributes)
-        Return result
+        With world.Avatar
+            Dim result As New List(Of (Text As String, Mood As String)) From {
+                ($"Race: { .RaceName}", Moods.Normal),
+                ($"Class: { .ClassName}", Moods.Normal),
+                ($"Experience Level: { .ExperienceLevel}", Moods.Normal),
+                ($"Experience Points: { .ExperiencePoints}", Moods.Normal),
+                ($"Hit Points: { .HitPoints}/{ .MaximumHitPoints}", Moods.Normal)
+            }
+            result.AddRange(.DescribeAttributes)
+            Return result
+        End With
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As String

@@ -69,6 +69,38 @@ Friend Module CharacterExtensionMethods
         Dim xp = character.ExperiencePoints
         Dim classDescriptor = Classes.Descriptors([class])
         Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
-        Return levelDescriptors.Sum(Function(x) character.Counter(x.Value.HitDieRollCounterType).Value)
+        Return levelDescriptors.Sum(Function(x) Math.Max(1, character.Counter(x.Value.HitDieRollCounterType).Value + If(x.Value.HasConstitutionBonus, character.ConstitutionBonus, 0)))
     End Function
+    <Extension>
+    Friend Function HitPoints(character As ICharacter) As Integer
+        Return Math.Clamp(character.Counter(CounterTypes.HitPoints).Value, 0, character.MaximumHitPoints)
+    End Function
+    <Extension>
+    Friend Function ConstitutionBonus(character As ICharacter) As Integer
+        Dim constitution = character.Counter(CounterTypes.Constitution)
+        If Not constitution.HasValue Then
+            Return 0
+        End If
+        Return attributeBonuses(constitution.Value)
+    End Function
+    Private ReadOnly attributeBonuses As IReadOnlyDictionary(Of Integer, Integer) =
+        New Dictionary(Of Integer, Integer) From
+        {
+            {3, -3},
+            {4, -2},
+            {5, -2},
+            {6, -1},
+            {7, -1},
+            {8, -1},
+            {9, 0},
+            {10, 0},
+            {11, 0},
+            {12, 0},
+            {13, 1},
+            {14, 1},
+            {15, 1},
+            {16, 2},
+            {17, 2},
+            {18, 3}
+        }
 End Module
