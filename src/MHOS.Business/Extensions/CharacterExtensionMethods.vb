@@ -38,4 +38,21 @@
     Friend Function ExperienceLevel(character As ICharacter) As Integer
         Return character.Counter(CounterTypes.ExperienceLevel).Value
     End Function
+    <Extension>
+    Sub RollHitDice(character As ICharacter)
+        Dim classDescriptor = character.GetClassDescriptor
+        Dim raceDescriptor = character.GetRaceDescriptor
+        For Each classLevelDescriptor In classDescriptor.ClassLevelDescriptors
+
+        Next
+    End Sub
+    <Extension>
+    Private Function GetRaceDescriptor(character As ICharacter) As BaseRaceDescriptor
+        Return Races.Descriptors(character.Metadata(MetadataTypes.Race))
+    End Function
+
+    <Extension>
+    Private Function GetClassDescriptor(character As ICharacter) As BaseClassDescriptor
+        Return Classes.Descriptors(character.Metadata(MetadataTypes.Class))
+    End Function
 End Module

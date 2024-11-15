@@ -12,6 +12,7 @@
             .Metadata(MetadataTypes.Class) = [class]
             .Counter(CounterTypes.ExperienceLevel) = 1
             .Counter(CounterTypes.ExperiencePoints) = 0
+            .RollHitDice()
         End With
         Return Dialogs.Neutral
     End Function
