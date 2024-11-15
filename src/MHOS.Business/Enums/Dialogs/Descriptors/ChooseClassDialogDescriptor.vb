@@ -1,19 +1,23 @@
 ﻿Friend Class ChooseClassDialogDescriptor
     Inherits BaseDialogDescriptor
 
-    Public Sub New(dialog As String)
-        MyBase.New(dialog)
+    Public Sub New()
+        MyBase.New(Dialogs.ChooseClass)
     End Sub
 
     Public Overrides Function GoBackDialog(world As IWorld) As String
-        Throw New NotImplementedException()
+        Return Me.Dialog
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Throw New NotImplementedException()
+        Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) x.Choice)
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
-        Throw New NotImplementedException()
+        Dim result As New List(Of (Text As String, Mood As String)) From {
+            ($"Race: {world.Avatar.RaceName}", Moods.Normal)
+        }
+        result.AddRange(world.Avatar.DescribeAttributes)
+        Return result
     End Function
 End Class

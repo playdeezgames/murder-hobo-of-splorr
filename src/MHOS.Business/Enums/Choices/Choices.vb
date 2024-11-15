@@ -12,6 +12,12 @@
     Friend ReadOnly Elf As String = NameOf(Elf)
     Friend ReadOnly Halfling As String = NameOf(Halfling)
     Friend ReadOnly Man As String = NameOf(Man)
+    Friend ReadOnly Cleric As String = NameOf(Cleric)
+    Friend ReadOnly Fighter As String = NameOf(Fighter)
+    Friend ReadOnly MagicUser As String = NameOf(MagicUser)
+    Friend ReadOnly Thief As String = NameOf(Thief)
+    Friend ReadOnly FighterMagicUser As String = NameOf(FighterMagicUser)
+    Friend ReadOnly MagicUserThief As String = NameOf(MagicUserThief)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
@@ -28,6 +34,12 @@
             New DwarfChoiceDescriptor(),
             New ElfChoiceDescriptor(),
             New HalflingChoiceDescriptor(),
-            New ManChoiceDescriptor()
+            New ManChoiceDescriptor(),
+            New ClericChoiceDescriptor(),
+            New FighterChoiceDescriptor(),
+            New MagicUserChoiceDescriptor(),
+            New ThiefChoiceDescriptor(),
+            New FighterMagicUserChoiceDescriptor(),
+            New MagicUserThiefChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

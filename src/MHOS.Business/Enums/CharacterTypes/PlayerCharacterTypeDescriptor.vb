@@ -5,12 +5,21 @@
         MyBase.New(CharacterTypes.Player, "N00b")
     End Sub
 
+    Private Shared ReadOnly attributes As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            CounterTypes.Strength,
+            CounterTypes.Intelligence,
+            CounterTypes.Wisdom,
+            CounterTypes.Dexterity,
+            CounterTypes.Constitution,
+            CounterTypes.Charisma
+        }
+    Private Const AttributeDiceRoll = "3d6"
+
     Public Overrides Sub Initialize(character As ICharacter)
-        character.Counter(CounterTypes.Strength) = RNG.RollDice("3d6")
-        character.Counter(CounterTypes.Intelligence) = RNG.RollDice("3d6")
-        character.Counter(CounterTypes.Wisdom) = RNG.RollDice("3d6")
-        character.Counter(CounterTypes.Dexterity) = RNG.RollDice("3d6")
-        character.Counter(CounterTypes.Constitution) = RNG.RollDice("3d6")
-        character.Counter(CounterTypes.Charisma) = RNG.RollDice("3d6")
+        For Each counterType In attributes
+            character.Counter(counterType) = RNG.RollDice(AttributeDiceRoll)
+        Next
     End Sub
 End Class

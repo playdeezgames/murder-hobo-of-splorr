@@ -13,5 +13,5 @@
             New ChooseRaceDialogDescriptor(),
             New MoveMenuDialogDescriptor(),
             New ChooseClassDialogDescriptor()
-        }.ToDictionary(Function(x) x.ChoiceMode, Function(x) x)
+        }.ToDictionary(Function(x) x.Dialog, Function(x) x)
 End Module
