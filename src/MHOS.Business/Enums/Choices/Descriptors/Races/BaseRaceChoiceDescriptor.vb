@@ -10,6 +10,6 @@
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
         world.Avatar.Metadata(MetadataTypes.Race) = race
-        Return Dialogs.Neutral
+        Return Dialogs.ChooseClass
     End Function
 End Class

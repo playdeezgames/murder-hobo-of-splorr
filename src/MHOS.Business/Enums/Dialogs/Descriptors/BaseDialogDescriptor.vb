@@ -1,7 +1,7 @@
 ﻿Friend MustInherit Class BaseDialogDescriptor
     ReadOnly Property ChoiceMode As String
-    Sub New(choiceMode As String)
-        Me.ChoiceMode = choiceMode
+    Sub New(dialog As String)
+        Me.ChoiceMode = dialog
     End Sub
     MustOverride Function GoBackDialog(world As IWorld) As String
     MustOverride Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
