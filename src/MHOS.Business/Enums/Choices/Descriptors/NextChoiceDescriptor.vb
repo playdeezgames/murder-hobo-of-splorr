@@ -7,7 +7,7 @@
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
         Select Case dialog
-            Case Dialogs.RollAttributes
+            Case Dialogs.ChooseRace
                 Return Dialogs.Neutral
             Case Else
                 Throw New NotImplementedException

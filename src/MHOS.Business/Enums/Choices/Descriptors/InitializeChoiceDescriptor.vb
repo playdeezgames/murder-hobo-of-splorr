@@ -7,6 +7,6 @@
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
         WorldInitializer.Initialize(world)
-        Return Dialogs.RollAttributes
+        Return Dialogs.ChooseRace
     End Function
 End Class
