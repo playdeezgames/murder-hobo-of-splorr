@@ -26,4 +26,8 @@
     Friend Function RaceName(character As ICharacter) As String
         Return Races.Descriptors(character.Metadata(MetadataTypes.Race)).Name
     End Function
+    <Extension>
+    Friend Function ClassName(character As ICharacter) As String
+        Return Classes.Descriptors(character.Metadata(MetadataTypes.Class)).Name
+    End Function
 End Module
