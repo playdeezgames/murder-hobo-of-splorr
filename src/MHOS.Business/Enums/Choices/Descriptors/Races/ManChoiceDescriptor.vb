@@ -1,5 +1,5 @@
 ﻿Friend Class ManChoiceDescriptor
-    Inherits BaseChoiceDescriptor
+    Inherits BaseRaceChoiceDescriptor
 
     Public Sub New()
         MyBase.New(Choices.Man, "Man")

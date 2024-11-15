@@ -1,5 +1,5 @@
 ﻿Friend Class ElfChoiceDescriptor
-    Inherits BaseChoiceDescriptor
+    Inherits BaseRaceChoiceDescriptor
 
     Public Sub New()
         MyBase.New(Choices.Elf, "Elf")

@@ -1,5 +1,5 @@
 ﻿Friend Class HalflingChoiceDescriptor
-    Inherits BaseChoiceDescriptor
+    Inherits BaseRaceChoiceDescriptor
 
     Public Sub New()
         MyBase.New(Choices.Halfling, "Halfling")
