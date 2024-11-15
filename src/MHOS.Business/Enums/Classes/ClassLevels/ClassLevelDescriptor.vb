@@ -3,6 +3,11 @@
     ReadOnly Property HitDice As Integer
     ReadOnly Property HitPoints As Integer
     ReadOnly Property ExperiencePoints As Integer
+    ReadOnly Property HitDieRollCounterType As String
+        Get
+            Return CounterTypes.LevelHitDieRoll(Level)
+        End Get
+    End Property
     Sub New(level As Integer, hitDice As Integer, hitPoints As Integer, experiencePoints As Integer)
         Me.Level = level
         Me.HitDice = hitDice

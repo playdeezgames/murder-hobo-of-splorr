@@ -1,4 +1,6 @@
-﻿Friend Module CharacterExtensionMethods
+﻿Imports System.Diagnostics.CodeAnalysis
+
+Friend Module CharacterExtensionMethods
     <Extension>
     Sub Initialize(character As ICharacter)
         character.Descriptor.Initialize(character)
@@ -60,5 +62,13 @@
     <Extension>
     Private Function GetClassDescriptor(character As ICharacter) As BaseClassDescriptor
         Return Classes.Descriptors(character.Metadata(MetadataTypes.Class))
+    End Function
+    <Extension>
+    Friend Function MaximumHitPoints(character As ICharacter) As Integer
+        Dim [class] = character.Metadata(MetadataTypes.Class)
+        Dim xp = character.ExperiencePoints
+        Dim classDescriptor = Classes.Descriptors([class])
+        Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
+        Return levelDescriptors.Sum(Function(x) character.Counter(x.Value.HitDieRollCounterType).Value)
     End Function
 End Module

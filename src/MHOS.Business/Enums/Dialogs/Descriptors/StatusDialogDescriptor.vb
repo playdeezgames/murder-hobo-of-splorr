@@ -16,7 +16,8 @@
             ($"Race: {world.Avatar.RaceName}", Moods.Normal),
             ($"Class: {world.Avatar.ClassName}", Moods.Normal),
             ($"Experience Level: {world.Avatar.ExperienceLevel}", Moods.Normal),
-            ($"Experience Points: {world.Avatar.ExperiencePoints}", Moods.Normal)
+            ($"Experience Points: {world.Avatar.ExperiencePoints}", Moods.Normal),
+            ($"Maximum Hit Points: {world.Avatar.MaximumHitPoints}", Moods.Normal)
         }
         result.AddRange(world.Avatar.DescribeAttributes)
         Return result
