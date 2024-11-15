@@ -2,9 +2,11 @@
     ReadOnly Property Level As Integer
     ReadOnly Property HitDice As Integer
     ReadOnly Property HitPoints As Integer
-    Sub New(level As Integer, hitDice As Integer, hitPoints As Integer)
+    ReadOnly Property ExperiencePoints As Integer
+    Sub New(level As Integer, hitDice As Integer, hitPoints As Integer, experiencePoints As Integer)
         Me.Level = level
         Me.HitDice = hitDice
         Me.HitPoints = hitPoints
+        Me.ExperiencePoints = experiencePoints
     End Sub
 End Class

@@ -36,14 +36,20 @@
     End Function
     <Extension>
     Friend Function ExperienceLevel(character As ICharacter) As Integer
-        Return character.Counter(CounterTypes.ExperienceLevel).Value
+        Dim [class] = character.Metadata(MetadataTypes.Class)
+        Dim xp = character.ExperiencePoints
+        Dim classDescriptor = Classes.Descriptors([class])
+        Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
+        Return levelDescriptors.Max(Function(x) x.Key)
     End Function
     <Extension>
     Sub RollHitDice(character As ICharacter)
         Dim classDescriptor = character.GetClassDescriptor
         Dim raceDescriptor = character.GetRaceDescriptor
+        Dim hitDie = Math.Min(classDescriptor.HitDie, raceDescriptor.MaximumHitDie)
         For Each classLevelDescriptor In classDescriptor.ClassLevelDescriptors
-
+            Dim counterType = CounterTypes.LevelHitDieRoll(classLevelDescriptor.Key)
+            character.Counter(counterType) = RNG.RollDice($"{classLevelDescriptor.Value.HitDice}d{hitDie}") + classLevelDescriptor.Value.HitPoints
         Next
     End Sub
     <Extension>

@@ -4,6 +4,8 @@
     ReadOnly Property Choice As String
     ReadOnly Property ClassLevelDescriptors As IReadOnlyDictionary(Of Integer, ClassLevelDescriptor)
     ReadOnly Property HitDie As Integer
+    ReadOnly Property StartingLevel As Integer
+    ReadOnly Property MaximumLevel As Integer
     Sub New(
            [class] As String,
            name As String,
@@ -15,6 +17,8 @@
         Me.Choice = choice
         Me.ClassLevelDescriptors = classLevelDescriptors
         Me.HitDie = hitDie
+        Me.StartingLevel = classLevelDescriptors.Values.Min(Function(x) x.Level)
+        Me.MaximumLevel = classLevelDescriptors.Values.Min(Function(x) x.Level)
     End Sub
     MustOverride Function IsQualified(character As ICharacter) As Boolean
 End Class
