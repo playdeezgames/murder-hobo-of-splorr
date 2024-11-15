@@ -30,4 +30,12 @@
     Friend Function ClassName(character As ICharacter) As String
         Return Classes.Descriptors(character.Metadata(MetadataTypes.Class)).Name
     End Function
+    <Extension>
+    Friend Function ExperiencePoints(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.ExperiencePoints).Value
+    End Function
+    <Extension>
+    Friend Function ExperienceLevel(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.ExperienceLevel).Value
+    End Function
 End Module

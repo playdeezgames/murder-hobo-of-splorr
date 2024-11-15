@@ -8,7 +8,11 @@
     End Sub
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
-        world.Avatar.Metadata(MetadataTypes.Class) = [class]
+        With world.Avatar
+            .Metadata(MetadataTypes.Class) = [class]
+            .Counter(CounterTypes.ExperienceLevel) = 1
+            .Counter(CounterTypes.ExperiencePoints) = 0
+        End With
         Return Dialogs.Neutral
     End Function
 End Class

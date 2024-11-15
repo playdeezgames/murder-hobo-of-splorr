@@ -14,7 +14,9 @@
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
             ($"Race: {world.Avatar.RaceName}", Moods.Normal),
-            ($"Class: {world.Avatar.ClassName}", Moods.Normal)
+            ($"Class: {world.Avatar.ClassName}", Moods.Normal),
+            ($"Experience Level: {world.Avatar.ExperienceLevel}", Moods.Normal),
+            ($"Experience Points: {world.Avatar.ExperiencePoints}", Moods.Normal)
         }
         result.AddRange(world.Avatar.DescribeAttributes)
         Return result
