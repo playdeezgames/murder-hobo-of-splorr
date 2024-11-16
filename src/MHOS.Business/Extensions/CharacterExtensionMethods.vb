@@ -71,8 +71,8 @@
     End Function
     <Extension>
     Sub RollHitDice(character As ICharacter)
-        Dim classDescriptor = character.GetClassDescriptor
-        Dim raceDescriptor = character.GetRaceDescriptor
+        Dim classDescriptor = character.ClassDescriptor
+        Dim raceDescriptor = character.RaceDescriptor
         Dim hitDie = Math.Min(classDescriptor.HitDie, raceDescriptor.MaximumHitDie)
         For Each classLevelDescriptor In classDescriptor.ClassLevelDescriptors
             Dim counterType = CounterTypes.LevelHitDieRoll(classLevelDescriptor.Key)
@@ -80,12 +80,12 @@
         Next
     End Sub
     <Extension>
-    Private Function GetRaceDescriptor(character As ICharacter) As BaseRaceDescriptor
+    Private Function RaceDescriptor(character As ICharacter) As BaseRaceDescriptor
         Return Races.Descriptors(character.Race)
     End Function
 
     <Extension>
-    Private Function GetClassDescriptor(character As ICharacter) As BaseClassDescriptor
+    Private Function ClassDescriptor(character As ICharacter) As BaseClassDescriptor
         Return Classes.Descriptors(character.Metadata(MetadataTypes.Class))
     End Function
     <Extension>
