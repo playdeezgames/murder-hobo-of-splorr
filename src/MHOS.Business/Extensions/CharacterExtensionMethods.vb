@@ -1,10 +1,12 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-
-Friend Module CharacterExtensionMethods
+﻿Friend Module CharacterExtensionMethods
     <Extension>
     Sub Initialize(character As ICharacter)
         character.Descriptor.Initialize(character)
     End Sub
+    <Extension>
+    Function Race(character As ICharacter) As String
+        Return character.Metadata(MetadataTypes.Race)
+    End Function
     <Extension>
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
         Return CharacterTypes.Descriptors(character.EntityType)
@@ -49,7 +51,7 @@ Friend Module CharacterExtensionMethods
     End Function
     <Extension>
     Friend Function RaceName(character As ICharacter) As String
-        Return Races.Descriptors(character.Metadata(MetadataTypes.Race)).Name
+        Return Races.Descriptors(character.Race).Name
     End Function
     <Extension>
     Friend Function ClassName(character As ICharacter) As String
@@ -79,7 +81,7 @@ Friend Module CharacterExtensionMethods
     End Sub
     <Extension>
     Private Function GetRaceDescriptor(character As ICharacter) As BaseRaceDescriptor
-        Return Races.Descriptors(character.Metadata(MetadataTypes.Race))
+        Return Races.Descriptors(character.Race)
     End Function
 
     <Extension>

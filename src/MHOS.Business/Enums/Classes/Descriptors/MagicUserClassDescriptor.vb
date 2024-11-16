@@ -33,6 +33,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Intelligence >= 9 AndAlso character.Metadata(MetadataTypes.Race) <> Races.Dwarf AndAlso character.Metadata(MetadataTypes.Race) <> Races.Halfling
+        Return character.Intelligence >= 9 AndAlso character.Race <> Races.Dwarf AndAlso character.Race <> Races.Halfling
     End Function
 End Class
