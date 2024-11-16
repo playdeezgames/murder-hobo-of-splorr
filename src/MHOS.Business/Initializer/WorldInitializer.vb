@@ -27,29 +27,5 @@
     End Function
     Private Sub InitializeLocations(world As IWorld)
         world.InitializeTown()
-        Const MazeColumns = 7
-        Const MazeRows = 7
-        Dim maze = CreateMaze(MazeColumns, MazeRows)
-        Dim locations(MazeColumns, MazeRows) As ILocation
-        world.InitializeLocationGrid((MazeColumns, MazeRows), locations, LocationTypes.Room)
-        For Each column In Enumerable.Range(0, MazeColumns)
-            For Each row In Enumerable.Range(0, MazeRows)
-                Dim location = locations(column, row)
-                Dim mazeCell = maze.GetCell(column, row)
-                Dim doorCount As Integer = 0
-                For Each direction In mazeCell.Directions
-                    If mazeCell.GetDoor(direction).Open Then
-                        doorCount += 1
-                        Dim nextColumn = CInt(column + directions(direction).DeltaX)
-                        Dim nextRow = CInt(row + directions(direction).DeltaY)
-                        Dim nextLocation = locations(nextColumn, nextRow)
-                        location.CreateRoute(direction, RouteTypes.Door, nextLocation)
-                    End If
-                Next
-                If doorCount = 1 Then
-                    location.EntityType = LocationTypes.DeadEnd
-                End If
-            Next
-        Next
     End Sub
 End Module
