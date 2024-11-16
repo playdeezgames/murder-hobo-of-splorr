@@ -8,6 +8,7 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
         Me.WorldData = worldData
         Me.EntityId = entityId
     End Sub
+    Public MustOverride Sub Recycle() Implements IEntity(Of TIdentifier).Recycle
     Protected MustOverride ReadOnly Property EntityData As TEntityData
     ReadOnly Property Id As TIdentifier Implements IEntity(Of TIdentifier).Id
         Get
@@ -65,6 +66,25 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
     Public ReadOnly Property MetadataTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).MetadataTypes
         Get
             Return EntityData.Metadatas.Keys
+        End Get
+    End Property
+
+    Public Property Flag(flagType As String) As Boolean Implements IEntity(Of TIdentifier).Flag
+        Get
+            Return EntityData.Flags.Contains(flagType)
+        End Get
+        Set(value As Boolean)
+            If value Then
+                EntityData.Flags.Add(flagType)
+            Else
+                EntityData.Flags.Remove(flagType)
+            End If
+        End Set
+    End Property
+
+    Public ReadOnly Property FlagTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).FlagTypes
+        Get
+            Return EntityData.Flags
         End Get
     End Property
 End Class

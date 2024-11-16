@@ -20,6 +20,10 @@ Friend Module WorldExtensionMethods
         world.RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((TownCenterColumn, 0), TownRows - 1, Business.Directions.South, townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((TownCenterColumn, TownRows - 1), TownRows - 1, Business.Directions.North, townLocations, RouteTypes.Road)
+        townLocations(0, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.West)) = True
+        townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
+        townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
+        townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
     End Sub
     <Extension>
     Friend Sub InitializeLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), locationType As String)
@@ -63,7 +67,7 @@ Friend Module WorldExtensionMethods
             row = nextRow
         Next
     End Sub
-    Private ReadOnly directions As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
+    Private ReadOnly mazeDirections As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
         Business.Directions.Descriptors.ToDictionary(
             Function(x) x.Key,
             Function(x) x.Value.ToMazeDirection())
@@ -86,12 +90,24 @@ Friend Module WorldExtensionMethods
         world.SetAvatar(character)
     End Sub
     Private Function CreateMaze(columns As Integer, rows As Integer) As Maze(Of String)
-        Dim maze As New Maze(Of String)(columns, rows, directions)
+        Dim maze As New Maze(Of String)(columns, rows, mazeDirections)
         maze.Generate()
         Return maze
     End Function
     <Extension>
     Private Sub InitializeLocations(world As IWorld)
         world.InitializeTown()
+        world.InitializeWilderness()
+    End Sub
+    <Extension>
+    Private Sub InitializeWilderness(world As IWorld)
+        Const WildernessColumns = 15
+        Const WildernessRows = 15
+        Const WildernessCenterColumn = WildernessColumns \ 2
+        Const WildernessCenterRow = WildernessRows \ 2
+        Dim wildernessLocations(WildernessColumns, WildernessRows) As ILocation
+        world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Town)
+        world.MazeifyLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, RouteTypes.Road)
+        wildernessLocations(WildernessCenterColumn, WildernessCenterRow).Recycle()
     End Sub
 End Module

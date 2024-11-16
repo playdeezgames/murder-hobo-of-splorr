@@ -34,6 +34,10 @@ Friend Class Location
         EntityData.Characters.Remove(character.Id)
     End Sub
 
+    Public Overrides Sub Recycle()
+        WorldData.Locations(EntityId) = Nothing
+    End Sub
+
     Public Function CreateRoute(direction As String, routeType As String, destination As ILocation) As IRoute Implements ILocation.CreateRoute
 
         EntityData.Routes(direction) =

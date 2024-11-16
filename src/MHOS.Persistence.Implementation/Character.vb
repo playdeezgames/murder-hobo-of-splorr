@@ -45,4 +45,8 @@ Friend Class Character
     Public Sub ClearMessages() Implements ICharacter.ClearMessages
         EntityData.Messages.Clear()
     End Sub
+
+    Public Overrides Sub Recycle()
+        WorldData.Characters(EntityId) = Nothing
+    End Sub
 End Class

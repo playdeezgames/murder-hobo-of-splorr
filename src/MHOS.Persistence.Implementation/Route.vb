@@ -26,4 +26,8 @@ Friend Class Route
             Return WorldData.Locations(EntityId.LocationId).Routes(EntityId.Direction)
         End Get
     End Property
+
+    Public Overrides Sub Recycle()
+        WorldData.Locations(EntityId.LocationId).Routes.Remove(EntityId.Direction)
+    End Sub
 End Class
