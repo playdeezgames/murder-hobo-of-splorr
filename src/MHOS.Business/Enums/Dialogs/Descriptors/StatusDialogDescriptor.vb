@@ -18,7 +18,8 @@
                 ($"Class: { .ClassName}", Moods.Normal),
                 ($"Experience Level: { .ExperienceLevel}", Moods.Normal),
                 ($"Experience Points: { .ExperiencePoints}", Moods.Normal),
-                ($"Hit Points: { .HitPoints}/{ .MaximumHitPoints}", Moods.Normal)
+                ($"Hit Points: { .HitPoints}/{ .MaximumHitPoints}", Moods.Normal),
+                ($"Attack Bonus: { .AttackBonus}", Moods.Normal)
             }
             result.AddRange(.DescribeAttributes)
             Return result

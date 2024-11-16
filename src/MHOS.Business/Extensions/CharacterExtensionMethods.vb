@@ -112,6 +112,10 @@
     Friend Function Wisdom(character As ICharacter) As Integer
         Return character.Counter(CounterTypes.Wisdom).Value
     End Function
+    <Extension>
+    Friend Function AttackBonus(character As ICharacter) As Integer
+        Return character.ClassDescriptor.ClassLevelDescriptors(character.ExperienceLevel).AttackBonus
+    End Function
     Private ReadOnly attributeBonuses As IReadOnlyDictionary(Of Integer, Integer) =
         New Dictionary(Of Integer, Integer) From
         {
