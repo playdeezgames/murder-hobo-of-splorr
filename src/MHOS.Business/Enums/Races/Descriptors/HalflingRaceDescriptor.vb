@@ -6,6 +6,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Counter(CounterTypes.Dexterity).Value >= 9 AndAlso character.Strength <= 17
+        Return character.Dexterity >= 9 AndAlso character.Strength <= 17
     End Function
 End Class

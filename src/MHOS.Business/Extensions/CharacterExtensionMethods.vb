@@ -9,16 +9,19 @@ Friend Module CharacterExtensionMethods
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
         Return CharacterTypes.Descriptors(character.EntityType)
     End Function
+    Private ReadOnly attributes As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            CounterTypes.Strength,
+            CounterTypes.Intelligence,
+            CounterTypes.Wisdom,
+            CounterTypes.Dexterity,
+            CounterTypes.Constitution,
+            CounterTypes.Charisma
+        }
     <Extension>
     Function DescribeAttributes(character As ICharacter) As IEnumerable(Of (Text As String, Mood As String))
-        Return New List(Of (Text As String, Mood As String)) From {
-            DescribeAttribute(character, CounterTypes.Strength),
-            DescribeAttribute(character, CounterTypes.Intelligence),
-            DescribeAttribute(character, CounterTypes.Wisdom),
-            DescribeAttribute(character, CounterTypes.Dexterity),
-            DescribeAttribute(character, CounterTypes.Constitution),
-            DescribeAttribute(character, CounterTypes.Charisma)
-        }
+        Return attributes.Select(Function(x) character.DescribeAttribute(x))
     End Function
     <Extension>
     Friend Function Strength(character As ICharacter) As Integer
@@ -28,9 +31,21 @@ Friend Module CharacterExtensionMethods
     Friend Function Intelligence(character As ICharacter) As Integer
         Return character.Counter(CounterTypes.Intelligence).Value
     End Function
+    <Extension>
+    Friend Function Dexterity(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Dexterity).Value
+    End Function
+    <Extension>
+    Friend Function Constitution(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Constitution).Value
+    End Function
+    <Extension>
+    Friend Function Charisma(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Charisma).Value
+    End Function
+    <Extension>
     Private Function DescribeAttribute(character As ICharacter, counterType As String) As (Text As String, Mood As String)
-        Dim attributeDescriptor = CounterTypes.Descriptors(counterType)
-        Return ($"{attributeDescriptor.Name} {character.Counter(counterType).Value}", Moods.Normal)
+        Return ($"{CounterTypes.Descriptors(counterType).Name} {character.Counter(counterType).Value}", Moods.Normal)
     End Function
     <Extension>
     Friend Function RaceName(character As ICharacter) As String

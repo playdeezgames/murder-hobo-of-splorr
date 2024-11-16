@@ -6,6 +6,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Counter(CounterTypes.Constitution).Value >= 9 AndAlso character.Counter(CounterTypes.Charisma).Value <= 17
+        Return character.Constitution >= 9 AndAlso character.Charisma <= 17
     End Function
 End Class
