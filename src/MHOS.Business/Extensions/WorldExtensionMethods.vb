@@ -37,11 +37,13 @@ Friend Module WorldExtensionMethods
                 Dim location = locationGrid(column, row)
                 Dim mazeCell = maze.GetCell(column, row)
                 For Each direction In mazeCell.Directions
-                    Dim directionsDescriptor = Directions.Descriptors(direction)
-                    Dim nextColumn = column + directionsDescriptor.DeltaX
-                    Dim nextRow = row + directionsDescriptor.DeltaY
-                    Dim nextLocation = locationGrid(nextColumn, nextRow)
-                    location.CreateRoute(direction, routeType, nextLocation)
+                    If mazeCell.GetDoor(direction).Open Then
+                        Dim directionsDescriptor = Directions.Descriptors(direction)
+                        Dim nextColumn = column + directionsDescriptor.DeltaX
+                        Dim nextRow = row + directionsDescriptor.DeltaY
+                        Dim nextLocation = locationGrid(nextColumn, nextRow)
+                        location.CreateRoute(direction, routeType, nextLocation)
+                    End If
                 Next
             Next
         Next
