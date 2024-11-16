@@ -34,7 +34,7 @@
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
         Return character.Strength >= 9 AndAlso
-            character.Counter(CounterTypes.Intelligence).Value >= 9 AndAlso
+            character.Intelligence >= 9 AndAlso
             character.Metadata(MetadataTypes.Race) <> Races.Dwarf AndAlso
             character.Metadata(MetadataTypes.Race) <> Races.Halfling AndAlso
             character.Metadata(MetadataTypes.Race) <> Races.Man

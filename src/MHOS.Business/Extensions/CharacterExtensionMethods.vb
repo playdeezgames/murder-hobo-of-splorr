@@ -24,6 +24,10 @@ Friend Module CharacterExtensionMethods
     Friend Function Strength(character As ICharacter) As Integer
         Return character.Counter(CounterTypes.Strength).Value
     End Function
+    <Extension>
+    Friend Function Intelligence(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Intelligence).Value
+    End Function
     Private Function DescribeAttribute(character As ICharacter, counterType As String) As (Text As String, Mood As String)
         Dim attributeDescriptor = CounterTypes.Descriptors(counterType)
         Return ($"{attributeDescriptor.Name} {character.Counter(counterType).Value}", Moods.Normal)

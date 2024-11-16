@@ -33,6 +33,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Counter(CounterTypes.Dexterity).Value >= 9 AndAlso character.Counter(CounterTypes.Intelligence).Value >= 9 AndAlso character.Metadata(MetadataTypes.Race) <> Races.Dwarf AndAlso character.Metadata(MetadataTypes.Race) <> Races.Halfling AndAlso character.Metadata(MetadataTypes.Race) <> Races.Man
+        Return character.Counter(CounterTypes.Dexterity).Value >= 9 AndAlso character.Intelligence >= 9 AndAlso character.Metadata(MetadataTypes.Race) <> Races.Dwarf AndAlso character.Metadata(MetadataTypes.Race) <> Races.Halfling AndAlso character.Metadata(MetadataTypes.Race) <> Races.Man
     End Function
 End Class
