@@ -20,6 +20,10 @@ Friend Module CharacterExtensionMethods
             DescribeAttribute(character, CounterTypes.Charisma)
         }
     End Function
+    <Extension>
+    Friend Function Strength(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Strength).Value
+    End Function
     Private Function DescribeAttribute(character As ICharacter, counterType As String) As (Text As String, Mood As String)
         Dim attributeDescriptor = CounterTypes.Descriptors(counterType)
         Return ($"{attributeDescriptor.Name} {character.Counter(counterType).Value}", Moods.Normal)
@@ -82,6 +86,10 @@ Friend Module CharacterExtensionMethods
             Return 0
         End If
         Return attributeBonuses(constitution.Value)
+    End Function
+    <Extension>
+    Friend Function Wisdom(character As ICharacter) As Integer
+        Return character.Counter(CounterTypes.Wisdom).Value
     End Function
     Private ReadOnly attributeBonuses As IReadOnlyDictionary(Of Integer, Integer) =
         New Dictionary(Of Integer, Integer) From
