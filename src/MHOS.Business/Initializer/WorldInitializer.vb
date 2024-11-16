@@ -1,6 +1,4 @@
 ﻿Friend Module WorldInitializer
-    Const MazeColumns = 7
-    Const MazeRows = 7
     Private ReadOnly directions As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
         Business.Directions.Descriptors.ToDictionary(
             Function(x) x.Key,
@@ -16,23 +14,24 @@
     End Sub
 
     Private Sub InitializeCharacter(world As IWorld)
-        Dim location = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Room))
-        location.EntityType = LocationTypes.Initial
+        Dim location = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town))
         Dim character = world.InitializeCharacter(
                         CharacterTypes.Player,
                         location)
         world.SetAvatar(character)
     End Sub
-
-    Private Sub InitializeLocations(world As IWorld)
-        Dim maze As New Maze(Of String)(MazeColumns, MazeRows, directions)
+    Friend Function CreateMaze(columns As Integer, rows As Integer) As Maze(Of String)
+        Dim maze As New Maze(Of String)(columns, rows, directions)
         maze.Generate()
+        Return maze
+    End Function
+    Private Sub InitializeLocations(world As IWorld)
+        world.InitializeTown()
+        Const MazeColumns = 7
+        Const MazeRows = 7
+        Dim maze = CreateMaze(MazeColumns, MazeRows)
         Dim locations(MazeColumns, MazeRows) As ILocation
-        For Each column In Enumerable.Range(0, MazeColumns)
-            For Each row In Enumerable.Range(0, MazeRows)
-                locations(column, row) = world.CreateLocation(LocationTypes.Room)
-            Next
-        Next
+        world.InitializeLocationGrid((MazeColumns, MazeRows), locations, LocationTypes.Room)
         For Each column In Enumerable.Range(0, MazeColumns)
             For Each row In Enumerable.Range(0, MazeRows)
                 Dim location = locations(column, row)
