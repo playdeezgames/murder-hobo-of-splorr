@@ -16,7 +16,7 @@ Public Class World
 
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IWorld.Locations
         Get
-            Return Enumerable.Range(0, WorldData.Locations.Count).Select(Function(x) New Location(WorldData, x))
+            Return Enumerable.Range(0, WorldData.Locations.Count).Where(Function(x) WorldData.Locations(x) IsNot Nothing).Select(Function(x) New Location(WorldData, x))
         End Get
     End Property
 

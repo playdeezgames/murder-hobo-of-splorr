@@ -62,7 +62,9 @@ Friend Module WorldExtensionMethods
             Dim nextColumn = column + directionDescriptor.DeltaX
             Dim nextRow = row + directionDescriptor.DeltaY
             Dim nextLocation = locations(nextColumn, nextRow)
-            location.CreateRoute(directionDescriptor.Direction, routeType, nextLocation)
+            If Not location.HasRoute(directionDescriptor.Direction) Then
+                location.CreateRoute(directionDescriptor.Direction, routeType, nextLocation)
+            End If
             column = nextColumn
             row = nextRow
         Next
@@ -106,8 +108,17 @@ Friend Module WorldExtensionMethods
         Const WildernessCenterColumn = WildernessColumns \ 2
         Const WildernessCenterRow = WildernessRows \ 2
         Dim wildernessLocations(WildernessColumns, WildernessRows) As ILocation
-        world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Town)
+        world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Wilderness)
         world.MazeifyLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, RouteTypes.Road)
-        wildernessLocations(WildernessCenterColumn, WildernessCenterRow).Recycle()
+        Dim centerWildernessLocation = wildernessLocations(WildernessCenterColumn, WildernessCenterRow)
+        For Each route In centerWildernessLocation.Routes
+            Dim townLocation = world.Locations.Single(Function(x) x.Flag(FlagTypes.TownGateDirection(route.Id.Direction)))
+            townLocation.CreateRoute(route.Id.Direction, RouteTypes.Gate, route.Destination)
+            Dim oppositeDirection = Directions.Descriptors(route.Id.Direction).OppositeDirection
+            Dim oppositeRoute = route.Destination.GetRoute(oppositeDirection)
+            oppositeRoute.EntityType = RouteTypes.Gate
+            oppositeRoute.Destination = townLocation
+        Next
+        centerWildernessLocation.Recycle()
     End Sub
 End Module

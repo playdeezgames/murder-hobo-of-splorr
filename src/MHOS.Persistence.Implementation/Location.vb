@@ -40,12 +40,12 @@ Friend Class Location
 
     Public Function CreateRoute(direction As String, routeType As String, destination As ILocation) As IRoute Implements ILocation.CreateRoute
 
-        EntityData.Routes(direction) =
+        EntityData.Routes.Add(direction,
             New Data.RouteData With
             {
                 .EntityType = routeType,
                 .DestinationLocationId = destination.Id
-            }
+            })
         Return New Route(WorldData, EntityId, direction)
     End Function
 

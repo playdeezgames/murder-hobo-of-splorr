@@ -15,10 +15,13 @@ Friend Class Route
             direction))
     End Sub
 
-    Public ReadOnly Property Destination As ILocation Implements IRoute.Destination
+    Public Property Destination As ILocation Implements IRoute.Destination
         Get
             Return New Location(WorldData, EntityData.DestinationLocationId)
         End Get
+        Set(value As ILocation)
+            EntityData.DestinationLocationId = value.Id
+        End Set
     End Property
 
     Protected Overrides ReadOnly Property EntityData As RouteData
