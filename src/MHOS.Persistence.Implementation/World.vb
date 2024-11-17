@@ -35,7 +35,18 @@ Public Class World
 
     Public Function CreateLocation(locationType As String) As ILocation Implements IWorld.CreateLocation
         Dim locationId = WorldData.Locations.Count
-        WorldData.Locations.Add(New LocationData With {.EntityType = locationType})
+        For Each candidateId In Enumerable.Range(0, WorldData.Locations.Count)
+            If WorldData.Locations(candidateId) Is Nothing Then
+                locationId = candidateId
+                Exit For
+            End If
+        Next
+        Dim locationData = New LocationData With {.EntityType = locationType}
+        If locationId = WorldData.Locations.Count Then
+            WorldData.Locations.Add(locationData)
+        Else
+            WorldData.Locations(locationId) = locationData
+        End If
         Return New Location(WorldData, locationId)
     End Function
 

@@ -114,10 +114,12 @@ Friend Module WorldExtensionMethods
         For Each route In centerWildernessLocation.Routes
             Dim townLocation = world.Locations.Single(Function(x) x.Flag(FlagTypes.TownGateDirection(route.Id.Direction)))
             townLocation.CreateRoute(route.Id.Direction, RouteTypes.Gate, route.Destination)
+            route.Destination.EntityType = LocationTypes.TownGate
             Dim oppositeDirection = Directions.Descriptors(route.Id.Direction).OppositeDirection
             Dim oppositeRoute = route.Destination.GetRoute(oppositeDirection)
             oppositeRoute.EntityType = RouteTypes.Gate
             oppositeRoute.Destination = townLocation
+            'TODO: mark transitions into wilderness with a flag, or different location type
         Next
         centerWildernessLocation.Recycle()
     End Sub
