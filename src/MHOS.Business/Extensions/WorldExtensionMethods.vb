@@ -15,7 +15,7 @@ Friend Module WorldExtensionMethods
         Const TownCenterRow = TownRows \ 2
         Dim townLocations(TownColumns - 1, TownRows - 1) As ILocation
         world.InitializeLocationGrid((TownColumns, TownRows), townLocations, LocationTypes.Town)
-        world.MazeifyLocationGrid((TownColumns, TownRows), townLocations, RouteTypes.Road)
+        townLocations.Mazeify(RouteTypes.Road)
         world.RouteifyLocationGrid((0, TownCenterRow), TownColumns - 1, Business.Directions.East, townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((TownCenterColumn, 0), TownRows - 1, Business.Directions.South, townLocations, RouteTypes.Road)
@@ -60,10 +60,6 @@ Friend Module WorldExtensionMethods
                 Next
             Next
         Next
-    End Sub
-    <Extension>
-    Friend Sub MazeifyLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), routeType As String)
-        locationGrid.Mazeify(routeType)
     End Sub
     <Extension>
     Friend Sub RouteifyLocationGrid(world As IWorld, start As (Column As Integer, Row As Integer), steps As Integer, direction As String, locations As ILocation(,), routeType As String)
@@ -122,7 +118,7 @@ Friend Module WorldExtensionMethods
         Const WildernessCenterRow = WildernessRows \ 2
         Dim wildernessLocations(WildernessColumns - 1, WildernessRows - 1) As ILocation
         world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Wilderness)
-        world.MazeifyLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, RouteTypes.Road)
+        wildernessLocations.Mazeify(RouteTypes.Road)
         Dim centerWildernessLocation = wildernessLocations(WildernessCenterColumn, WildernessCenterRow)
         For Each route In centerWildernessLocation.Routes
             Dim townLocation = world.Locations.Single(Function(x) x.Flag(FlagTypes.TownGateDirection(route.Id.Direction)))
