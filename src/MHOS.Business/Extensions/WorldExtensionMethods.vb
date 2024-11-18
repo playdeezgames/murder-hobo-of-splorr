@@ -13,7 +13,7 @@ Friend Module WorldExtensionMethods
         Const TownRows = 5
         Const TownCenterColumn = TownColumns \ 2
         Const TownCenterRow = TownRows \ 2
-        Dim townLocations(TownColumns, TownRows) As ILocation
+        Dim townLocations(TownColumns - 1, TownRows - 1) As ILocation
         world.InitializeLocationGrid((TownColumns, TownRows), townLocations, LocationTypes.Town)
         world.MazeifyLocationGrid((TownColumns, TownRows), townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((0, TownCenterRow), TownColumns - 1, Business.Directions.East, townLocations, RouteTypes.Road)
@@ -42,7 +42,8 @@ Friend Module WorldExtensionMethods
         Next
     End Sub
     <Extension>
-    Friend Sub MazeifyLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), routeType As String)
+    Friend Sub Mazeify(locationGrid As ILocation(,), routeType As String)
+        Dim size As (Columns As Integer, Rows As Integer) = (locationGrid.GetLength(0), locationGrid.GetLength(1))
         Dim maze = CreateMaze(size.Columns, size.Rows)
         For Each column In Enumerable.Range(0, size.Columns)
             For Each row In Enumerable.Range(0, size.Rows)
@@ -59,6 +60,10 @@ Friend Module WorldExtensionMethods
                 Next
             Next
         Next
+    End Sub
+    <Extension>
+    Friend Sub MazeifyLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), routeType As String)
+        locationGrid.Mazeify(routeType)
     End Sub
     <Extension>
     Friend Sub RouteifyLocationGrid(world As IWorld, start As (Column As Integer, Row As Integer), steps As Integer, direction As String, locations As ILocation(,), routeType As String)
@@ -115,7 +120,7 @@ Friend Module WorldExtensionMethods
         Const WildernessRows = 15
         Const WildernessCenterColumn = WildernessColumns \ 2
         Const WildernessCenterRow = WildernessRows \ 2
-        Dim wildernessLocations(WildernessColumns, WildernessRows) As ILocation
+        Dim wildernessLocations(WildernessColumns - 1, WildernessRows - 1) As ILocation
         world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Wilderness)
         world.MazeifyLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, RouteTypes.Road)
         Dim centerWildernessLocation = wildernessLocations(WildernessCenterColumn, WildernessCenterRow)
