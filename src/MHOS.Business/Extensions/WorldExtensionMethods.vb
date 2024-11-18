@@ -24,6 +24,14 @@ Friend Module WorldExtensionMethods
         townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
         townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
         townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
+        world.InitializeInn()
+    End Sub
+    <Extension>
+    Sub InitializeInn(world As IWorld)
+        Dim entrance = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso Not x.HasRoute(Directions.In)))
+        Dim location = world.CreateLocation(LocationTypes.Inn)
+        entrance.CreateRoute(Directions.In, RouteTypes.Door, location)
+        location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
     End Sub
     <Extension>
     Friend Sub InitializeLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), locationType As String)
@@ -70,7 +78,7 @@ Friend Module WorldExtensionMethods
         Next
     End Sub
     Private ReadOnly mazeDirections As IReadOnlyDictionary(Of String, MazeDirection(Of String)) =
-        Business.Directions.Descriptors.ToDictionary(
+        Business.Directions.Descriptors.Where(Function(x) x.Value.HasMazeDirection).ToDictionary(
             Function(x) x.Key,
             Function(x) x.Value.ToMazeDirection())
     <Extension>
@@ -119,7 +127,6 @@ Friend Module WorldExtensionMethods
             Dim oppositeRoute = route.Destination.GetRoute(oppositeDirection)
             oppositeRoute.EntityType = RouteTypes.Gate
             oppositeRoute.Destination = townLocation
-            'TODO: mark transitions into wilderness with a flag, or different location type
         Next
         centerWildernessLocation.Recycle()
     End Sub

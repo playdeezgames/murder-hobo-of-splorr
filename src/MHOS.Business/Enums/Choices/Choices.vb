@@ -18,6 +18,8 @@
     Friend ReadOnly Thief As String = NameOf(Thief)
     Friend ReadOnly FighterMagicUser As String = NameOf(FighterMagicUser)
     Friend ReadOnly MagicUserThief As String = NameOf(MagicUserThief)
+    Friend ReadOnly MoveIn As String = NameOf(MoveIn)
+    Friend ReadOnly MoveOut As String = NameOf(MoveOut)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
@@ -40,6 +42,8 @@
             New MagicUserChoiceDescriptor(),
             New ThiefChoiceDescriptor(),
             New FighterMagicUserChoiceDescriptor(),
-            New MagicUserThiefChoiceDescriptor()
+            New MagicUserThiefChoiceDescriptor(),
+            New MoveInChoiceDescriptor(),
+            New MoveOutChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

@@ -15,18 +15,11 @@
                 Choices.Cancel
             }
         Dim location = world.Avatar.Location
-        If location.HasRoute(Directions.North) Then
-            result.Add(Choices.MoveNorth)
-        End If
-        If location.HasRoute(Directions.East) Then
-            result.Add(Choices.MoveEast)
-        End If
-        If location.HasRoute(Directions.South) Then
-            result.Add(Choices.MoveSouth)
-        End If
-        If location.HasRoute(Directions.West) Then
-            result.Add(Choices.MoveWest)
-        End If
+        For Each entry In Directions.Descriptors
+            If location.HasRoute(entry.Key) Then
+                result.Add(entry.Value.MoveChoice)
+            End If
+        Next
         Return result
     End Function
 

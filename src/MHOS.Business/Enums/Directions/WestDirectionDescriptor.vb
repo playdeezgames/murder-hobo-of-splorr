@@ -1,6 +1,15 @@
 ﻿Friend Class WestDirectionDescriptor
     Inherits DirectionDescriptor
     Public Sub New()
-        MyBase.New(Directions.West, "west", Directions.North, Directions.East, Directions.South, -1, 0)
+        MyBase.New(
+            Directions.West,
+            "west",
+            True,
+            Choices.MoveWest,
+            Directions.North,
+            Directions.East,
+            Directions.South,
+            -1,
+            0)
     End Sub
 End Class
