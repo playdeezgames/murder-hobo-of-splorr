@@ -6,7 +6,7 @@
     End Sub
 
     Friend Overrides Function Choose(world As IWorld, dialog As String) As String
-        world.Initialize()
-        Return Dialogs.ChooseRace
+        world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
+        Return Dialogs.Initialize
     End Function
 End Class

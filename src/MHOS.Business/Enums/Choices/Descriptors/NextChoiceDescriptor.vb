@@ -9,6 +9,12 @@
         Select Case dialog
             Case Dialogs.ChooseRace
                 Return Dialogs.Neutral
+            Case Dialogs.Initialize
+                If world.InitializationStepCount = 0 Then
+                    Return Dialogs.ChooseRace
+                Else
+                    Return Dialogs.Initialize
+                End If
             Case Else
                 Throw New NotImplementedException
         End Select

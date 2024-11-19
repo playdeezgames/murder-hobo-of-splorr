@@ -5,4 +5,7 @@ Public Interface IWorld
     Sub SetAvatar(character As ICharacter)
     ReadOnly Property Locations As IEnumerable(Of ILocation)
     ReadOnly Property Avatar As ICharacter
+    ReadOnly Property InitializationStepCount As Integer
+    Sub AddInitializationStep(initializer As Action(Of IWorld))
+    Sub DoNextStep()
 End Interface
