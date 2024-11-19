@@ -1,20 +1,18 @@
 ﻿Imports System.Data
 
 Friend Module WorldExtensionMethods
-    <Extension>
     Function InitializeCharacter(world As IWorld, characterType As String, location As ILocation) As ICharacter
         Dim character = world.CreateCharacter(characterType, location)
         character.Initialize()
         Return character
     End Function
-    <Extension>
     Sub InitializeTown(world As IWorld)
         Const TownColumns = 5
         Const TownRows = 5
         Const TownCenterColumn = TownColumns \ 2
         Const TownCenterRow = TownRows \ 2
         Dim townLocations(TownColumns - 1, TownRows - 1) As ILocation
-        world.InitializeLocationGrid((TownColumns, TownRows), townLocations, LocationTypes.Town)
+        world.InitializeLocationGrid(townLocations, LocationTypes.Town)
         townLocations.Mazeify(RouteTypes.Road)
         world.RouteifyLocationGrid((0, TownCenterRow), TownColumns - 1, Business.Directions.East, townLocations, RouteTypes.Road)
         world.RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
@@ -24,9 +22,8 @@ Friend Module WorldExtensionMethods
         townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
         townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
         townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
-        world.InitializeInn()
+        world.AddInitializationStep(AddressOf InitializeInn)
     End Sub
-    <Extension>
     Sub InitializeInn(world As IWorld)
         Dim entrance = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso Not x.HasRoute(Directions.In)))
         Dim location = world.CreateLocation(LocationTypes.Inn)
@@ -34,9 +31,9 @@ Friend Module WorldExtensionMethods
         location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
     End Sub
     <Extension>
-    Friend Sub InitializeLocationGrid(world As IWorld, size As (Columns As Integer, Rows As Integer), locationGrid As ILocation(,), locationType As String)
-        For Each townColumn In Enumerable.Range(0, size.Columns)
-            For Each townRow In Enumerable.Range(0, size.Rows)
+    Friend Sub InitializeLocationGrid(world As IWorld, locationGrid As ILocation(,), locationType As String)
+        For Each townColumn In Enumerable.Range(0, locationGrid.GetLength(0))
+            For Each townRow In Enumerable.Range(0, locationGrid.GetLength(1))
                 locationGrid(townColumn, townRow) = world.CreateLocation(locationType)
             Next
         Next
@@ -82,42 +79,39 @@ Friend Module WorldExtensionMethods
         Business.Directions.Descriptors.Where(Function(x) x.Value.HasMazeDirection).ToDictionary(
             Function(x) x.Key,
             Function(x) x.Value.ToMazeDirection())
-    <Extension>
     Friend Sub Initialize(world As IWorld)
-        world.InitializeLocations()
-        world.InitializeCharacter()
-        world.PopulateLocations()
+        world.AddInitializationStep(AddressOf InitializeLocations)
+        world.AddInitializationStep(AddressOf InitializeCharacter)
+        world.AddInitializationStep(AddressOf PopulateLocations)
     End Sub
-    <Extension>
     Private Sub PopulateLocations(world As IWorld)
         'TODO: add enemies
     End Sub
-    <Extension>
     Private Sub InitializeCharacter(world As IWorld)
-        Dim location = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town))
-        Dim character = world.InitializeCharacter(
-                        CharacterTypes.Player,
-                        location)
-        world.SetAvatar(character)
+        world.AddInitializationStep(Sub(w)
+                                        Dim location = RNG.FromEnumerable(w.Locations.Where(Function(x) x.EntityType = LocationTypes.Town))
+                                        Dim character = InitializeCharacter(w,
+                                            CharacterTypes.Player,
+                                            location)
+                                        w.SetAvatar(character)
+                                    End Sub)
     End Sub
     Private Function CreateMaze(columns As Integer, rows As Integer) As Maze(Of String)
         Dim maze As New Maze(Of String)(columns, rows, mazeDirections)
         maze.Generate()
         Return maze
     End Function
-    <Extension>
     Private Sub InitializeLocations(world As IWorld)
-        world.InitializeTown()
-        world.InitializeWilderness()
+        world.AddInitializationStep(AddressOf InitializeTown)
+        world.AddInitializationStep(AddressOf InitializeWilderness)
     End Sub
-    <Extension>
     Private Sub InitializeWilderness(world As IWorld)
         Const WildernessColumns = 15
         Const WildernessRows = 15
         Const WildernessCenterColumn = WildernessColumns \ 2
         Const WildernessCenterRow = WildernessRows \ 2
         Dim wildernessLocations(WildernessColumns - 1, WildernessRows - 1) As ILocation
-        world.InitializeLocationGrid((WildernessColumns, WildernessRows), wildernessLocations, LocationTypes.Wilderness)
+        world.InitializeLocationGrid(wildernessLocations, LocationTypes.Wilderness)
         wildernessLocations.Mazeify(RouteTypes.Road)
         Dim centerWildernessLocation = wildernessLocations(WildernessCenterColumn, WildernessCenterRow)
         For Each route In centerWildernessLocation.Routes
