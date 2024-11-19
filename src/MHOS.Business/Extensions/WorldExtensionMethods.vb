@@ -1,12 +1,12 @@
 ﻿Imports System.Data
 
 Friend Module WorldExtensionMethods
-    Function InitializeCharacter(world As IWorld, characterType As String, location As ILocation) As ICharacter
+    Private Function InitializeCharacter(world As IWorld, characterType As String, location As ILocation) As ICharacter
         Dim character = world.CreateCharacter(characterType, location)
         character.Initialize()
         Return character
     End Function
-    Sub InitializeTown(world As IWorld)
+    Private Sub InitializeTown(world As IWorld)
         Const TownColumns = 5
         Const TownRows = 5
         Const TownCenterColumn = TownColumns \ 2
@@ -14,24 +14,24 @@ Friend Module WorldExtensionMethods
         Dim townLocations(TownColumns - 1, TownRows - 1) As ILocation
         world.InitializeLocationGrid(townLocations, LocationTypes.Town)
         townLocations.Mazeify(RouteTypes.Road)
-        world.RouteifyLocationGrid((0, TownCenterRow), TownColumns - 1, Business.Directions.East, townLocations, RouteTypes.Road)
-        world.RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
-        world.RouteifyLocationGrid((TownCenterColumn, 0), TownRows - 1, Business.Directions.South, townLocations, RouteTypes.Road)
-        world.RouteifyLocationGrid((TownCenterColumn, TownRows - 1), TownRows - 1, Business.Directions.North, townLocations, RouteTypes.Road)
+        RouteifyLocationGrid((0, TownCenterRow), TownColumns - 1, Business.Directions.East, townLocations, RouteTypes.Road)
+        RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
+        RouteifyLocationGrid((TownCenterColumn, 0), TownRows - 1, Business.Directions.South, townLocations, RouteTypes.Road)
+        RouteifyLocationGrid((TownCenterColumn, TownRows - 1), TownRows - 1, Business.Directions.North, townLocations, RouteTypes.Road)
         townLocations(0, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.West)) = True
         townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
         townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
         townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
         world.AddInitializationStep(AddressOf InitializeInn)
     End Sub
-    Sub InitializeInn(world As IWorld)
+    Private Sub InitializeInn(world As IWorld)
         Dim entrance = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso Not x.HasRoute(Directions.In)))
         Dim location = world.CreateLocation(LocationTypes.Inn)
         entrance.CreateRoute(Directions.In, RouteTypes.Door, location)
         location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
     End Sub
     <Extension>
-    Friend Sub InitializeLocationGrid(world As IWorld, locationGrid As ILocation(,), locationType As String)
+    Private Sub InitializeLocationGrid(world As IWorld, locationGrid As ILocation(,), locationType As String)
         For Each townColumn In Enumerable.Range(0, locationGrid.GetLength(0))
             For Each townRow In Enumerable.Range(0, locationGrid.GetLength(1))
                 locationGrid(townColumn, townRow) = world.CreateLocation(locationType)
@@ -58,8 +58,7 @@ Friend Module WorldExtensionMethods
             Next
         Next
     End Sub
-    <Extension>
-    Friend Sub RouteifyLocationGrid(world As IWorld, start As (Column As Integer, Row As Integer), steps As Integer, direction As String, locations As ILocation(,), routeType As String)
+    Private Sub RouteifyLocationGrid(start As (Column As Integer, Row As Integer), steps As Integer, direction As String, locations As ILocation(,), routeType As String)
         Dim directionDescriptor = Business.Directions.Descriptors(direction)
         Dim column = start.Column
         Dim row = start.Row
