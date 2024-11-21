@@ -9,7 +9,7 @@
         Return Nothing
     End Function
 
-    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Dim result As New List(Of String)
         result.Add(Choices.MoveMenu)
         If world.Avatar.Location.HasFeatures Then

@@ -9,7 +9,7 @@
         Return Dialogs.Neutral
     End Function
 
-    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return {
                 Choices.Initialize
                 }

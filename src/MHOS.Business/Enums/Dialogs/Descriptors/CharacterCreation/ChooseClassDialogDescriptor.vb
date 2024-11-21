@@ -9,10 +9,6 @@
         Return Me.Dialog
     End Function
 
-    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) x.Choice)
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
             ($"Race: {world.Avatar.RaceName}", Moods.Normal)

@@ -42,12 +42,12 @@
         End Get
     End Property
 
-    Public ReadOnly Property AvailableChoices As (Text As String, Choice As String)() Implements IWorldModel.AvailableChoices
+    Public ReadOnly Property LegacyAvailableChoices As (Text As String, Choice As String)() Implements IWorldModel.LegacyAvailableChoices
         Get
             Return Dialogs.
                 Descriptors(dialog).
-                LegacyAvailableChoices(World).
-                Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray
+                AvailableChoices(World).
+                Select(Function(x) (Choices.Descriptors(x.Choice).Text, x.Choice)).ToArray
         End Get
     End Property
 End Class

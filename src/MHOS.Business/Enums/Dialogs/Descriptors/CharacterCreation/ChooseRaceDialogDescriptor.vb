@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.ChooseRace)
     End Sub
 
-    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return Races.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) x.Choice)
     End Function
 
