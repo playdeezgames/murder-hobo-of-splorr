@@ -6,7 +6,7 @@
     Sub New()
     End Sub
 
-    Public Sub LegacyMakeChoice(choice As String) Implements IWorldModel.LegacyMakeChoice
+    Private Sub LegacyMakeChoice(choice As String)
         dialog = Dialogs.
             Descriptors(dialog).
             MakeChoice(World, choice)

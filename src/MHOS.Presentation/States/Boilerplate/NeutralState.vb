@@ -19,7 +19,7 @@
                     SetState(BoilerplateState.Neutral)
                 End If
             Case Command.A, Command.Start
-                Context.Model.LegacyMakeChoice(choices(currentChoice).Choice)
+                Context.Model.MakeChoice(choices(currentChoice))
                 SetState(BoilerplateState.Neutral)
             Case Command.Right
                 currentChoice = Math.Min(currentChoice + 1, Context.Model.AvailableChoices.Length - 1)
