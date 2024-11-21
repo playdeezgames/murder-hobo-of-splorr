@@ -4,7 +4,7 @@ Imports MHOS.Data
 Public Class World
     Implements IWorld
     Protected ReadOnly WorldData As WorldData
-    Private ReadOnly initializers As New Queue(Of Action(Of IWorld))
+    Private ReadOnly initializers As New Stack(Of Action(Of IWorld))
     Sub New(worldData As WorldData)
         Me.WorldData = worldData
     End Sub
@@ -41,12 +41,12 @@ Public Class World
     End Sub
 
     Public Sub AddInitializationStep(initializer As Action(Of IWorld)) Implements IWorld.AddInitializationStep
-        initializers.Enqueue(initializer)
+        initializers.Push(initializer)
     End Sub
 
     Public Sub DoNextStep() Implements IWorld.DoNextStep
         If initializers.Any Then
-            Dim initializationStep = initializers.Dequeue
+            Dim initializationStep = initializers.Pop()
             initializationStep.Invoke(Me)
         End If
     End Sub

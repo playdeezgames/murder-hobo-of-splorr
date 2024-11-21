@@ -2,6 +2,6 @@
     Inherits BaseMoveChoiceDescriptor
 
     Public Sub New()
-        MyBase.New(Choices.MoveOut, "out", Directions.Out)
+        MyBase.New(Choices.MoveOut, "Out", Directions.Out)
     End Sub
 End Class

@@ -29,7 +29,16 @@ Friend Module WorldExtensionMethods
         Dim location = world.CreateLocation(LocationTypes.Inn)
         entrance.CreateRoute(Directions.In, RouteTypes.Door, location)
         location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
+        world.AddInitializationStep(AddressOf InitializeCellar)
     End Sub
+
+    Private Sub InitializeCellar(world As IWorld)
+        Dim entrance = world.Locations.Single(Function(x) x.EntityType = LocationTypes.Inn)
+        Dim location = world.CreateLocation(LocationTypes.InnCellar)
+        entrance.CreateRoute(Directions.Down, RouteTypes.Stairs, location)
+        location.CreateRoute(Directions.Up, RouteTypes.Stairs, entrance)
+    End Sub
+
     <Extension>
     Private Sub InitializeLocationGrid(world As IWorld, locationGrid As ILocation(,), locationType As String)
         For Each townColumn In Enumerable.Range(0, locationGrid.GetLength(0))
@@ -79,16 +88,16 @@ Friend Module WorldExtensionMethods
             Function(x) x.Key,
             Function(x) x.Value.ToMazeDirection())
     Friend Sub Initialize(world As IWorld)
-        world.AddInitializationStep(AddressOf InitializeLocations)
-        world.AddInitializationStep(AddressOf InitializeCharacter)
         world.AddInitializationStep(AddressOf PopulateLocations)
+        world.AddInitializationStep(AddressOf InitializeCharacter)
+        world.AddInitializationStep(AddressOf InitializeLocations)
     End Sub
     Private Sub PopulateLocations(world As IWorld)
         'TODO: add enemies
     End Sub
     Private Sub InitializeCharacter(world As IWorld)
         world.AddInitializationStep(Sub(w)
-                                        Dim location = RNG.FromEnumerable(w.Locations.Where(Function(x) x.EntityType = LocationTypes.Town))
+                                        Dim location = RNG.FromEnumerable(w.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso x.HasRoute(Directions.In)))
                                         Dim character = InitializeCharacter(w,
                                             CharacterTypes.Player,
                                             location)
@@ -101,8 +110,8 @@ Friend Module WorldExtensionMethods
         Return maze
     End Function
     Private Sub InitializeLocations(world As IWorld)
-        world.AddInitializationStep(AddressOf InitializeTown)
         world.AddInitializationStep(AddressOf InitializeWilderness)
+        world.AddInitializationStep(AddressOf InitializeTown)
     End Sub
     Private Sub InitializeWilderness(world As IWorld)
         Const WildernessColumns = 15
