@@ -22,6 +22,7 @@
     Friend ReadOnly MoveOut As String = NameOf(MoveOut)
     Friend ReadOnly MoveDown As String = NameOf(MoveDown)
     Friend ReadOnly MoveUp As String = NameOf(MoveUp)
+    Friend ReadOnly Interact As String = NameOf(Interact)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
@@ -48,6 +49,7 @@
             New MoveInChoiceDescriptor(),
             New MoveOutChoiceDescriptor(),
             New MoveDownChoiceDescriptor(),
-            New MoveUpChoiceDescriptor()
+            New MoveUpChoiceDescriptor(),
+            New InteractChoiceDescriptor()
         }.ToDictionary(Function(x) x.Choice, Function(x) x)
 End Module

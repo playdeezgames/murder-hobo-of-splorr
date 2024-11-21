@@ -10,10 +10,13 @@
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return {
-                Choices.MoveMenu,
-                Choices.Status
-               }
+        Dim result As New List(Of String)
+        result.Add(Choices.MoveMenu)
+        If world.Avatar.Location.HasFeatures Then
+            result.Add(Choices.Interact)
+        End If
+        result.Add(Choices.Status)
+        Return result
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))

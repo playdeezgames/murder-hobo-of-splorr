@@ -5,6 +5,8 @@
     Friend ReadOnly MoveMenu As String = NameOf(MoveMenu)
     Friend ReadOnly ChooseClass As String = NameOf(ChooseClass)
     Friend ReadOnly Initialize As String = NameOf(Initialize)
+    Friend ReadOnly InteractFeature As String = NameOf(InteractFeature)
+    Friend ReadOnly InteractMenu As String = NameOf(InteractMenu)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseDialogDescriptor) =
         New List(Of BaseDialogDescriptor) From
@@ -14,6 +16,8 @@
             New ChooseRaceDialogDescriptor(),
             New MoveMenuDialogDescriptor(),
             New ChooseClassDialogDescriptor(),
-            New InitializeDialogDescriptor()
+            New InitializeDialogDescriptor(),
+            New InteractFeatureDialogDescriptor(),
+            New InteractMenuDialogDescriptor()
         }.ToDictionary(Function(x) x.Dialog, Function(x) x)
 End Module
