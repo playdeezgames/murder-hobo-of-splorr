@@ -1,5 +1,5 @@
 ﻿Friend Class WildernessLocationTypeDescriptor
-    Inherits LocationTypeDescriptor
+    Inherits BaseLocationTypeDescriptor
 
     Public Sub New()
         MyBase.New(LocationTypes.Wilderness, "wilderness")

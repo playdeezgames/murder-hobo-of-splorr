@@ -1,5 +1,5 @@
 ﻿Friend Class TownGateLocationTypeDescriptor
-    Inherits LocationTypeDescriptor
+    Inherits BaseLocationTypeDescriptor
 
     Public Sub New()
         MyBase.New(LocationTypes.TownGate, "town gate")

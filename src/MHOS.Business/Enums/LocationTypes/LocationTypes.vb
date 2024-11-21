@@ -5,8 +5,8 @@
     Friend ReadOnly Inn As String = NameOf(Inn)
     Friend ReadOnly InnCellar As String = NameOf(InnCellar)
 
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, LocationTypeDescriptor) =
-        New List(Of LocationTypeDescriptor) From
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseLocationTypeDescriptor) =
+        New List(Of BaseLocationTypeDescriptor) From
         {
             New TownLocationTypeDescriptor(),
             New WildernessLocationTypeDescriptor(),

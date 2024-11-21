@@ -1,5 +1,5 @@
 ﻿Friend Class InnLocationTypeDescriptor
-    Inherits LocationTypeDescriptor
+    Inherits BaseLocationTypeDescriptor
 
     Public Sub New()
         MyBase.New(LocationTypes.Inn, "inn")

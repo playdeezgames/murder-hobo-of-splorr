@@ -1,4 +1,4 @@
-﻿Friend MustInherit Class LocationTypeDescriptor
+﻿Friend MustInherit Class BaseLocationTypeDescriptor
     ReadOnly Property LocationType As String
     ReadOnly Property Name As String
     Sub New(locationType As String, name As String)
