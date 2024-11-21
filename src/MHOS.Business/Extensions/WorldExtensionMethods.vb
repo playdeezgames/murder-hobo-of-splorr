@@ -7,6 +7,7 @@ Friend Module WorldExtensionMethods
         Return character
     End Function
     Private Sub InitializeTown(world As IWorld)
+        world.AddInitializationStep(AddressOf InitializeInn)
         Const TownColumns = 5
         Const TownRows = 5
         Const TownCenterColumn = TownColumns \ 2
@@ -22,14 +23,14 @@ Friend Module WorldExtensionMethods
         townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
         townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
         townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
-        world.AddInitializationStep(AddressOf InitializeInn)
     End Sub
     Private Sub InitializeInn(world As IWorld)
+        world.AddInitializationStep(AddressOf InitializeCellar)
         Dim entrance = RNG.FromEnumerable(world.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso Not x.HasRoute(Directions.In)))
         Dim location = world.CreateLocation(LocationTypes.Inn)
         entrance.CreateRoute(Directions.In, RouteTypes.Door, location)
         location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
-        world.AddInitializationStep(AddressOf InitializeCellar)
+        entrance.CreateFeature(FeatureTypes.Sign)
     End Sub
 
     Private Sub InitializeCellar(world As IWorld)

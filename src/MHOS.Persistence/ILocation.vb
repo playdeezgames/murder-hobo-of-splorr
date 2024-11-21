@@ -7,4 +7,7 @@
     Function HasRoute(direction As String) As Boolean
     Function GetRoute(direction As String) As IRoute
     ReadOnly Property Routes As IEnumerable(Of IRoute)
+    Function CreateFeature(featureType As String) As IFeature
+    Function HasFeatures() As Boolean
+    ReadOnly Property Features As IEnumerable(Of IFeature)
 End Interface

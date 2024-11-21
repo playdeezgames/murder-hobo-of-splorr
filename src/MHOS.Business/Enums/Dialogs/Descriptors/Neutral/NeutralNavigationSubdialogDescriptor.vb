@@ -27,6 +27,12 @@
         For Each route In location.Routes
             result.Add(($"{route.RouteTypeName} going {route.DirectionName}.", Moods.Normal))
         Next
+        If location.HasFeatures Then
+            result.Add(($"You see:", Moods.Normal))
+            For Each feature In location.Features
+                result.Add(($"{feature.Descriptor.FeatureType}", Moods.Normal))
+            Next
+        End If
         Return result
     End Function
 End Class

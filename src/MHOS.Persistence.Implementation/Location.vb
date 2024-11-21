@@ -20,6 +20,15 @@ Friend Class Location
         End Get
     End Property
 
+    Public ReadOnly Property Features As IEnumerable(Of IFeature) Implements ILocation.Features
+        Get
+            Return Enumerable.
+                Range(0, EntityData.Features.Count).
+                Where(Function(x) EntityData.Features(x) IsNot Nothing).
+                Select(Function(x) New Feature(WorldData, EntityId, x))
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As LocationData
         Get
             Return WorldData.Locations(EntityId)
@@ -58,5 +67,22 @@ Friend Class Location
             Return Nothing
         End If
         Return New Route(WorldData, EntityId, direction)
+    End Function
+
+    Public Function CreateFeature(featureType As String) As IFeature Implements ILocation.CreateFeature
+        Dim featureId = EntityData.Features.FindIndex(0, EntityData.Features.Count, Function(x) x Is Nothing)
+        If featureId = -1 Then
+            featureId = EntityData.Features.Count
+            EntityData.Features.Add(Nothing)
+        End If
+        EntityData.Features(featureId) = New FeatureData With
+            {
+                .EntityType = featureType
+            }
+        Return New Feature(WorldData, EntityId, featureId)
+    End Function
+
+    Public Function HasFeatures() As Boolean Implements ILocation.HasFeatures
+        Return EntityData.Features.Any(Function(x) x IsNot Nothing)
     End Function
 End Class
