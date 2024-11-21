@@ -20,4 +20,8 @@
         result.AddRange(world.Avatar.DescribeAttributes)
         Return result
     End Function
+
+    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
+        Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) New Choice(x.Choice))
+    End Function
 End Class

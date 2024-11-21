@@ -16,4 +16,8 @@
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Throw New NotImplementedException()
     End Function
+
+    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
+        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x))
+    End Function
 End Class

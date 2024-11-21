@@ -33,4 +33,8 @@
     Public Overrides Function GoBackDialog(world As IWorld) As String
         Return GetSubdialog(world).GoBackDialog(world)
     End Function
+
+    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
+        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x))
+    End Function
 End Class

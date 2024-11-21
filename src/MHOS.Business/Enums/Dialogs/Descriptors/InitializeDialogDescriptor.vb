@@ -21,4 +21,10 @@
                 ($"Steps Remaining: {world.InitializationStepCount}", Moods.Normal)
             }
     End Function
+
+    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
+        Return {
+            New Choice(Choices.Next)
+            }
+    End Function
 End Class

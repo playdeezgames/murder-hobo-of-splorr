@@ -29,4 +29,8 @@
     Public Overrides Function GoBackDialog(world As IWorld) As String
         Return Dialogs.Neutral
     End Function
+
+    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
+        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x))
+    End Function
 End Class
