@@ -50,4 +50,13 @@
                 Select(Function(x) (Choices.Descriptors(x.Choice).Text, x.Choice)).ToArray
         End Get
     End Property
+
+    Public ReadOnly Property AvailableChoices As IChoice() Implements IWorldModel.AvailableChoices
+        Get
+            Return Dialogs.
+                Descriptors(dialog).
+                AvailableChoices(World).
+                ToArray
+        End Get
+    End Property
 End Class

@@ -4,5 +4,6 @@
     ReadOnly Property CanEnterGameMenu As Boolean
     Sub GoBack()
     ReadOnly Property LegacyAvailableChoices As (Text As String, Choice As String)()
+    ReadOnly Property AvailableChoices As IChoice()
     Sub MakeChoice(choice As String)
 End Interface
