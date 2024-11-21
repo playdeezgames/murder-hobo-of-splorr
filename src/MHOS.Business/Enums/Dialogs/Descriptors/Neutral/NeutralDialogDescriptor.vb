@@ -22,8 +22,8 @@
         Return subdialogTable(Subdialogs.Navigation)
     End Function
 
-    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return GetSubdialog(world).AvailableChoices(world)
+    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
+        Return GetSubdialog(world).LegacyAvailableChoices(world)
     End Function
 
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))

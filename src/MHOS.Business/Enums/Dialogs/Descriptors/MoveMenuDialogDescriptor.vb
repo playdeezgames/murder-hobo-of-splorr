@@ -9,7 +9,7 @@
         Return Dialogs.Neutral
     End Function
 
-    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Dim result As New List(Of String) From
             {
                 Choices.Cancel

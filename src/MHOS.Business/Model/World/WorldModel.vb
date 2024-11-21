@@ -46,7 +46,7 @@
         Get
             Return Dialogs.
                 Descriptors(dialog).
-                AvailableChoices(World).
+                LegacyAvailableChoices(World).
                 Select(Function(x) (Choices.Descriptors(x).Text, x)).ToArray
         End Get
     End Property

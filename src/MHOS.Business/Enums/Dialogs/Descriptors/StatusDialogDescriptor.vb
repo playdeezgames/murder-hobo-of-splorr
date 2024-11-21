@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.Status)
     End Sub
 
-    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return {
             Choices.Cancel
             }

@@ -9,7 +9,7 @@
         Return Dialogs.InteractMenu
     End Function
 
-    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Throw New NotImplementedException()
     End Function
 

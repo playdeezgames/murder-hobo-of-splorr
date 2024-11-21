@@ -9,7 +9,7 @@
         Return Me.Dialog
     End Function
 
-    Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of String)
+    Public Overrides Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
         Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) x.Choice)
     End Function
 
