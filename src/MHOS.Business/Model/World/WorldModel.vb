@@ -6,7 +6,7 @@
     Sub New()
     End Sub
 
-    Public Sub MakeChoice(choice As String) Implements IWorldModel.MakeChoice
+    Public Sub LegacyMakeChoice(choice As String) Implements IWorldModel.LegacyMakeChoice
         dialog = Dialogs.
             Descriptors(dialog).
             MakeChoice(World, choice)
@@ -14,6 +14,10 @@
 
     Public Sub GoBack() Implements IWorldModel.GoBack
         dialog = Dialogs.Descriptors(dialog).GoBackDialog(World)
+    End Sub
+
+    Public Sub MakeChoice(choice As IChoice) Implements IWorldModel.MakeChoice
+        LegacyMakeChoice(choice.Choice)
     End Sub
 
     Private Property World As IWorld
