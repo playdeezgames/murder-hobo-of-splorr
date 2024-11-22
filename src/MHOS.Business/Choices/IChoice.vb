@@ -1,4 +1,4 @@
 ﻿Public Interface IChoice
     ReadOnly Property Text As String
-    Function Choose() As String
+    Function LegacyChoose() As String
 End Interface
