@@ -16,12 +16,6 @@
 
     Private ReadOnly Property Choice As String Implements IChoice.Choice
 
-    Public Function LegacyChoose(dialog As String, world As IWorld) As String Implements IChoice.LegacyChoose
-        Return Dialogs.
-            Descriptors(dialog).
-            LegacyMakeChoice(world, Choice)
-    End Function
-
     Public Function Choose() As String Implements IChoice.Choose
         Return Dialogs.
             Descriptors(dialog).
