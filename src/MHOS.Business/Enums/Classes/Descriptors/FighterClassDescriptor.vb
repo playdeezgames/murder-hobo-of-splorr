@@ -5,7 +5,6 @@
         MyBase.New(
             Classes.Fighter,
             "Fighter",
-            Choices.Fighter,
             8,
             New List(Of ClassLevelDescriptor) From
             {

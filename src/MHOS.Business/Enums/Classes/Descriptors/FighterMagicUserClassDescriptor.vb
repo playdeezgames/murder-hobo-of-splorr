@@ -5,7 +5,6 @@
         MyBase.New(
             Classes.FighterMagicUser,
             "Fighter/Magic-User",
-            Choices.FighterMagicUser,
             6,
             New List(Of ClassLevelDescriptor) From
             {

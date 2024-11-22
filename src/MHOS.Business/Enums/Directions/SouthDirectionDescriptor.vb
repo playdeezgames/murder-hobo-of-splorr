@@ -6,7 +6,6 @@
             Directions.South,
             "south",
             True,
-            Choices.MoveSouth,
             Directions.West,
             Directions.North,
             Directions.East,

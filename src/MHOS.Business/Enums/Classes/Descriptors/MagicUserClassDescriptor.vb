@@ -5,7 +5,6 @@
         MyBase.New(
             Classes.MagicUser,
             "Magic-User",
-            Choices.MagicUser,
             4,
             New List(Of ClassLevelDescriptor) From
             {

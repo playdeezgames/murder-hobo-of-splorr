@@ -5,7 +5,6 @@
         MyBase.New(
             Classes.Cleric,
             "Cleric",
-            Choices.Cleric,
             6,
             New List(Of ClassLevelDescriptor) From
             {

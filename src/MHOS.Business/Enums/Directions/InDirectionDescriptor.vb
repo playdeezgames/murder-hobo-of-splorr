@@ -6,7 +6,6 @@
             Directions.In,
             "in",
             False,
-            Choices.MoveIn,
             Nothing,
             Directions.Out,
             Nothing,

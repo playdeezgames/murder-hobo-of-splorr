@@ -5,7 +5,6 @@
         MyBase.New(
             Classes.Thief,
             "Thief",
-            Choices.Thief,
             4,
             New List(Of ClassLevelDescriptor) From
             {

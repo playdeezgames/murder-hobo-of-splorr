@@ -6,7 +6,6 @@
             Directions.Up,
             "up",
             False,
-            Choices.MoveUp,
             Nothing,
             Directions.Up,
             Nothing,

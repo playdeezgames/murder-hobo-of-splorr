@@ -9,12 +9,6 @@
         Return Dialogs.Initialize
     End Function
 
-    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return {
-                Choices.Next
-                }
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         world.DoNextStep()
         Return {

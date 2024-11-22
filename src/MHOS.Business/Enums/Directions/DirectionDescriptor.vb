@@ -7,12 +7,10 @@
     ReadOnly Property DeltaY As Integer
     ReadOnly Property Name As String
     ReadOnly Property HasMazeDirection As Boolean
-    ReadOnly Property MoveChoice As String
     Sub New(
            direction As String,
            name As String,
            hasMazeDirection As Boolean,
-           moveChoice As String,
            rightDirection As String,
            oppositeDirection As String,
            leftDirection As String,
@@ -26,7 +24,6 @@
         Me.DeltaY = deltaY
         Me.Name = name
         Me.HasMazeDirection = hasMazeDirection
-        Me.MoveChoice = moveChoice
     End Sub
     Friend Function ToMazeDirection() As MazeDirection(Of String)
         Return New MazeDirection(Of String)(

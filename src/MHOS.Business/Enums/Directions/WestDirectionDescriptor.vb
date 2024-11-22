@@ -5,7 +5,6 @@
             Directions.West,
             "west",
             True,
-            Choices.MoveWest,
             Directions.North,
             Directions.East,
             Directions.South,
