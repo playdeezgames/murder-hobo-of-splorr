@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.InteractMenu)
     End Sub
 
-    Public Overrides Function GoBackDialog(world As IWorld) As String
+    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
         Return Dialogs.Neutral
     End Function
 

@@ -9,11 +9,11 @@
     Private Sub LegacyMakeChoice(choice As String)
         dialog = Dialogs.
             Descriptors(dialog).
-            MakeChoice(World, choice)
+            LegacyMakeChoice(World, choice)
     End Sub
 
     Public Sub GoBack() Implements IWorldModel.GoBack
-        dialog = Dialogs.Descriptors(dialog).GoBackDialog(World)
+        dialog = Dialogs.Descriptors(dialog).LegacyGoBackDialog(World)
     End Sub
 
     Public Sub MakeChoice(choice As IChoice) Implements IWorldModel.MakeChoice
@@ -42,7 +42,7 @@
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return String.IsNullOrEmpty(Dialogs.Descriptors(dialog).GoBackDialog(World))
+            Return String.IsNullOrEmpty(Dialogs.Descriptors(dialog).LegacyGoBackDialog(World))
         End Get
     End Property
 

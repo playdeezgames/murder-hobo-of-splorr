@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.ChooseClass)
     End Sub
 
-    Public Overrides Function GoBackDialog(world As IWorld) As String
+    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
         Return Me.Dialog
     End Function
 
@@ -18,6 +18,6 @@
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
-        Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) New Choice(x.Choice))
+        Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) New Choice(x.Choice, Dialog, world))
     End Function
 End Class

@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.MoveMenu)
     End Sub
 
-    Public Overrides Function GoBackDialog(world As IWorld) As String
+    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
         Return Dialogs.Neutral
     End Function
 
@@ -28,6 +28,6 @@
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
-        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x))
+        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x, Dialog, world))
     End Function
 End Class
