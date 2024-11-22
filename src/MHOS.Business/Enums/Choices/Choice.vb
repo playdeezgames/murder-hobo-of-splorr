@@ -14,11 +14,9 @@
         End Get
     End Property
 
-    Private ReadOnly Property Choice As String Implements IChoice.Choice
+    Private ReadOnly Property Choice As String
 
     Public Function Choose() As String Implements IChoice.Choose
-        Return Dialogs.
-            Descriptors(dialog).
-            LegacyMakeChoice(world, Choice)
+        Return Choices.Descriptors(Choice).Choose(world, dialog)
     End Function
 End Class
