@@ -5,7 +5,7 @@
         MyBase.New(Dialogs.ChooseClass)
     End Sub
 
-    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
+    Private Function LegacyGoBackDialog(world As IWorld) As String
         Return Me.Dialog
     End Function
 

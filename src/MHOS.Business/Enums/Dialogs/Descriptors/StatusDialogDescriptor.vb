@@ -20,7 +20,7 @@
         End With
     End Function
 
-    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
+    Private Function LegacyGoBackDialog(world As IWorld) As String
         Return Dialogs.Neutral
     End Function
 

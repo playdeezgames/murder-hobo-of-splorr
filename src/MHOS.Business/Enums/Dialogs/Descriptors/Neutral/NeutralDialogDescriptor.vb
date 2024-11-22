@@ -26,15 +26,11 @@
         Return GetSubdialog(world).Description(world)
     End Function
 
-    Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
-        Return GetSubdialog(world).LegacyGoBackDialog(world)
-    End Function
-
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return GetSubdialog(world).AvailableChoices(world)
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(LegacyGoBackDialog(world))
+        Return GetSubdialog(world).GoBackDialog(world)
     End Function
 End Class
