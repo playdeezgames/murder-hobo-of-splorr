@@ -5,12 +5,6 @@
         MyBase.New(Dialogs.Status)
     End Sub
 
-    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Return {
-            Choices.Cancel
-            }
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         With world.Avatar
             Dim result As New List(Of (Text As String, Mood As String)) From {
@@ -31,6 +25,8 @@
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
-        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x, Dialog, world))
+        Return {
+            New CancelChoice(Dialogs.Neutral, Dialog, world)
+            }
     End Function
 End Class

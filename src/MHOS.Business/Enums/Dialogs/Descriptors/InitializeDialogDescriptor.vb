@@ -24,7 +24,7 @@
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return {
-            New Choice(Choices.Next, Dialog, world)
+            New NextChoice(If(world.InitializationStepCount = 0, Dialogs.ChooseRace, Dialogs.Initialize), Dialog, world)
             }
     End Function
 End Class

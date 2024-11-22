@@ -3,7 +3,6 @@
 
     Const ChoiceColumns = 3
     Private currentChoice As Integer = 0
-    Private choices As IChoice()
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
         MyBase.New(parent, setState, context)
@@ -19,7 +18,8 @@
                     SetState(BoilerplateState.Neutral)
                 End If
             Case Command.A, Command.Start
-                Context.Model.MakeChoice(choices(currentChoice))
+                Dim Choices = Context.Model.AvailableChoices
+                Context.Model.MakeChoice(Choices(currentChoice))
                 SetState(BoilerplateState.Neutral)
             Case Command.Right
                 currentChoice = Math.Min(currentChoice + 1, Context.Model.AvailableChoices.Length - 1)
@@ -39,6 +39,10 @@
         }
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
+        Dim Choices = Context.Model.AvailableChoices
+        If currentChoice >= Choices.Length Then
+            currentChoice = 0
+        End If
         displayBuffer.Fill(BoilerplateHue.Black)
 
         Dim font = Context.Font(UIFontName)
@@ -70,10 +74,6 @@
     End Sub
 
     Public Overrides Sub OnStart()
-        choices = Context.Model.AvailableChoices
-        If currentChoice >= choices.Length Then
-            currentChoice = 0
-        End If
         PlayMux("MainTheme")
         MyBase.OnStart()
     End Sub

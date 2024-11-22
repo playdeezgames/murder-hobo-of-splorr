@@ -9,25 +9,21 @@
         Return Dialogs.Neutral
     End Function
 
-    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Dim result As New List(Of String) From
-            {
-                Choices.Cancel
-            }
-        Dim location = world.Avatar.Location
-        For Each entry In Directions.Descriptors
-            If location.HasRoute(entry.Key) Then
-                result.Add(entry.Value.MoveChoice)
-            End If
-        Next
-        Return result
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Return {("Move which direction?", Moods.Normal)}
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
-        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x, Dialog, world))
+        Dim result As New List(Of IChoice) From
+            {
+                New CancelChoice(Dialogs.Neutral, Dialog, world)
+            }
+        Dim location = world.Avatar.Location
+        For Each entry In Directions.Descriptors
+            If location.HasRoute(entry.Key) Then
+                result.Add(New DirectionChoice(entry.Key, Dialog, world))
+            End If
+        Next
+        Return result
     End Function
 End Class

@@ -40,6 +40,12 @@
     End Function
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
-        Return LegacyAvailableChoices(world).Select(Function(x) New Choice(x, Dialog, world))
+        Dim result As New List(Of IChoice)
+        result.Add(New MoveMenuChoice(Dialog, world))
+        If world.Avatar.Location.HasFeatures Then
+            result.Add(New InteractChoice(Dialog, world))
+        End If
+        result.Add(New StatusChoice(Dialog, world))
+        Return result
     End Function
 End Class
