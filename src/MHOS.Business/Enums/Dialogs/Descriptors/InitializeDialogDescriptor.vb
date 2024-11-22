@@ -21,4 +21,8 @@
             New NextChoice(If(world.InitializationStepCount = 0, Dialogs.ChooseRace, Dialogs.Initialize), Dialog, world)
             }
     End Function
+
+    Public Overrides Function GoBackDialog(world As IWorld) As IDialog
+        Return New Dialog(LegacyGoBackDialog(world))
+    End Function
 End Class

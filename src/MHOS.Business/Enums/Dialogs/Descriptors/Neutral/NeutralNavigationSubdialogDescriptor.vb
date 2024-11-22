@@ -37,4 +37,8 @@
         result.Add(New StatusChoice(Dialog, world))
         Return result
     End Function
+
+    Public Overrides Function GoBackDialog(world As IWorld) As IDialog
+        Return New Dialog(LegacyGoBackDialog(world))
+    End Function
 End Class

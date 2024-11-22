@@ -4,6 +4,7 @@
         Me.Dialog = dialog
     End Sub
     MustOverride Function LegacyGoBackDialog(world As IWorld) As String
+    MustOverride Function GoBackDialog(world As IWorld) As IDialog
     MustOverride Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
     MustOverride Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
 End Class

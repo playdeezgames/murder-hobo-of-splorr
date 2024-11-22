@@ -15,4 +15,8 @@
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Throw New NotImplementedException()
     End Function
+
+    Public Overrides Function GoBackDialog(world As IWorld) As IDialog
+        Return New Dialog(LegacyGoBackDialog(world))
+    End Function
 End Class

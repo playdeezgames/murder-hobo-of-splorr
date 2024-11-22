@@ -19,4 +19,8 @@
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return Races.Descriptors.Values.Where(Function(x) x.IsQualified(world.Avatar)).Select(Function(x) New RaceChoice(x.Race, Dialog, world))
     End Function
+
+    Public Overrides Function GoBackDialog(world As IWorld) As IDialog
+        Return New Dialog(LegacyGoBackDialog(world))
+    End Function
 End Class
