@@ -8,17 +8,6 @@
     Public Overrides Function LegacyGoBackDialog(world As IWorld) As String
         Return Nothing
     End Function
-
-    Private Function LegacyAvailableChoices(world As IWorld) As IEnumerable(Of String)
-        Dim result As New List(Of String)
-        result.Add(Choices.MoveMenu)
-        If world.Avatar.Location.HasFeatures Then
-            result.Add(Choices.Interact)
-        End If
-        result.Add(Choices.Status)
-        Return result
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String))
         Dim avatar = world.Avatar
