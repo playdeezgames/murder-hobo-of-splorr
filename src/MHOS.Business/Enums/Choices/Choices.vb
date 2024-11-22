@@ -1,5 +1,4 @@
 ﻿Friend Module Choices
-    Friend ReadOnly Cancel As String = NameOf(Cancel)
     Friend ReadOnly Initialize As String = NameOf(Initialize)
     Friend ReadOnly [Next] As String = NameOf([Next])
     Friend ReadOnly MoveMenu As String = NameOf(MoveMenu)
@@ -26,7 +25,6 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, BaseChoiceDescriptor) =
         New List(Of BaseChoiceDescriptor) From
         {
-            New CancelChoiceDescriptor(),
             New InitializeChoiceDescriptor(),
             New NextChoiceDescriptor(),
             New MoveMenuChoiceDescriptor(),
