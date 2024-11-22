@@ -2,7 +2,7 @@
     Implements IChoice
     Protected ReadOnly dialog As String
     Protected ReadOnly world As IWorld
-    Sub New(choice As String, dialog As String, world As IWorld)
+    Sub New(dialog As String, world As IWorld)
         Me.dialog = dialog
         Me.world = world
     End Sub

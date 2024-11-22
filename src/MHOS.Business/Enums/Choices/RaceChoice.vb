@@ -3,7 +3,7 @@
     Private ReadOnly race As String
 
     Public Sub New(race As String, dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
         Me.race = race
     End Sub
 

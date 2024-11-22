@@ -3,7 +3,7 @@
     Private ReadOnly nextDialog As String
 
     Public Sub New(nextDialog As String, dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
         Me.nextDialog = nextDialog
     End Sub
 

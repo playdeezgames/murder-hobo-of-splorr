@@ -3,7 +3,7 @@
     Private ReadOnly cancelDialog As String
 
     Public Sub New(cancelDialog As String, dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
         Me.cancelDialog = cancelDialog
     End Sub
 

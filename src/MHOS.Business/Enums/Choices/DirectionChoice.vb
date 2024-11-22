@@ -3,7 +3,7 @@
     Private ReadOnly direction As String
 
     Public Sub New(direction As String, dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
         Me.direction = direction
     End Sub
 

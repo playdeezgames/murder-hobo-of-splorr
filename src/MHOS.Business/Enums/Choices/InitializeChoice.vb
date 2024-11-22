@@ -2,7 +2,7 @@
     Inherits Choice
 
     Public Sub New(dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
     End Sub
 
     Public Overrides ReadOnly Property Text As String

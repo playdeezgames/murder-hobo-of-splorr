@@ -2,7 +2,7 @@
     Inherits Choice
     Private ReadOnly [class] As String
     Public Sub New([class] As String, dialog As String, world As IWorld)
-        MyBase.New(String.Empty, dialog, world)
+        MyBase.New(dialog, world)
         Me.class = [class]
     End Sub
 
