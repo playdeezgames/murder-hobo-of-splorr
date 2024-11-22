@@ -12,7 +12,7 @@
         End Get
     End Property
 
-    Public Overrides Function LegacyChoose() As String
+    Private Function LegacyChoose() As String
         With world.Avatar
             .Metadata(MetadataTypes.Class) = [class]
             .Counter(CounterTypes.ExperiencePoints) = 0

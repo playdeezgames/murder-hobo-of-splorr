@@ -11,7 +11,7 @@
         End Get
     End Property
 
-    Public Overrides Function LegacyChoose() As String
+    Private Function LegacyChoose() As String
         world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
         Return Dialogs.Initialize
     End Function

@@ -11,7 +11,7 @@
         End Get
     End Property
 
-    Public Overrides Function LegacyChoose() As String
+    Private Function LegacyChoose() As String
         Select Case world.Avatar.Location.Features.Count
             Case 0
                 Return Dialogs.Neutral

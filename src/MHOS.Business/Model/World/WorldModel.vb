@@ -11,7 +11,7 @@
     End Sub
 
     Public Sub MakeChoice(choice As IChoice) Implements IWorldModel.MakeChoice
-        dialog = choice.LegacyChoose()
+        dialog = choice.Choose().Dialog
     End Sub
 
     Private Property World As IWorld

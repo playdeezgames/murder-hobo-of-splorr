@@ -9,6 +9,5 @@
 
     Public MustOverride ReadOnly Property Text As String Implements IChoice.Text
 
-    Public MustOverride Function LegacyChoose() As String Implements IChoice.LegacyChoose
     Public MustOverride Function Choose() As IDialog Implements IChoice.Choose
 End Class

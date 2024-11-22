@@ -13,7 +13,7 @@
         End Get
     End Property
 
-    Public Overrides Function LegacyChoose() As String
+    Private Function LegacyChoose() As String
         Return nextDialog
     End Function
 
