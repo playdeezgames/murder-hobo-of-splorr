@@ -25,4 +25,8 @@
         End If
         Return Dialogs.Neutral
     End Function
+
+    Public Overrides Function Choose() As IDialog
+        Return New Dialog(LegacyChoose())
+    End Function
 End Class

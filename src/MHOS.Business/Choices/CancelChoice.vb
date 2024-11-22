@@ -17,4 +17,8 @@
         world.Avatar.ClearMessages()
         Return cancelDialog
     End Function
+
+    Public Overrides Function Choose() As IDialog
+        Return New Dialog(LegacyChoose())
+    End Function
 End Class

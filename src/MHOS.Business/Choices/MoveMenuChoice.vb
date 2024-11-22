@@ -14,4 +14,8 @@
     Public Overrides Function LegacyChoose() As String
         Return Dialogs.MoveMenu
     End Function
+
+    Public Overrides Function Choose() As IDialog
+        Return New Dialog(LegacyChoose())
+    End Function
 End Class

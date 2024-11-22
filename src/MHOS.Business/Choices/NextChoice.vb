@@ -16,4 +16,8 @@
     Public Overrides Function LegacyChoose() As String
         Return nextDialog
     End Function
+
+    Public Overrides Function Choose() As IDialog
+        Return New Dialog(LegacyChoose())
+    End Function
 End Class

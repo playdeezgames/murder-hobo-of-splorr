@@ -15,4 +15,8 @@
         world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
         Return Dialogs.Initialize
     End Function
+
+    Public Overrides Function Choose() As IDialog
+        Return New Dialog(LegacyChoose())
+    End Function
 End Class
