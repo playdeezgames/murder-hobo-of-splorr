@@ -35,13 +35,13 @@
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return dialog.CanEnterGameMenu
+            Return dialog.GoBack() Is Nothing
         End Get
     End Property
 
     Public ReadOnly Property AvailableChoices As IChoice() Implements IWorldModel.AvailableChoices
         Get
-            Return dialog.LegacyAvailableChoices
+            Return dialog.AvailableChoices
         End Get
     End Property
 End Class

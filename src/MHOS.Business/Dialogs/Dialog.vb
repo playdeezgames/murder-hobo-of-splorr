@@ -7,21 +7,7 @@
 
     Public Property World As IWorld Implements IDialog.World
 
-    Public ReadOnly Property LegacyAvailableChoices As IChoice() Implements IDialog.LegacyAvailableChoices
-        Get
-            Return Dialogs.
-                Descriptors(Dialog).
-                AvailableChoices(World).
-                ToArray
-        End Get
-    End Property
-
     Public MustOverride ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IDialog.Description
-    Public ReadOnly Property CanEnterGameMenu As Boolean Implements IDialog.CanEnterGameMenu
-        Get
-            Return GoBack() Is Nothing
-        End Get
-    End Property
     Public MustOverride ReadOnly Property AvailableChoices As IChoice() Implements IDialog.AvailableChoices
     Private ReadOnly Property Dialog As String Implements IDialog.Dialog
 
