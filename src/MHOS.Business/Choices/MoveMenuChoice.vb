@@ -11,11 +11,7 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        Return Dialogs.MoveMenu
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        Return New Dialog(Dialogs.MoveMenu, world)
     End Function
 End Class

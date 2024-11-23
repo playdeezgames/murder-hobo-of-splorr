@@ -11,11 +11,7 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        Return Dialogs.Status
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        Return New Dialog(Dialogs.Status, world)
     End Function
 End Class

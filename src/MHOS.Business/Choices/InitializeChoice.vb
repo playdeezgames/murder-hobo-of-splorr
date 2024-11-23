@@ -11,12 +11,8 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
-        Return Dialogs.Initialize
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
+        Return New Dialog(Dialogs.Initialize, world)
     End Function
 End Class

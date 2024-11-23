@@ -11,19 +11,15 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
+    Public Overrides Function Choose() As IDialog
         Select Case world.Avatar.Location.Features.Count
             Case 0
-                Return Dialogs.Neutral
+                Return New Dialog(Dialogs.Neutral, world)
             Case 1
                 'TODO: if there is only one feature, interact with the one feature
-                Return Dialogs.InteractFeature
+                Return New Dialog(Dialogs.InteractFeature, world)
             Case Else
-                Return Dialogs.InteractMenu
+                Return New Dialog(Dialogs.InteractMenu, world)
         End Select
-    End Function
-
-    Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
     End Function
 End Class

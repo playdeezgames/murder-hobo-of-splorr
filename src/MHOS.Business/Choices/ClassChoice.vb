@@ -12,17 +12,13 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
+    Public Overrides Function Choose() As IDialog
         With world.Avatar
             .Metadata(MetadataTypes.Class) = [class]
             .Counter(CounterTypes.ExperiencePoints) = 0
             .RollHitDice()
             .Counter(CounterTypes.HitPoints) = .MaximumHitPoints
         End With
-        Return Dialogs.Neutral
-    End Function
-
-    Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        Return New Dialog(Dialogs.Neutral, world)
     End Function
 End Class

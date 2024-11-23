@@ -13,7 +13,7 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
+    Public Overrides Function Choose() As IDialog
         Dim avatar = world.Avatar
         Dim location = avatar.Location
         avatar.ClearMessages()
@@ -23,10 +23,6 @@
         Else
             avatar.AddMessage("You cannot go that way!", Moods.Normal)
         End If
-        Return Dialogs.Neutral
-    End Function
-
-    Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        Return New Dialog(Dialogs.Neutral, world)
     End Function
 End Class

@@ -13,12 +13,8 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        world.Avatar.Metadata(MetadataTypes.Race) = race
-        Return Dialogs.ChooseClass
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        world.Avatar.Metadata(MetadataTypes.Race) = race
+        Return New Dialog(Dialogs.ChooseClass, world)
     End Function
 End Class

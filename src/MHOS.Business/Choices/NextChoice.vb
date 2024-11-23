@@ -1,8 +1,8 @@
 ﻿Friend Class NextChoice
     Inherits Choice
-    Private ReadOnly nextDialog As String
+    Private ReadOnly nextDialog As IDialog
 
-    Public Sub New(nextDialog As String, dialog As String, world As IWorld)
+    Public Sub New(nextDialog As IDialog, dialog As String, world As IWorld)
         MyBase.New(dialog, world)
         Me.nextDialog = nextDialog
     End Sub
@@ -13,11 +13,7 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        Return nextDialog
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        Return nextDialog
     End Function
 End Class
