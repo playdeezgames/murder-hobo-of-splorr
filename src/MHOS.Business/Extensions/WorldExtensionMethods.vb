@@ -48,7 +48,9 @@ Friend Module WorldExtensionMethods
     Private Sub InitializeCellar(world As IWorld)
         Dim entrance = world.Locations.Single(Function(x) x.EntityType = LocationTypes.Inn)
         Dim location = world.CreateLocation(LocationTypes.InnCellar)
-        entrance.CreateRoute(Directions.Down, RouteTypes.Stairs, location)
+        Dim downStairs = entrance.CreateRoute(Directions.Down, RouteTypes.Stairs, location)
+        Dim condition = downStairs.CreateCondition(ConditionTypes.FlagRequired)
+        condition.Metadata(MetadataTypes.Flag) = Quests.Cellar
         location.CreateRoute(Directions.Up, RouteTypes.Stairs, entrance)
     End Sub
 

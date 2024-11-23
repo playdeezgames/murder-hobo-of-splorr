@@ -33,4 +33,10 @@ Friend Class Route
     Public Overrides Sub Recycle()
         WorldData.Locations(EntityId.LocationId).Routes.Remove(EntityId.Direction)
     End Sub
+
+    Public Function CreateCondition(conditionType As String) As ICondition Implements IRoute.CreateCondition
+        Dim condition = World.CreateCondition(conditionType)
+        EntityData.Conditions.Add(condition.Id)
+        Return condition
+    End Function
 End Class

@@ -79,4 +79,21 @@ Public Class World
         location.AddCharacter(result)
         Return result
     End Function
+
+    Public Function CreateCondition(conditionType As String) As ICondition Implements IWorld.CreateCondition
+        Dim conditionId = WorldData.Conditions.Count
+        For Each candidateId In Enumerable.Range(0, WorldData.Conditions.Count)
+            If WorldData.Conditions(candidateId) Is Nothing Then
+                conditionId = candidateId
+                Exit For
+            End If
+        Next
+        Dim conditionData = New ConditionData With {.EntityType = conditionType}
+        If conditionId = WorldData.Conditions.Count Then
+            WorldData.Conditions.Add(conditionData)
+        Else
+            WorldData.Conditions(conditionId) = conditionData
+        End If
+        Return New Condition(WorldData, conditionId)
+    End Function
 End Class

@@ -8,4 +8,5 @@
     Property Flag(flagType As String) As Boolean
     ReadOnly Property FlagTypes As IEnumerable(Of String)
     Sub Recycle()
+    ReadOnly Property World As IWorld
 End Interface

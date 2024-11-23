@@ -87,4 +87,10 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
             Return EntityData.Flags
         End Get
     End Property
+
+    Public ReadOnly Property World As IWorld Implements IEntity(Of TIdentifier).World
+        Get
+            Return New World(WorldData)
+        End Get
+    End Property
 End Class
