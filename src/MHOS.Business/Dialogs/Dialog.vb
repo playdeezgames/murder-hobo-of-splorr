@@ -7,12 +7,6 @@
 
     Public Property World As IWorld Implements IDialog.World
 
-    Public ReadOnly Property LegacyCanEnterGameMenu As Boolean Implements IDialog.LegacyCanEnterGameMenu
-        Get
-            Return Dialogs.Descriptors(Dialog).GoBackDialog(World) Is Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property LegacyAvailableChoices As IChoice() Implements IDialog.LegacyAvailableChoices
         Get
             Return Dialogs.
