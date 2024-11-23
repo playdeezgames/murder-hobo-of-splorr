@@ -1,8 +1,8 @@
 ﻿Friend Class CancelChoice
     Inherits Choice
-    Private ReadOnly cancelDialog As String
+    Private ReadOnly cancelDialog As IDialog
 
-    Public Sub New(cancelDialog As String, dialog As String, world As IWorld)
+    Public Sub New(cancelDialog As IDialog, dialog As String, world As IWorld)
         MyBase.New(dialog, world)
         Me.cancelDialog = cancelDialog
     End Sub
@@ -15,6 +15,6 @@
 
     Public Overrides Function Choose() As IDialog
         world.Avatar.ClearMessages()
-        Return New Dialog(cancelDialog, world)
+        Return cancelDialog
     End Function
 End Class

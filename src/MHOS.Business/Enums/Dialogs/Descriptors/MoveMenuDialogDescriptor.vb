@@ -16,7 +16,7 @@
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Dim result As New List(Of IChoice) From
             {
-                New CancelChoice(Dialogs.Neutral, Dialog, world)
+                New CancelChoice(New Dialog(Dialogs.Neutral, world), Dialog, world)
             }
         Dim location = world.Avatar.Location
         For Each entry In Directions.Descriptors

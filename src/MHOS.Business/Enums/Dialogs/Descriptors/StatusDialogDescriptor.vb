@@ -26,7 +26,7 @@
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return {
-            New CancelChoice(Dialogs.Neutral, Dialog, world)
+            New CancelChoice(New Dialog(Dialogs.Neutral, world), Dialog, world)
             }
     End Function
 
