@@ -96,4 +96,21 @@ Public Class World
         End If
         Return New Condition(WorldData, conditionId)
     End Function
+
+    Public Function CreateVerb(verbType As String) As IVerb Implements IWorld.CreateVerb
+        Dim verbId = WorldData.Verbs.Count
+        For Each candidateId In Enumerable.Range(0, WorldData.Verbs.Count)
+            If WorldData.Verbs(candidateId) Is Nothing Then
+                verbId = candidateId
+                Exit For
+            End If
+        Next
+        Dim verbData = New VerbData With {.EntityType = verbType}
+        If verbId = WorldData.Verbs.Count Then
+            WorldData.Verbs.Add(verbData)
+        Else
+            WorldData.Verbs(verbId) = verbData
+        End If
+        Return New Verb(WorldData, verbId)
+    End Function
 End Class

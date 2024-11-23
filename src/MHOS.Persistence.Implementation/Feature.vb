@@ -18,4 +18,10 @@ Friend Class Feature
     Public Overrides Sub Recycle()
         WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId) = Nothing
     End Sub
+
+    Public Function CreateVerb(verbType As String) As IVerb Implements IFeature.CreateVerb
+        Dim verb As IVerb = World.CreateVerb(verbType)
+        EntityData.Verbs.Add(verb.Id)
+        Return verb
+    End Function
 End Class

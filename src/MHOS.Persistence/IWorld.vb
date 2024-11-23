@@ -3,6 +3,7 @@ Public Interface IWorld
     Function CreateLocation(locationType As String) As ILocation
     Function CreateCharacter(characterType As String, location As ILocation) As ICharacter
     Function CreateCondition(conditionType As String) As ICondition
+    Function CreateVerb(verbType As String) As IVerb
     Sub SetAvatar(character As ICharacter)
     ReadOnly Property Locations As IEnumerable(Of ILocation)
     ReadOnly Property Avatar As ICharacter
