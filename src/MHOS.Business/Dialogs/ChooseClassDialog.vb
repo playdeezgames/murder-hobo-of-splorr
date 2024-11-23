@@ -11,12 +11,6 @@
         End Get
     End Property
 
-    Public Overrides ReadOnly Property CanEnterGameMenu As Boolean
-        Get
-            Return GoBack() Is Nothing
-        End Get
-    End Property
-
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Return Dialogs.Descriptors(Dialogs.ChooseClass).AvailableChoices(World).ToArray
