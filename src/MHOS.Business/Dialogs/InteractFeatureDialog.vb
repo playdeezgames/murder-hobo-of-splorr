@@ -7,17 +7,17 @@
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Return Dialogs.Descriptors(Dialogs.InteractFeature).Description(World)
+            Throw New NotImplementedException()
         End Get
     End Property
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
-            Return Dialogs.Descriptors(Dialogs.InteractFeature).AvailableChoices(World).ToArray
+            Throw New NotImplementedException()
         End Get
     End Property
 
     Public Overrides Function GoBack() As IDialog
-        Return Dialogs.Descriptors(Dialogs.InteractFeature).GoBackDialog(World)
+        Return New InteractMenuDialog(World)
     End Function
 End Class

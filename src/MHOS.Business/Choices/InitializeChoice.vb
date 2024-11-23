@@ -12,7 +12,8 @@
     End Property
 
     Public Overrides Function Choose() As IDialog
-        world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
-        Return New InitializeDialog(world)
+        Dim newWorld As IWorld = New World(New WorldData)
+        newWorld.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
+        Return New InitializeDialog(newWorld)
     End Function
 End Class
