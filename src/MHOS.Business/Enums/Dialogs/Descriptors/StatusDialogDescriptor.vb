@@ -20,10 +20,6 @@
         End With
     End Function
 
-    Private Function LegacyGoBackDialog(world As IWorld) As String
-        Return Dialogs.Neutral
-    End Function
-
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return {
             New CancelChoice(New NeutralDialog(world), Dialog, world)
