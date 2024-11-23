@@ -13,12 +13,8 @@
         End Get
     End Property
 
-    Private Function LegacyChoose() As String
-        world.Avatar.ClearMessages()
-        Return cancelDialog
-    End Function
-
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose(), world)
+        world.Avatar.ClearMessages()
+        Return New Dialog(cancelDialog, world)
     End Function
 End Class
