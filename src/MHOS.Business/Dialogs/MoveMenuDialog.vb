@@ -18,10 +18,8 @@
                 New CancelChoice(New NeutralDialog(World), World)
             }
             Dim location = World.Avatar.Location
-            For Each entry In Directions.Descriptors
-                If location.HasRoute(entry.Key) Then
-                    result.Add(New DirectionChoice(entry.Key, World))
-                End If
+            For Each entry In location.AllowedRoutes(World.Avatar)
+                result.Add(New DirectionChoice(entry.Id.Direction, World))
             Next
             Return result.ToArray
         End Get

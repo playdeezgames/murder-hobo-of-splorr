@@ -14,7 +14,7 @@
             Next
             Dim location = avatar.Location
             result.Add(($"In {location.Descriptor.Name}.", Moods.Normal))
-            For Each route In location.Routes
+            For Each route In location.AllowedRoutes(avatar)
                 result.Add(($"{route.RouteTypeName} going {route.DirectionName}.", Moods.Normal))
             Next
             If location.HasFeatures Then
