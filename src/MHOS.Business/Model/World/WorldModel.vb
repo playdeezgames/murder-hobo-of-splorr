@@ -29,19 +29,19 @@
 
     Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IWorldModel.Description
         Get
-            Return dialog.Description
+            Return dialog.LegacyDescription
         End Get
     End Property
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return dialog.CanEnterGameMenu
+            Return dialog.LegacyCanEnterGameMenu
         End Get
     End Property
 
     Public ReadOnly Property AvailableChoices As IChoice() Implements IWorldModel.AvailableChoices
         Get
-            Return dialog.AvailableChoices
+            Return dialog.LegacyAvailableChoices
         End Get
     End Property
 End Class

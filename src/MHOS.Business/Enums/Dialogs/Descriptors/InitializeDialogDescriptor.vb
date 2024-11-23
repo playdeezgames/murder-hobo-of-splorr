@@ -5,10 +5,6 @@
         MyBase.New(Dialogs.Initialize)
     End Sub
 
-    Private Function LegacyGoBackDialog(world As IWorld) As String
-        Return Dialogs.Initialize
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         world.DoNextStep()
         Return {
@@ -23,6 +19,6 @@
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(LegacyGoBackDialog(world), world)
+        Return New Dialog(Dialogs.Initialize, world)
     End Function
 End Class
