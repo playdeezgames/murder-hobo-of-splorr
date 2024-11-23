@@ -1,8 +1,7 @@
 ﻿Public Class WorldModel
     Implements IWorldModel
 
-    Private _world As IWorld
-    Private dialog As IDialog = New Dialog(Dialogs.Neutral)
+    Private dialog As IDialog = New Dialog(Dialogs.Neutral, Nothing)
     Sub New()
     End Sub
 
@@ -16,10 +15,10 @@
 
     Private Property World As IWorld
         Get
-            Return _world
+            Return dialog.World
         End Get
         Set(value As IWorld)
-            _world = value
+            dialog.World = value
         End Set
     End Property
     Public ReadOnly Property Session As IWorldSessionModel Implements IWorldModel.Session

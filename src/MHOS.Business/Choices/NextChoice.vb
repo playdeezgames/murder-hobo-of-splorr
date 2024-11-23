@@ -18,6 +18,6 @@
     End Function
 
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(LegacyChoose())
+        Return New Dialog(LegacyChoose(), world)
     End Function
 End Class

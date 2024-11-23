@@ -22,6 +22,6 @@
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(LegacyGoBackDialog(world))
+        Return New Dialog(LegacyGoBackDialog(world), world)
     End Function
 End Class
