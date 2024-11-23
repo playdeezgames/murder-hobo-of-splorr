@@ -29,9 +29,13 @@
     End Property
 
     Public MustOverride ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IDialog.Description
+    Public MustOverride ReadOnly Property CanEnterGameMenu As Boolean Implements IDialog.CanEnterGameMenu
+    Public MustOverride ReadOnly Property AvailableChoices As IChoice() Implements IDialog.AvailableChoices
     Private ReadOnly Property Dialog As String Implements IDialog.Dialog
 
     Public Function LegacyGoBack() As IDialog Implements IDialog.LegacyGoBack
         Return Dialogs.Descriptors(Dialog).GoBackDialog(World)
     End Function
+
+    Public MustOverride Function GoBack() As IDialog Implements IDialog.GoBack
 End Class

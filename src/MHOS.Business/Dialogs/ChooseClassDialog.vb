@@ -10,4 +10,20 @@
             Return Dialogs.Descriptors(Dialogs.ChooseClass).Description(World)
         End Get
     End Property
+
+    Public Overrides ReadOnly Property CanEnterGameMenu As Boolean
+        Get
+            Return GoBack() Is Nothing
+        End Get
+    End Property
+
+    Public Overrides ReadOnly Property AvailableChoices As IChoice()
+        Get
+            Return Dialogs.Descriptors(Dialogs.ChooseClass).AvailableChoices(World).ToArray
+        End Get
+    End Property
+
+    Public Overrides Function GoBack() As IDialog
+        Return Dialogs.Descriptors(Dialogs.ChooseClass).GoBackDialog(World)
+    End Function
 End Class
