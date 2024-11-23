@@ -7,17 +7,27 @@
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Return Dialogs.Descriptors(Dialogs.MoveMenu).Description(World)
+            Return {("Move which direction?", Moods.Normal)}
         End Get
     End Property
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
-            Return Dialogs.Descriptors(Dialogs.MoveMenu).AvailableChoices(World).ToArray
+            Dim result As New List(Of IChoice) From
+            {
+                New CancelChoice(New NeutralDialog(World), Dialogs.MoveMenu, World)
+            }
+            Dim location = World.Avatar.Location
+            For Each entry In Directions.Descriptors
+                If location.HasRoute(entry.Key) Then
+                    result.Add(New DirectionChoice(entry.Key, Dialogs.MoveMenu, World))
+                End If
+            Next
+            Return result.ToArray
         End Get
     End Property
 
     Public Overrides Function GoBack() As IDialog
-        Return Dialogs.Descriptors(Dialogs.MoveMenu).GoBackDialog(World)
+        Return New NeutralDialog(World)
     End Function
 End Class
