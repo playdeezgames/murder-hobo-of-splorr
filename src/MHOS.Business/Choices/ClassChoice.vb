@@ -19,6 +19,6 @@
             .RollHitDice()
             .Counter(CounterTypes.HitPoints) = .MaximumHitPoints
         End With
-        Return New Dialog(Dialogs.Neutral, world)
+        Return New NeutralDialog(world)
     End Function
 End Class

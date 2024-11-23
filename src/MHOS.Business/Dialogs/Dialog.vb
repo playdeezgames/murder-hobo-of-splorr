@@ -1,4 +1,4 @@
-﻿Public Class Dialog
+﻿Public MustInherit Class Dialog
     Implements IDialog
     Sub New(dialog As String, world As IWorld)
         Me.Dialog = dialog
@@ -15,7 +15,7 @@
 
     Public ReadOnly Property LegacyCanEnterGameMenu As Boolean Implements IDialog.LegacyCanEnterGameMenu
         Get
-            Return String.IsNullOrEmpty(Dialogs.Descriptors(Dialog).GoBackDialog(World).Dialog)
+            Return Dialogs.Descriptors(Dialog).GoBackDialog(World) Is Nothing
         End Get
     End Property
 
@@ -28,6 +28,7 @@
         End Get
     End Property
 
+    Public MustOverride ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IDialog.Description
     Private ReadOnly Property Dialog As String Implements IDialog.Dialog
 
     Public Function LegacyGoBack() As IDialog Implements IDialog.LegacyGoBack

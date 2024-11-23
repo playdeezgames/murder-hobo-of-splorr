@@ -26,11 +26,11 @@
 
     Public Overrides Function AvailableChoices(world As IWorld) As IEnumerable(Of IChoice)
         Return {
-            New CancelChoice(New Dialog(Dialogs.Neutral, world), Dialog, world)
+            New CancelChoice(New NeutralDialog(world), Dialog, world)
             }
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(LegacyGoBackDialog(world), world)
+        Return New NeutralDialog(world)
     End Function
 End Class

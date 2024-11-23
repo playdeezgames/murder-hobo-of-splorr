@@ -23,6 +23,6 @@
         Else
             avatar.AddMessage("You cannot go that way!", Moods.Normal)
         End If
-        Return New Dialog(Dialogs.Neutral, world)
+        Return New NeutralDialog(world)
     End Function
 End Class

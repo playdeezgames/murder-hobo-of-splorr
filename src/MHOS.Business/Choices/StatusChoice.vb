@@ -12,6 +12,6 @@
     End Property
 
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(Dialogs.Status, world)
+        Return New StatusDialog(world)
     End Function
 End Class

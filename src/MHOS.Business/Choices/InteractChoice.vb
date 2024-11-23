@@ -14,12 +14,12 @@
     Public Overrides Function Choose() As IDialog
         Select Case world.Avatar.Location.Features.Count
             Case 0
-                Return New Dialog(Dialogs.Neutral, world)
+                Return New NeutralDialog(world)
             Case 1
                 'TODO: if there is only one feature, interact with the one feature
-                Return New Dialog(Dialogs.InteractFeature, world)
+                Return New InteractFeatureDialog(world)
             Case Else
-                Return New Dialog(Dialogs.InteractMenu, world)
+                Return New InteractMenuDialog(world)
         End Select
     End Function
 End Class

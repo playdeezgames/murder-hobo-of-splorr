@@ -17,14 +17,14 @@
             New NextChoice(
             If(
                 world.InitializationStepCount = 0,
-                New Dialog(Dialogs.ChooseRace, world),
-                New Dialog(Dialogs.Initialize, world)),
+                CType(New ChooseRaceDialog(world), IDialog),
+                New InitializeDialog(world)),
             Dialog,
             world)
             }
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(Dialogs.Initialize, world)
+        Return New InitializeDialog(world)
     End Function
 End Class

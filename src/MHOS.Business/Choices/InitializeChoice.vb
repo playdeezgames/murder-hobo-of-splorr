@@ -13,6 +13,6 @@
 
     Public Overrides Function Choose() As IDialog
         world.AddInitializationStep(AddressOf WorldExtensionMethods.Initialize)
-        Return New Dialog(Dialogs.Initialize, world)
+        Return New InitializeDialog(world)
     End Function
 End Class

@@ -15,6 +15,6 @@
 
     Public Overrides Function Choose() As IDialog
         world.Avatar.Metadata(MetadataTypes.Race) = race
-        Return New Dialog(Dialogs.ChooseClass, world)
+        Return New ChooseClassDialog(world)
     End Function
 End Class

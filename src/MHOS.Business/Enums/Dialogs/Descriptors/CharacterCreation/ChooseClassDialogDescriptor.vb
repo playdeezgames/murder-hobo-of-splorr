@@ -5,10 +5,6 @@
         MyBase.New(Dialogs.ChooseClass)
     End Sub
 
-    Private Function LegacyGoBackDialog(world As IWorld) As String
-        Return Me.Dialog
-    End Function
-
     Public Overrides Function Description(world As IWorld) As IEnumerable(Of (Text As String, Mood As String))
         Dim result As New List(Of (Text As String, Mood As String)) From {
             ($"Race: {world.Avatar.RaceName}", Moods.Normal)
@@ -22,6 +18,6 @@
     End Function
 
     Public Overrides Function GoBackDialog(world As IWorld) As IDialog
-        Return New Dialog(LegacyGoBackDialog(world), world)
+        Return New ChooseClassDialog(world)
     End Function
 End Class

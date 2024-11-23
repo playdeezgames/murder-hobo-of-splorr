@@ -12,6 +12,6 @@
     End Property
 
     Public Overrides Function Choose() As IDialog
-        Return New Dialog(Dialogs.MoveMenu, world)
+        Return New MoveMenuDialog(world)
     End Function
 End Class
