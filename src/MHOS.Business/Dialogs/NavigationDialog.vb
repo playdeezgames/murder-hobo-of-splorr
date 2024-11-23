@@ -20,7 +20,7 @@
             If location.HasFeatures Then
                 result.Add(($"You see:", Moods.Normal))
                 For Each feature In location.Features
-                    result.Add(($"{feature.Descriptor.FeatureType}", Moods.Normal))
+                    result.Add(($"{feature.BriefDescription()}", Moods.Normal))
                 Next
             End If
             Return result

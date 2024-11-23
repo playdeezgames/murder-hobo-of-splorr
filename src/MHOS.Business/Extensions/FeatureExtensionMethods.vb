@@ -7,4 +7,8 @@
     Function DescriptionLines(feature As IFeature) As IEnumerable(Of String)
         Return feature.Descriptor.DescriptionLines(feature)
     End Function
+    <Extension>
+    Function BriefDescription(feature As IFeature) As String
+        Return feature.Descriptor.BriefDescription(feature)
+    End Function
 End Module

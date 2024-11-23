@@ -30,10 +30,19 @@ Friend Module WorldExtensionMethods
         Dim location = world.CreateLocation(LocationTypes.Inn)
         entrance.CreateRoute(Directions.In, RouteTypes.Door, location)
         location.CreateRoute(Directions.Out, RouteTypes.Door, entrance)
+        InitializeInnSign(entrance)
+        InitializeGorachan(location)
+    End Sub
+
+    Private Sub InitializeGorachan(location As ILocation)
+        Dim gorachan = location.CreateFeature(FeatureTypes.NPC)
+        gorachan.Metadata(MetadataTypes.Name) = "Gorachan the Innkeeper"
+        gorachan.Metadata(MetadataTypes.ShortName) = "the innkeeper"
+    End Sub
+
+    Private Sub InitializeInnSign(entrance As ILocation)
         Dim signFeature = entrance.CreateFeature(FeatureTypes.Sign)
         signFeature.Metadata(MetadataTypes.SignText) = "Jusdatip Inn, Gorachan: Proprietor"
-        Dim gorachan = location.CreateFeature(FeatureTypes.NPC)
-        gorachan.Metadata(MetadataTypes.Name) = "Gorachan"
     End Sub
 
     Private Sub InitializeCellar(world As IWorld)

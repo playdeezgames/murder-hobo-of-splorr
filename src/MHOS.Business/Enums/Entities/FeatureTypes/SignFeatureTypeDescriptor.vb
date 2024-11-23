@@ -10,4 +10,8 @@
             $"The sign says '{feature.Metadata(MetadataTypes.SignText)}'."
             }
     End Function
+
+    Friend Overrides Function BriefDescription(feature As IFeature) As String
+        Return "a sign"
+    End Function
 End Class

@@ -10,4 +10,8 @@
             feature.Metadata(MetadataTypes.Name)
             }
     End Function
+
+    Friend Overrides Function BriefDescription(feature As IFeature) As String
+        Return feature.Metadata(MetadataTypes.ShortName)
+    End Function
 End Class
