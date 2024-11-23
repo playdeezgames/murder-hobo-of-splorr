@@ -9,16 +9,23 @@
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Return {
-                (feature.EntityType, Moods.Normal)
-                }
+            Dim result As New List(Of (Text As String, Mood As String))
+            For Each line In feature.DescriptionLines
+                result.Add((line, Moods.Normal))
+            Next
+            Return result.ToArray
         End Get
     End Property
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Return {
-                New CancelChoice(New InteractMenuDialog(World), World)
+                New CancelChoice(
+                    If(
+                        World.Avatar.Location.Features.Count = 1,
+                        CType(New NeutralDialog(World), IDialog),
+                        New InteractMenuDialog(World)),
+                        World)
                 }
         End Get
     End Property
