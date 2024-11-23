@@ -6,7 +6,7 @@
     End Sub
 
     Public Sub GoBack() Implements IWorldModel.GoBack
-        dialog = dialog.GoBack()
+        dialog = dialog.LegacyGoBack()
     End Sub
 
     Public Sub MakeChoice(choice As IChoice) Implements IWorldModel.MakeChoice

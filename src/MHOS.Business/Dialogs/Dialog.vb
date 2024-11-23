@@ -30,7 +30,7 @@
 
     Private ReadOnly Property Dialog As String Implements IDialog.Dialog
 
-    Public Function GoBack() As IDialog Implements IDialog.GoBack
+    Public Function LegacyGoBack() As IDialog Implements IDialog.LegacyGoBack
         Return Dialogs.Descriptors(Dialog).GoBackDialog(World)
     End Function
 End Class
