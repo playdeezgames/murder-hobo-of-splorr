@@ -6,7 +6,7 @@
     End Sub
 
     Public Sub GoBack() Implements IWorldModel.GoBack
-        dialog = Dialogs.Descriptors(dialog.Dialog).GoBackDialog(World)
+        dialog = dialog.GoBack()
     End Sub
 
     Public Sub MakeChoice(choice As IChoice) Implements IWorldModel.MakeChoice
@@ -29,22 +29,19 @@
 
     Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IWorldModel.Description
         Get
-            Return Dialogs.Descriptors(dialog.Dialog).Description(World)
+            Return dialog.Description
         End Get
     End Property
 
     Public ReadOnly Property CanEnterGameMenu As Boolean Implements IWorldModel.CanEnterGameMenu
         Get
-            Return String.IsNullOrEmpty(Dialogs.Descriptors(dialog.Dialog).GoBackDialog(World).Dialog)
+            Return dialog.CanEnterGameMenu
         End Get
     End Property
 
     Public ReadOnly Property AvailableChoices As IChoice() Implements IWorldModel.AvailableChoices
         Get
-            Return Dialogs.
-                Descriptors(dialog.Dialog).
-                AvailableChoices(World).
-                ToArray
+            Return dialog.AvailableChoices
         End Get
     End Property
 End Class
