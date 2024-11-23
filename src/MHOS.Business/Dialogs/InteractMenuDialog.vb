@@ -7,13 +7,21 @@
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Throw New NotImplementedException()
+            Return {
+                ("Interact with?", Moods.Normal)
+                }
         End Get
     End Property
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
-            Throw New NotImplementedException()
+            Dim result As New List(Of IChoice) From {
+                New CancelChoice(New NeutralDialog(World), World)
+            }
+            For Each feature In World.Avatar.Location.Features
+                result.Add(New InteractFeatureChoice(World, feature))
+            Next
+            Return result.ToArray
         End Get
     End Property
 

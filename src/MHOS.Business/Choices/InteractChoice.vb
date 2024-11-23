@@ -16,8 +16,7 @@
             Case 0
                 Return New NeutralDialog(world)
             Case 1
-                'TODO: if there is only one feature, interact with the one feature
-                Return New InteractFeatureDialog(world)
+                Return New InteractFeatureDialog(world, world.Avatar.Location.Features.Single)
             Case Else
                 Return New InteractMenuDialog(world)
         End Select
