@@ -1,13 +1,9 @@
 ﻿Friend MustInherit Class Choice
     Implements IChoice
-    Protected ReadOnly dialog As String
     Protected ReadOnly world As IWorld
-    Sub New(dialog As String, world As IWorld)
-        Me.dialog = dialog
+    Sub New(world As IWorld)
         Me.world = world
     End Sub
-
     Public MustOverride ReadOnly Property Text As String Implements IChoice.Text
-
     Public MustOverride Function Choose() As IDialog Implements IChoice.Choose
 End Class

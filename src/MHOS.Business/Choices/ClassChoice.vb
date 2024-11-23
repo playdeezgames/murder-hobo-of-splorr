@@ -1,8 +1,8 @@
 ﻿Friend Class ClassChoice
     Inherits Choice
     Private ReadOnly [class] As String
-    Public Sub New([class] As String, dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New([class] As String, world As IWorld)
+        MyBase.New(world)
         Me.class = [class]
     End Sub
 

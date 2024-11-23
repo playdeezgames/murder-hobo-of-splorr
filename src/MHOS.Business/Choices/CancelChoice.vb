@@ -2,8 +2,8 @@
     Inherits Choice
     Private ReadOnly cancelDialog As IDialog
 
-    Public Sub New(cancelDialog As IDialog, dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New(cancelDialog As IDialog, world As IWorld)
+        MyBase.New(world)
         Me.cancelDialog = cancelDialog
     End Sub
 

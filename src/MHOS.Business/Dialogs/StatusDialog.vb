@@ -2,7 +2,7 @@
     Inherits Dialog
 
     Public Sub New(world As IWorld)
-        MyBase.New(Dialogs.Status, world)
+        MyBase.New(world)
     End Sub
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
@@ -25,7 +25,7 @@
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Return {
-            New CancelChoice(New NeutralDialog(World), Dialogs.Status, World)
+            New CancelChoice(New NeutralDialog(World), World)
             }
         End Get
     End Property

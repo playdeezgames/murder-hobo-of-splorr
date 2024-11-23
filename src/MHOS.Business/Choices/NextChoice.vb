@@ -2,8 +2,8 @@
     Inherits Choice
     Private ReadOnly nextDialog As IDialog
 
-    Public Sub New(nextDialog As IDialog, dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New(nextDialog As IDialog, world As IWorld)
+        MyBase.New(world)
         Me.nextDialog = nextDialog
     End Sub
 

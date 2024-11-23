@@ -1,8 +1,8 @@
 ﻿Friend Class InteractChoice
     Inherits Choice
 
-    Public Sub New(dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New(world As IWorld)
+        MyBase.New(world)
     End Sub
 
     Public Overrides ReadOnly Property Text As String

@@ -2,7 +2,7 @@
     Inherits Dialog
 
     Public Sub New(world As IWorld)
-        MyBase.New(Dialogs.ChooseClass, world)
+        MyBase.New(world)
     End Sub
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
@@ -17,7 +17,7 @@
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
-            Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(World.Avatar)).Select(Function(x) New ClassChoice(x.Class, Dialogs.ChooseClass, World)).ToArray
+            Return Classes.Descriptors.Values.Where(Function(x) x.IsQualified(World.Avatar)).Select(Function(x) New ClassChoice(x.Class, World)).ToArray
         End Get
     End Property
 

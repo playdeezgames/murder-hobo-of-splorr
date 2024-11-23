@@ -2,7 +2,7 @@
     Inherits Dialog
 
     Public Sub New(world As IWorld)
-        MyBase.New(Dialogs.MoveMenu, world)
+        MyBase.New(world)
     End Sub
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
@@ -15,12 +15,12 @@
         Get
             Dim result As New List(Of IChoice) From
             {
-                New CancelChoice(New NeutralDialog(World), Dialogs.MoveMenu, World)
+                New CancelChoice(New NeutralDialog(World), World)
             }
             Dim location = World.Avatar.Location
             For Each entry In Directions.Descriptors
                 If location.HasRoute(entry.Key) Then
-                    result.Add(New DirectionChoice(entry.Key, Dialogs.MoveMenu, World))
+                    result.Add(New DirectionChoice(entry.Key, World))
                 End If
             Next
             Return result.ToArray

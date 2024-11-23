@@ -1,12 +1,10 @@
 ﻿Public MustInherit Class Dialog
     Implements IDialog
-    Sub New(dialog As String, world As IWorld)
-        Me.Dialog = dialog
+    Sub New(world As IWorld)
         Me.World = world
     End Sub
     Public Property World As IWorld Implements IDialog.World
     Public MustOverride ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IDialog.Description
     Public MustOverride ReadOnly Property AvailableChoices As IChoice() Implements IDialog.AvailableChoices
-    Private ReadOnly Property Dialog As String Implements IDialog.Dialog
     Public MustOverride Function GoBack() As IDialog Implements IDialog.GoBack
 End Class

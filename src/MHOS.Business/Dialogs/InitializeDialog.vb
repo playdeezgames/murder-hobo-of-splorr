@@ -2,7 +2,7 @@
     Inherits Dialog
 
     Public Sub New(world As IWorld)
-        MyBase.New(Dialogs.Initialize, world)
+        MyBase.New(world)
     End Sub
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
@@ -22,7 +22,6 @@
                 World.InitializationStepCount = 0,
                 CType(New ChooseRaceDialog(World), IDialog),
                 New InitializeDialog(World)),
-            Dialogs.Initialize,
             World)
             }
         End Get

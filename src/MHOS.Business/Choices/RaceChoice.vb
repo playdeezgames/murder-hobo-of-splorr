@@ -2,8 +2,8 @@
     Inherits Choice
     Private ReadOnly race As String
 
-    Public Sub New(race As String, dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New(race As String, world As IWorld)
+        MyBase.New(world)
         Me.race = race
     End Sub
 

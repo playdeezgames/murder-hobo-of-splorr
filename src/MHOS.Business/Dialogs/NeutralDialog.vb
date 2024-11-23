@@ -3,7 +3,7 @@
     Private subdialog As IDialog
 
     Public Sub New(world As IWorld)
-        MyBase.New(Dialogs.Neutral, world)
+        MyBase.New(world)
         If world?.Avatar IsNot Nothing Then
             subdialog = New NavigationDialog(world)
         Else

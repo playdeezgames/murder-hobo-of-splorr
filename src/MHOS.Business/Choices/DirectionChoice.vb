@@ -2,8 +2,8 @@
     Inherits Choice
     Private ReadOnly direction As String
 
-    Public Sub New(direction As String, dialog As String, world As IWorld)
-        MyBase.New(dialog, world)
+    Public Sub New(direction As String, world As IWorld)
+        MyBase.New(world)
         Me.direction = direction
     End Sub
 
