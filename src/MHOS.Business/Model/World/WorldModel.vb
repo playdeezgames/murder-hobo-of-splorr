@@ -29,7 +29,7 @@
 
     Public ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String)) Implements IWorldModel.Description
         Get
-            Return dialog.LegacyDescription
+            Return dialog.Description
         End Get
     End Property
 
