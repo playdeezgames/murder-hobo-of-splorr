@@ -23,10 +23,6 @@
         }
     End Function
     <Extension>
-    Private Function DescribeAttribute(character As ICharacter, counterType As String) As (Text As String, Mood As String)
-        Return ($"{CounterTypes.Descriptors(counterType).Name} {character.Counter(counterType).Value}", Moods.Normal)
-    End Function
-    <Extension>
     Friend Function RaceName(character As ICharacter) As String
         Return Races.Descriptors(character.Race).Name
     End Function
