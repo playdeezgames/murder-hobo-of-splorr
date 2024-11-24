@@ -17,7 +17,7 @@
             .Metadata(MetadataTypes.Class) = [class]
             .ExperiencePoints = 0
             .RollHitDice()
-            .Counter(CounterTypes.HitPoints) = .MaximumHitPoints
+            .HitPoints = .MaximumHitPoints
         End With
         Return New NeutralDialog(world)
     End Function

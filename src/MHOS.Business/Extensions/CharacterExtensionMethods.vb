@@ -71,7 +71,7 @@
     End Function
     <Extension>
     Friend Function HitPoints(character As ICharacter) As Integer
-        Return Math.Clamp(character.Counter(CounterTypes.HitPoints).Value, 0, character.MaximumHitPoints)
+        Return Math.Clamp(character.HitPoints, 0, character.MaximumHitPoints)
     End Function
     <Extension>
     Friend Function ConstitutionBonus(character As ICharacter) As Integer

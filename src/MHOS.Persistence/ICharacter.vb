@@ -11,4 +11,5 @@
     Property Constitution As Integer
     Property Charisma As Integer
     Property ExperiencePoints As Integer
+    Property HitPoints As Integer
 End Interface

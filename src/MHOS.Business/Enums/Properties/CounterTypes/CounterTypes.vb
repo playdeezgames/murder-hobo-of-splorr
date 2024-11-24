@@ -2,7 +2,6 @@
     Private ReadOnly HitDieRoll As String = NameOf(HitDieRoll)
     Private Const FirstLevel As Integer = 1
     Private Const LevelCount As Integer = 20
-    Friend ReadOnly HitPoints As String = NameOf(HitPoints)
     Friend ReadOnly Property LevelHitDieRoll(level As Integer) As String
         Get
             Return $"{HitDieRoll}{level}"
@@ -13,10 +12,7 @@
         GenerateDescriptors()
 
     Private Function GenerateDescriptors() As IReadOnlyDictionary(Of String, BaseCounterTypeDescriptor)
-        Dim result = New List(Of BaseCounterTypeDescriptor) From
-        {
-            New HitPointsCounterTypeDescriptor()
-        }
+        Dim result = New List(Of BaseCounterTypeDescriptor)
         For Each level In Enumerable.Range(FirstLevel, LevelCount)
             result.Add(New LevelHitDieRollCounterTypeDescriptor(level))
         Next

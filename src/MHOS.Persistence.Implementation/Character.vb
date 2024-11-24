@@ -95,6 +95,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property HitPoints As Integer Implements ICharacter.HitPoints
+        Get
+            Return EntityData.HitPoints
+        End Get
+        Set(value As Integer)
+            EntityData.HitPoints = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub
