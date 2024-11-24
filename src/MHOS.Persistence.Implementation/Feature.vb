@@ -27,6 +27,15 @@ Friend Class Feature
         End Set
     End Property
 
+    Public Property ShortName As String Implements IFeature.ShortName
+        Get
+            Return EntityData.ShortName
+        End Get
+        Set(value As String)
+            EntityData.ShortName = value
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As FeatureData
         Get
             Return WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId)

@@ -12,6 +12,6 @@
     End Function
 
     Friend Overrides Function BriefDescription(feature As IFeature) As String
-        Return feature.Metadata(MetadataTypes.ShortName)
+        Return feature.ShortName
     End Function
 End Class

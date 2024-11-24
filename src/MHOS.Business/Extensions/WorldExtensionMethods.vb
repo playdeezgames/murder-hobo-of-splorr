@@ -37,7 +37,7 @@ Friend Module WorldExtensionMethods
     Private Sub InitializeGorachan(location As ILocation)
         Dim gorachan = location.CreateFeature(FeatureTypes.NPC)
         gorachan.Name = "Gorachan the Innkeeper"
-        gorachan.Metadata(MetadataTypes.ShortName) = "the innkeeper"
+        gorachan.ShortName = "the innkeeper"
         'TODO: cellar quest
     End Sub
 
