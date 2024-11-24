@@ -25,29 +25,6 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
         End Set
     End Property
 
-    Public ReadOnly Property CounterTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).CounterTypes
-        Get
-            Return EntityData.Counters.Keys
-        End Get
-    End Property
-
-    Public Property Counter(counterType As String) As Integer? Implements IEntity(Of TIdentifier).Counter
-        Get
-            Dim counterValue As Integer = 0
-            If EntityData.Counters.TryGetValue(counterType, counterValue) Then
-                Return counterValue
-            End If
-            Return Nothing
-        End Get
-        Set(value As Integer?)
-            If value.HasValue Then
-                EntityData.Counters(counterType) = value.Value
-            Else
-                EntityData.Counters.Remove(counterType)
-            End If
-        End Set
-    End Property
-
     Public Property Metadata(metadataType As String) As String Implements IEntity(Of TIdentifier).Metadata
         Get
             Dim value As String = Nothing
