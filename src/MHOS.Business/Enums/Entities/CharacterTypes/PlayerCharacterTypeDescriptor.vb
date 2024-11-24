@@ -8,7 +8,6 @@
     Private Shared ReadOnly attributes As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            CounterTypes.Intelligence,
             CounterTypes.Wisdom,
             CounterTypes.Dexterity,
             CounterTypes.Constitution,
@@ -18,6 +17,7 @@
 
     Public Overrides Sub Initialize(character As ICharacter)
         character.Strength = RNG.RollDice(AttributeDiceRoll)
+        character.Intelligence = RNG.RollDice(AttributeDiceRoll)
         For Each counterType In attributes
             character.Counter(counterType) = RNG.RollDice(AttributeDiceRoll)
         Next

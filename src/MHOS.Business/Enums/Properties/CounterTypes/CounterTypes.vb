@@ -1,5 +1,4 @@
 ﻿Friend Module CounterTypes
-    Friend ReadOnly Intelligence As String = NameOf(Intelligence)
     Friend ReadOnly Wisdom As String = NameOf(Wisdom)
     Friend ReadOnly Dexterity As String = NameOf(Dexterity)
     Friend ReadOnly Constitution As String = NameOf(Constitution)
@@ -21,7 +20,6 @@
     Private Function GenerateDescriptors() As IReadOnlyDictionary(Of String, BaseCounterTypeDescriptor)
         Dim result = New List(Of BaseCounterTypeDescriptor) From
         {
-            New IntelligenceCounterTypeDescriptor(),
             New WisdomCounterTypeDescriptor(),
             New DexterityCounterTypeDescriptor(),
             New ConstitutionCounterTypeDescriptor(),

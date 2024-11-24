@@ -5,4 +5,5 @@
     Sub ClearMessages()
     ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String))
     Property Strength As Integer
+    Property Intelligence As Integer
 End Interface

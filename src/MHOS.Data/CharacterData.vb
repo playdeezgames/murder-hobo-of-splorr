@@ -3,4 +3,5 @@
     Public Property LocationId As Integer
     Public Property Messages As New List(Of MessageData)
     Public Property Strength As Integer
+    Public Property Intelligence As Integer
 End Class
