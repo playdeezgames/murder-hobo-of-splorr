@@ -11,4 +11,8 @@
     Function BriefDescription(feature As IFeature) As String
         Return feature.Descriptor.BriefDescription(feature)
     End Function
+    <Extension>
+    Function AllowedVerbs(feature As IFeature, character As ICharacter) As IEnumerable(Of IVerb)
+        Return feature.Verbs.Where(Function(x) x.Allows(character))
+    End Function
 End Module

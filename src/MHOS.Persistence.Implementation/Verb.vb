@@ -9,6 +9,12 @@ Friend Class Verb
         MyBase.New(worldData, entityId)
     End Sub
 
+    Public ReadOnly Property Conditions As IEnumerable(Of ICondition) Implements IVerb.Conditions
+        Get
+            Return EntityData.Conditions.Select(Function(x) New Condition(WorldData, x))
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As VerbData
         Get
             Return WorldData.Verbs(EntityId)
