@@ -19,10 +19,10 @@ Friend Module WorldExtensionMethods
         RouteifyLocationGrid((TownColumns - 1, TownCenterRow), TownColumns - 1, Business.Directions.West, townLocations, RouteTypes.Road)
         RouteifyLocationGrid((TownCenterColumn, 0), TownRows - 1, Business.Directions.South, townLocations, RouteTypes.Road)
         RouteifyLocationGrid((TownCenterColumn, TownRows - 1), TownRows - 1, Business.Directions.North, townLocations, RouteTypes.Road)
-        townLocations(0, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.West)) = True
-        townLocations(TownColumns - 1, TownCenterRow).Flag(FlagTypes.TownGateDirection(Business.Directions.East)) = True
-        townLocations(TownCenterColumn, 0).Flag(FlagTypes.TownGateDirection(Business.Directions.North)) = True
-        townLocations(TownCenterColumn, TownRows - 1).Flag(FlagTypes.TownGateDirection(Business.Directions.South)) = True
+        townLocations(0, TownCenterRow).TownGateDirection(Business.Directions.West) = True
+        townLocations(TownColumns - 1, TownCenterRow).TownGateDirection(Business.Directions.East) = True
+        townLocations(TownCenterColumn, 0).TownGateDirection(Business.Directions.North) = True
+        townLocations(TownCenterColumn, TownRows - 1).TownGateDirection(Business.Directions.South) = True
     End Sub
     Private Sub InitializeInn(world As IWorld)
         world.AddInitializationStep(AddressOf InitializeCellar)
@@ -143,7 +143,7 @@ Friend Module WorldExtensionMethods
         wildernessLocations.Mazeify(RouteTypes.Road)
         Dim centerWildernessLocation = wildernessLocations(WildernessCenterColumn, WildernessCenterRow)
         For Each route In centerWildernessLocation.Routes
-            Dim townLocation = world.Locations.Single(Function(x) x.Flag(FlagTypes.TownGateDirection(route.Id.Direction)))
+            Dim townLocation = world.Locations.Single(Function(x) x.TownGateDirection(route.Id.Direction))
             townLocation.CreateRoute(route.Id.Direction, RouteTypes.Gate, route.Destination)
             route.Destination.EntityType = LocationTypes.TownGate
             Dim oppositeDirection = Directions.Descriptors(route.Id.Direction).OppositeDirection

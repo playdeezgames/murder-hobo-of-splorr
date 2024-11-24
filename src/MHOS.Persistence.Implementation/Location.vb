@@ -29,6 +29,19 @@ Friend Class Location
         End Get
     End Property
 
+    Public Property TownGateDirection(direction As String) As Boolean Implements ILocation.TownGateDirection
+        Get
+            Return EntityData.TownGateDirections.Contains(direction)
+        End Get
+        Set(value As Boolean)
+            If value Then
+                EntityData.TownGateDirections.Add(direction)
+            Else
+                EntityData.TownGateDirections.Remove(direction)
+            End If
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As LocationData
         Get
             Return WorldData.Locations(EntityId)

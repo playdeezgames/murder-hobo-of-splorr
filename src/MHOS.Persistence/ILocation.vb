@@ -10,4 +10,5 @@
     Function CreateFeature(featureType As String) As IFeature
     Function HasFeatures() As Boolean
     ReadOnly Property Features As IEnumerable(Of IFeature)
+    Property TownGateDirection(direction As String) As Boolean
 End Interface
