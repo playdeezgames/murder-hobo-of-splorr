@@ -4,10 +4,6 @@
         character.Descriptor.Initialize(character)
     End Sub
     <Extension>
-    Function Race(character As ICharacter) As String
-        Return character.Metadata(MetadataTypes.Race)
-    End Function
-    <Extension>
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
         Return CharacterTypes.Descriptors(character.EntityType)
     End Function

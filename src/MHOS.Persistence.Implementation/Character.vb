@@ -113,6 +113,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property Race As String Implements ICharacter.Race
+        Get
+            Return EntityData.Race
+        End Get
+        Set(value As String)
+            EntityData.Race = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

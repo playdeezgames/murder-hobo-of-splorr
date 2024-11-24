@@ -14,7 +14,7 @@
     End Property
 
     Public Overrides Function Choose() As IDialog
-        world.Avatar.Metadata(MetadataTypes.Race) = race
+        world.Avatar.Race = race
         Return New ChooseClassDialog(world)
     End Function
 End Class

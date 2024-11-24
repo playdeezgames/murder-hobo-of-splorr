@@ -13,4 +13,5 @@
     Property ExperiencePoints As Integer
     Property HitPoints As Integer
     Property LevelHitDieRoll(level As Integer) As Integer
+    Property Race As String
 End Interface
