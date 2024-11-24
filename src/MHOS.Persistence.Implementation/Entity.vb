@@ -59,12 +59,6 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
         End Set
     End Property
 
-    Public ReadOnly Property FlagTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).FlagTypes
-        Get
-            Return EntityData.Flags
-        End Get
-    End Property
-
     Public ReadOnly Property World As IWorld Implements IEntity(Of TIdentifier).World
         Get
             Return New World(WorldData)
