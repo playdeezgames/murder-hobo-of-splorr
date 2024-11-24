@@ -24,12 +24,6 @@ Friend Class Route
         End Set
     End Property
 
-    Public ReadOnly Property Conditions As IEnumerable(Of ICondition) Implements IRoute.Conditions
-        Get
-            Return EntityData.Conditions.Select(Function(x) New Condition(WorldData, x))
-        End Get
-    End Property
-
     Protected Overrides ReadOnly Property EntityData As RouteData
         Get
             Return WorldData.Locations(EntityId.LocationId).Routes(EntityId.Direction)
@@ -39,10 +33,4 @@ Friend Class Route
     Public Overrides Sub Recycle()
         WorldData.Locations(EntityId.LocationId).Routes.Remove(EntityId.Direction)
     End Sub
-
-    Public Function CreateCondition(conditionType As String) As ICondition Implements IRoute.CreateCondition
-        Dim condition = World.CreateCondition(conditionType)
-        EntityData.Conditions.Add(condition.Id)
-        Return condition
-    End Function
 End Class

@@ -18,7 +18,7 @@
                 New CancelChoice(New NeutralDialog(World), World)
             }
             Dim location = World.Avatar.Location
-            For Each entry In location.AllowedRoutes(World.Avatar)
+            For Each entry In location.Routes
                 result.Add(New DirectionChoice(entry.Id.Direction, World))
             Next
             Return result.ToArray
