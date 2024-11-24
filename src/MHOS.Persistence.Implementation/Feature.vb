@@ -9,12 +9,6 @@ Friend Class Feature
         MyBase.New(worldData, (LocationId, FeatureId))
     End Sub
 
-    Public ReadOnly Property Verbs As IEnumerable(Of IVerb) Implements IFeature.Verbs
-        Get
-            Return EntityData.Verbs.Select(Function(x) New Verb(WorldData, x))
-        End Get
-    End Property
-
     Protected Overrides ReadOnly Property EntityData As FeatureData
         Get
             Return WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId)
@@ -24,10 +18,4 @@ Friend Class Feature
     Public Overrides Sub Recycle()
         WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId) = Nothing
     End Sub
-
-    Public Function CreateVerb(verbType As String) As IVerb Implements IFeature.CreateVerb
-        Dim verb As IVerb = World.CreateVerb(verbType)
-        EntityData.Verbs.Add(verb.Id)
-        Return verb
-    End Function
 End Class

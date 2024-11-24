@@ -38,11 +38,7 @@ Friend Module WorldExtensionMethods
         Dim gorachan = location.CreateFeature(FeatureTypes.NPC)
         gorachan.Metadata(MetadataTypes.Name) = "Gorachan the Innkeeper"
         gorachan.Metadata(MetadataTypes.ShortName) = "the innkeeper"
-        Dim cellarQuest = gorachan.CreateVerb(VerbTypes.Quest)
-        cellarQuest.Metadata(MetadataTypes.Name) = "I need someone to clear rats out of my cellar."
-        cellarQuest.Metadata(MetadataTypes.ShortName) = "Accept Quest"
-        Dim flagCondition = cellarQuest.CreateCondition(ConditionTypes.FlagForbidden)
-        flagCondition.Metadata(MetadataTypes.Flag) = Quests.Cellar
+        'TODO: cellar quest
     End Sub
 
     Private Sub InitializeInnSign(entrance As ILocation)

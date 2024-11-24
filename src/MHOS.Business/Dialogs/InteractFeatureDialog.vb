@@ -13,9 +13,6 @@
             For Each line In feature.DescriptionLines
                 result.Add((line, Moods.Normal))
             Next
-            For Each verb In feature.AllowedVerbs(World.Avatar)
-                result.Add((verb.Metadata(MetadataTypes.Name), Moods.Normal))
-            Next
             Return result.ToArray
         End Get
     End Property
@@ -30,9 +27,6 @@
                         New InteractMenuDialog(World)),
                         World)
                 }
-            For Each verb In feature.AllowedVerbs(World.Avatar)
-                result.Add(New VerbChoice(World, verb))
-            Next
             Return result.ToArray
         End Get
     End Property
