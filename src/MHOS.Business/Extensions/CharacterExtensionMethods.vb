@@ -11,26 +11,16 @@
     Function Descriptor(character As ICharacter) As BaseCharacterTypeDescriptor
         Return CharacterTypes.Descriptors(character.EntityType)
     End Function
-    Private ReadOnly attributes As IReadOnlyList(Of String) =
-        New List(Of String) From
-        {
-            CounterTypes.Charisma
-        }
     <Extension>
     Function DescribeAttributes(character As ICharacter) As IEnumerable(Of (Text As String, Mood As String))
-        Dim result As New List(Of (Text As String, Mood As String)) From {
+        Return {
             ($"Strength {character.Strength}", Moods.Normal),
             ($"Intelligence {character.Intelligence}", Moods.Normal),
             ($"Wisdom {character.Wisdom}", Moods.Normal),
             ($"Dexterity {character.Dexterity}", Moods.Normal),
-            ($"Constitution {character.Constitution}", Moods.Normal)
+            ($"Constitution {character.Constitution}", Moods.Normal),
+            ($"Charisma {character.Charisma}", Moods.Normal)
         }
-        result.AddRange(attributes.Select(Function(x) character.DescribeAttribute(x)))
-        Return result
-    End Function
-    <Extension>
-    Friend Function Charisma(character As ICharacter) As Integer
-        Return character.Counter(CounterTypes.Charisma).Value
     End Function
     <Extension>
     Private Function DescribeAttribute(character As ICharacter, counterType As String) As (Text As String, Mood As String)

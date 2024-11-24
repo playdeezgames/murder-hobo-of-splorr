@@ -7,4 +7,5 @@
     Public Property Wisdom As Integer
     Public Property Dexterity As Integer
     Public Property Constitution As Integer
+    Public Property Charisma As Integer
 End Class

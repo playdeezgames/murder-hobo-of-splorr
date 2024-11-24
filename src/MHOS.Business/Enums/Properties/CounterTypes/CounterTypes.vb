@@ -1,5 +1,4 @@
 ﻿Friend Module CounterTypes
-    Friend ReadOnly Charisma As String = NameOf(Charisma)
     Friend ReadOnly ExperiencePoints As String = NameOf(ExperiencePoints)
     Private ReadOnly HitDieRoll As String = NameOf(HitDieRoll)
     Private Const FirstLevel As Integer = 1
@@ -17,7 +16,6 @@
     Private Function GenerateDescriptors() As IReadOnlyDictionary(Of String, BaseCounterTypeDescriptor)
         Dim result = New List(Of BaseCounterTypeDescriptor) From
         {
-            New CharismaCounterTypeDescriptor(),
             New ExperiencePointsCounterTypeDescriptor(),
             New HitPointsCounterTypeDescriptor()
         }

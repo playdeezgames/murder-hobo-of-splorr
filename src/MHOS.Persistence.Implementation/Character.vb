@@ -77,6 +77,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property Charisma As Integer Implements ICharacter.Charisma
+        Get
+            Return EntityData.Charisma
+        End Get
+        Set(value As Integer)
+            EntityData.Charisma = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

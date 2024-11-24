@@ -9,4 +9,5 @@
     Property Wisdom As Integer
     Property Dexterity As Integer
     Property Constitution As Integer
+    Property Charisma As Integer
 End Interface
