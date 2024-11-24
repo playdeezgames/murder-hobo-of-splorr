@@ -7,7 +7,7 @@
 
     Friend Overrides Function DescriptionLines(feature As IFeature) As IEnumerable(Of String)
         Return {
-            feature.Metadata(MetadataTypes.Name)
+            feature.Name
             }
     End Function
 

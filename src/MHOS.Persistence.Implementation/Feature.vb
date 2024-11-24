@@ -18,6 +18,15 @@ Friend Class Feature
         End Set
     End Property
 
+    Public Property Name As String Implements IFeature.Name
+        Get
+            Return EntityData.Name
+        End Get
+        Set(value As String)
+            EntityData.Name = value
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As FeatureData
         Get
             Return WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId)
