@@ -43,7 +43,7 @@ Friend Module WorldExtensionMethods
 
     Private Sub InitializeInnSign(entrance As ILocation)
         Dim signFeature = entrance.CreateFeature(FeatureTypes.Sign)
-        signFeature.Metadata(MetadataTypes.SignText) = "Jusdatip Inn, Gorachan: Proprietor"
+        signFeature.SignText = "Jusdatip Inn, Gorachan: Proprietor"
     End Sub
 
     Private Sub InitializeCellar(world As IWorld)

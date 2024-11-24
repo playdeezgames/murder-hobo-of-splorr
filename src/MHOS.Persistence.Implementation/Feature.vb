@@ -9,6 +9,15 @@ Friend Class Feature
         MyBase.New(worldData, (LocationId, FeatureId))
     End Sub
 
+    Public Property SignText As String Implements IFeature.SignText
+        Get
+            Return EntityData.SignText
+        End Get
+        Set(value As String)
+            EntityData.SignText = value
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As FeatureData
         Get
             Return WorldData.Locations(EntityId.LocationId).Features(EntityId.FeatureId)

@@ -7,7 +7,7 @@
 
     Friend Overrides Function DescriptionLines(feature As IFeature) As IEnumerable(Of String)
         Return {
-            $"The sign says '{feature.Metadata(MetadataTypes.SignText)}'."
+            $"The sign says '{feature.SignText}'."
             }
     End Function
 
