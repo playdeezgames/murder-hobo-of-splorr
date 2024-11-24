@@ -4,4 +4,6 @@
     Public Property Messages As New List(Of MessageData)
     Public Property Strength As Integer
     Public Property Intelligence As Integer
+    Public Property Wisdom As Integer
+    Public Property Dexterity As Integer
 End Class

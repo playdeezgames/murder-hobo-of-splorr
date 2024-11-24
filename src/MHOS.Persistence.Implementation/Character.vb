@@ -50,6 +50,24 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property Wisdom As Integer Implements ICharacter.Wisdom
+        Get
+            Return EntityData.Wisdom
+        End Get
+        Set(value As Integer)
+            EntityData.Wisdom = value
+        End Set
+    End Property
+
+    Public Property Dexterity As Integer Implements ICharacter.Dexterity
+        Get
+            Return EntityData.Dexterity
+        End Get
+        Set(value As Integer)
+            EntityData.Dexterity = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub
