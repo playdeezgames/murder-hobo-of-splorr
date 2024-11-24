@@ -25,27 +25,6 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
         End Set
     End Property
 
-    Public Property Metadata(metadataType As String) As String Implements IEntity(Of TIdentifier).Metadata
-        Get
-            Dim value As String = Nothing
-            EntityData.Metadatas.TryGetValue(metadataType, value)
-            Return value
-        End Get
-        Set(value As String)
-            If String.IsNullOrEmpty(value) Then
-                EntityData.Metadatas.remove(metadataType)
-            Else
-                EntityData.Metadatas(metadataType) = value
-            End If
-        End Set
-    End Property
-
-    Public ReadOnly Property MetadataTypes As IEnumerable(Of String) Implements IEntity(Of TIdentifier).MetadataTypes
-        Get
-            Return EntityData.Metadatas.Keys
-        End Get
-    End Property
-
     Public Property Flag(flagType As String) As Boolean Implements IEntity(Of TIdentifier).Flag
         Get
             Return EntityData.Flags.Contains(flagType)
