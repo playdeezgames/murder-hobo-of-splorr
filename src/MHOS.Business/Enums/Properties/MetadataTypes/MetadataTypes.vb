@@ -4,5 +4,4 @@
     Friend ReadOnly SignText As String = NameOf(SignText)
     Friend ReadOnly Name As String = NameOf(Name)
     Friend ReadOnly ShortName As String = NameOf(ShortName)
-    Friend ReadOnly Flag As String = NameOf(Flag)
 End Module
