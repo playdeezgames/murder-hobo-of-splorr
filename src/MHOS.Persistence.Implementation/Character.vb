@@ -32,6 +32,15 @@ Friend Class Character
         End Get
     End Property
 
+    Public Property Strength As Integer Implements ICharacter.Strength
+        Get
+            Return EntityData.Strength
+        End Get
+        Set(value As Integer)
+            EntityData.Strength = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

@@ -14,7 +14,6 @@
     Private ReadOnly attributes As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            CounterTypes.Strength,
             CounterTypes.Intelligence,
             CounterTypes.Wisdom,
             CounterTypes.Dexterity,
@@ -23,11 +22,11 @@
         }
     <Extension>
     Function DescribeAttributes(character As ICharacter) As IEnumerable(Of (Text As String, Mood As String))
-        Return attributes.Select(Function(x) character.DescribeAttribute(x))
-    End Function
-    <Extension>
-    Friend Function Strength(character As ICharacter) As Integer
-        Return character.Counter(CounterTypes.Strength).Value
+        Dim result As New List(Of (Text As String, Mood As String)) From {
+            ($"Strength {character.Strength}", Moods.Normal)
+        }
+        result.AddRange(attributes.Select(Function(x) character.DescribeAttribute(x)))
+        Return result
     End Function
     <Extension>
     Friend Function Intelligence(character As ICharacter) As Integer
