@@ -104,6 +104,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property LevelHitDieRoll(level As Integer) As Integer Implements ICharacter.LevelHitDieRoll
+        Get
+            Return EntityData.LevelHitDieRoll(level)
+        End Get
+        Set(value As Integer)
+            EntityData.LevelHitDieRoll(level) = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

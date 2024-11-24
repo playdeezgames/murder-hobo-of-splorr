@@ -10,4 +10,5 @@
     Public Property Charisma As Integer
     Public Property ExperiencePoints As Integer
     Public Property HitPoints As Integer
+    Public Property LevelHitDieRoll As New Dictionary(Of Integer, Integer)
 End Class

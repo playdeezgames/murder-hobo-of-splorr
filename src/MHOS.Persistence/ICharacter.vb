@@ -12,4 +12,5 @@
     Property Charisma As Integer
     Property ExperiencePoints As Integer
     Property HitPoints As Integer
+    Property LevelHitDieRoll(level As Integer) As Integer
 End Interface

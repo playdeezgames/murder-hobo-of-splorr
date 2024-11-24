@@ -48,8 +48,7 @@
         Dim raceDescriptor = character.RaceDescriptor
         Dim hitDie = Math.Min(classDescriptor.HitDie, raceDescriptor.MaximumHitDie)
         For Each classLevelDescriptor In classDescriptor.ClassLevelDescriptors
-            Dim counterType = CounterTypes.LevelHitDieRoll(classLevelDescriptor.Key)
-            character.Counter(counterType) = RNG.RollDice($"{classLevelDescriptor.Value.HitDice}d{hitDie}") + classLevelDescriptor.Value.HitPoints
+            character.LevelHitDieRoll(classLevelDescriptor.Key) = RNG.RollDice($"{classLevelDescriptor.Value.HitDice}d{hitDie}") + classLevelDescriptor.Value.HitPoints
         Next
     End Sub
     <Extension>
@@ -67,7 +66,7 @@
         Dim xp = character.ExperiencePoints
         Dim classDescriptor = Classes.Descriptors([class])
         Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
-        Return levelDescriptors.Sum(Function(x) Math.Max(1, character.Counter(x.Value.HitDieRollCounterType).Value + If(x.Value.HasConstitutionBonus, character.ConstitutionBonus, 0)))
+        Return levelDescriptors.Sum(Function(x) Math.Max(1, character.LevelHitDieRoll(x.Key) + If(x.Value.HasConstitutionBonus, character.ConstitutionBonus, 0)))
     End Function
     <Extension>
     Friend Function HitPoints(character As ICharacter) As Integer

@@ -4,11 +4,6 @@
     ReadOnly Property HitPoints As Integer
     ReadOnly Property ExperiencePoints As Integer
     ReadOnly Property AttackBonus As Integer
-    ReadOnly Property HitDieRollCounterType As String
-        Get
-            Return CounterTypes.LevelHitDieRoll(Level)
-        End Get
-    End Property
     ReadOnly Property HasConstitutionBonus As Boolean
         Get
             Return HitDice > 0
