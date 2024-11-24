@@ -35,10 +35,6 @@
         Return Classes.Descriptors(character.Metadata(MetadataTypes.Class)).Name
     End Function
     <Extension>
-    Friend Function ExperiencePoints(character As ICharacter) As Integer
-        Return character.Counter(CounterTypes.ExperiencePoints).Value
-    End Function
-    <Extension>
     Friend Function ExperienceLevel(character As ICharacter) As Integer
         Dim [class] = character.Metadata(MetadataTypes.Class)
         Dim xp = character.ExperiencePoints

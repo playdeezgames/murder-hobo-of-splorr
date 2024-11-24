@@ -86,6 +86,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property ExperiencePoints As Integer Implements ICharacter.ExperiencePoints
+        Get
+            Return EntityData.ExperiencePoints
+        End Get
+        Set(value As Integer)
+            EntityData.ExperiencePoints = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

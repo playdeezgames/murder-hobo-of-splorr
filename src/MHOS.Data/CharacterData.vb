@@ -8,4 +8,5 @@
     Public Property Dexterity As Integer
     Public Property Constitution As Integer
     Public Property Charisma As Integer
+    Public Property ExperiencePoints As Integer
 End Class

@@ -1,5 +1,4 @@
 ﻿Friend Module CounterTypes
-    Friend ReadOnly ExperiencePoints As String = NameOf(ExperiencePoints)
     Private ReadOnly HitDieRoll As String = NameOf(HitDieRoll)
     Private Const FirstLevel As Integer = 1
     Private Const LevelCount As Integer = 20
@@ -16,7 +15,6 @@
     Private Function GenerateDescriptors() As IReadOnlyDictionary(Of String, BaseCounterTypeDescriptor)
         Dim result = New List(Of BaseCounterTypeDescriptor) From
         {
-            New ExperiencePointsCounterTypeDescriptor(),
             New HitPointsCounterTypeDescriptor()
         }
         For Each level In Enumerable.Range(FirstLevel, LevelCount)

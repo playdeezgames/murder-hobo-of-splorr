@@ -10,4 +10,5 @@
     Property Dexterity As Integer
     Property Constitution As Integer
     Property Charisma As Integer
+    Property ExperiencePoints As Integer
 End Interface

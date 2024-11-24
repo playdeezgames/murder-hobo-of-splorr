@@ -15,7 +15,7 @@
     Public Overrides Function Choose() As IDialog
         With world.Avatar
             .Metadata(MetadataTypes.Class) = [class]
-            .Counter(CounterTypes.ExperiencePoints) = 0
+            .ExperiencePoints = 0
             .RollHitDice()
             .Counter(CounterTypes.HitPoints) = .MaximumHitPoints
         End With
