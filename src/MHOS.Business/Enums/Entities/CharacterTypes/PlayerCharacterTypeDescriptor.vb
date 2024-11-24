@@ -8,7 +8,6 @@
     Private Shared ReadOnly attributes As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            CounterTypes.Constitution,
             CounterTypes.Charisma
         }
     Private Const AttributeDiceRoll = "3d6"
@@ -18,6 +17,7 @@
         character.Intelligence = RNG.RollDice(AttributeDiceRoll)
         character.Wisdom = RNG.RollDice(AttributeDiceRoll)
         character.Dexterity = RNG.RollDice(AttributeDiceRoll)
+        character.Constitution = RNG.RollDice(AttributeDiceRoll)
         For Each counterType In attributes
             character.Counter(counterType) = RNG.RollDice(AttributeDiceRoll)
         Next

@@ -8,4 +8,5 @@
     Property Intelligence As Integer
     Property Wisdom As Integer
     Property Dexterity As Integer
+    Property Constitution As Integer
 End Interface

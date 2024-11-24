@@ -68,6 +68,15 @@ Friend Class Character
         End Set
     End Property
 
+    Public Property Constitution As Integer Implements ICharacter.Constitution
+        Get
+            Return EntityData.Constitution
+        End Get
+        Set(value As Integer)
+            EntityData.Constitution = value
+        End Set
+    End Property
+
     Public Sub AddMessage(text As String, mood As String) Implements ICharacter.AddMessage
         EntityData.Messages.Add(New Data.MessageData With {.Text = text, .Mood = mood})
     End Sub

@@ -6,4 +6,5 @@
     Public Property Intelligence As Integer
     Public Property Wisdom As Integer
     Public Property Dexterity As Integer
+    Public Property Constitution As Integer
 End Class
