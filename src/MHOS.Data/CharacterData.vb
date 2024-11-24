@@ -12,4 +12,5 @@
     Public Property HitPoints As Integer
     Public Property LevelHitDieRoll As New Dictionary(Of Integer, Integer)
     Public Property Race As String
+    Public Property [Class] As String
 End Class

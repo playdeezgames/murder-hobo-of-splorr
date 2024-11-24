@@ -24,11 +24,11 @@
     End Function
     <Extension>
     Friend Function ClassName(character As ICharacter) As String
-        Return Classes.Descriptors(character.Metadata(MetadataTypes.Class)).Name
+        Return Classes.Descriptors(character.Class).Name
     End Function
     <Extension>
     Friend Function ExperienceLevel(character As ICharacter) As Integer
-        Dim [class] = character.Metadata(MetadataTypes.Class)
+        Dim [class] = character.Class
         Dim xp = character.ExperiencePoints
         Dim classDescriptor = Classes.Descriptors([class])
         Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
@@ -50,11 +50,11 @@
 
     <Extension>
     Private Function ClassDescriptor(character As ICharacter) As BaseClassDescriptor
-        Return Classes.Descriptors(character.Metadata(MetadataTypes.Class))
+        Return Classes.Descriptors(character.Class)
     End Function
     <Extension>
     Friend Function MaximumHitPoints(character As ICharacter) As Integer
-        Dim [class] = character.Metadata(MetadataTypes.Class)
+        Dim [class] = character.Class
         Dim xp = character.ExperiencePoints
         Dim classDescriptor = Classes.Descriptors([class])
         Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)

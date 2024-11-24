@@ -14,7 +14,7 @@
 
     Public Overrides Function Choose() As IDialog
         With world.Avatar
-            .Metadata(MetadataTypes.Class) = [class]
+            .Class = [class]
             .ExperiencePoints = 0
             .RollHitDice()
             .HitPoints = .MaximumHitPoints
