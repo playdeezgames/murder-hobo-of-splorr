@@ -32,10 +32,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Strength >= 9 AndAlso
-            character.Intelligence >= 9 AndAlso
-            character.Race <> Races.Dwarf AndAlso
-            character.Race <> Races.Halfling AndAlso
-            character.Race <> Races.Man
+        Return True
     End Function
 End Class

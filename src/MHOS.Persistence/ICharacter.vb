@@ -4,12 +4,6 @@
     Sub AddMessage(text As String, mood As String)
     Sub ClearMessages()
     ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String))
-    Property Strength As Integer
-    Property Intelligence As Integer
-    Property Wisdom As Integer
-    Property Dexterity As Integer
-    Property Constitution As Integer
-    Property Charisma As Integer
     Property ExperiencePoints As Integer
     Property HitPoints As Integer
     Property LevelHitDieRoll(level As Integer) As Integer

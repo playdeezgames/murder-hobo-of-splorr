@@ -32,60 +32,6 @@ Friend Class Character
         End Get
     End Property
 
-    Public Property Strength As Integer Implements ICharacter.Strength
-        Get
-            Return EntityData.Strength
-        End Get
-        Set(value As Integer)
-            EntityData.Strength = value
-        End Set
-    End Property
-
-    Public Property Intelligence As Integer Implements ICharacter.Intelligence
-        Get
-            Return EntityData.Intelligence
-        End Get
-        Set(value As Integer)
-            EntityData.Intelligence = value
-        End Set
-    End Property
-
-    Public Property Wisdom As Integer Implements ICharacter.Wisdom
-        Get
-            Return EntityData.Wisdom
-        End Get
-        Set(value As Integer)
-            EntityData.Wisdom = value
-        End Set
-    End Property
-
-    Public Property Dexterity As Integer Implements ICharacter.Dexterity
-        Get
-            Return EntityData.Dexterity
-        End Get
-        Set(value As Integer)
-            EntityData.Dexterity = value
-        End Set
-    End Property
-
-    Public Property Constitution As Integer Implements ICharacter.Constitution
-        Get
-            Return EntityData.Constitution
-        End Get
-        Set(value As Integer)
-            EntityData.Constitution = value
-        End Set
-    End Property
-
-    Public Property Charisma As Integer Implements ICharacter.Charisma
-        Get
-            Return EntityData.Charisma
-        End Get
-        Set(value As Integer)
-            EntityData.Charisma = value
-        End Set
-    End Property
-
     Public Property ExperiencePoints As Integer Implements ICharacter.ExperiencePoints
         Get
             Return EntityData.ExperiencePoints

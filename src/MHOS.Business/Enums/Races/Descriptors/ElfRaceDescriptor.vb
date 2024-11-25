@@ -6,6 +6,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Intelligence >= 9 AndAlso character.Constitution <= 17
+        Return True
     End Function
 End Class

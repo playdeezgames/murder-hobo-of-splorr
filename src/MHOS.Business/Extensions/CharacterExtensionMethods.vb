@@ -10,12 +10,6 @@
     <Extension>
     Function DescribeAttributes(character As ICharacter) As IEnumerable(Of (Text As String, Mood As String))
         Return {
-            ($"Strength {character.Strength}", Moods.Normal),
-            ($"Intelligence {character.Intelligence}", Moods.Normal),
-            ($"Wisdom {character.Wisdom}", Moods.Normal),
-            ($"Dexterity {character.Dexterity}", Moods.Normal),
-            ($"Constitution {character.Constitution}", Moods.Normal),
-            ($"Charisma {character.Charisma}", Moods.Normal)
         }
     End Function
     <Extension>
@@ -58,15 +52,11 @@
         Dim xp = character.ExperiencePoints
         Dim classDescriptor = Classes.Descriptors([class])
         Dim levelDescriptors = classDescriptor.ClassLevelDescriptors.Where(Function(x) xp >= x.Value.ExperiencePoints)
-        Return levelDescriptors.Sum(Function(x) Math.Max(1, character.LevelHitDieRoll(x.Key) + If(x.Value.HasConstitutionBonus, character.ConstitutionBonus, 0)))
+        Return levelDescriptors.Sum(Function(x) Math.Max(1, character.LevelHitDieRoll(x.Key)))
     End Function
     <Extension>
     Friend Function HitPoints(character As ICharacter) As Integer
         Return Math.Clamp(character.HitPoints, 0, character.MaximumHitPoints)
-    End Function
-    <Extension>
-    Friend Function ConstitutionBonus(character As ICharacter) As Integer
-        Return attributeBonuses(character.Constitution)
     End Function
     <Extension>
     Friend Function AttackBonus(character As ICharacter) As Integer

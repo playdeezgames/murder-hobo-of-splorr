@@ -32,6 +32,6 @@
     End Sub
 
     Public Overrides Function IsQualified(character As ICharacter) As Boolean
-        Return character.Wisdom >= 9
+        Return True
     End Function
 End Class

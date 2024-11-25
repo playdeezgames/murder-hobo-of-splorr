@@ -24,20 +24,6 @@ Friend MustInherit Class Entity(Of TEntityData As EntityData, TIdentifier)
             EntityData.EntityType = value
         End Set
     End Property
-
-    Public Property Flag(flagType As String) As Boolean Implements IEntity(Of TIdentifier).Flag
-        Get
-            Return EntityData.Flags.Contains(flagType)
-        End Get
-        Set(value As Boolean)
-            If value Then
-                EntityData.Flags.Add(flagType)
-            Else
-                EntityData.Flags.Remove(flagType)
-            End If
-        End Set
-    End Property
-
     Public ReadOnly Property World As IWorld Implements IEntity(Of TIdentifier).World
         Get
             Return New World(WorldData)
