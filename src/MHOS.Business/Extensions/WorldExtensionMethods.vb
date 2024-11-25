@@ -1,11 +1,6 @@
 ﻿Imports System.Data
 
 Friend Module WorldExtensionMethods
-    Private Function InitializeCharacter(world As IWorld, characterType As String, location As ILocation) As ICharacter
-        Dim character = world.CreateCharacter(characterType, location)
-        character.Initialize()
-        Return character
-    End Function
     Private Sub InitializeTown(world As IWorld)
         world.AddInitializationStep(AddressOf InitializeInn)
         Const TownColumns = 5
@@ -112,9 +107,7 @@ Friend Module WorldExtensionMethods
     Private Sub InitializeCharacter(world As IWorld)
         world.AddInitializationStep(Sub(w)
                                         Dim location = RNG.FromEnumerable(w.Locations.Where(Function(x) x.EntityType = LocationTypes.Town AndAlso x.HasRoute(Directions.In)))
-                                        Dim character = InitializeCharacter(w,
-                                            CharacterTypes.Player,
-                                            location)
+                                        Dim character = world.CreateCharacter(String.Empty, location)
                                         w.SetAvatar(character)
                                     End Sub)
     End Sub

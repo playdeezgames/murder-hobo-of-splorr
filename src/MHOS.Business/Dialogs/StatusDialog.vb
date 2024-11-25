@@ -10,7 +10,6 @@
             With World.Avatar
                 Dim result As New List(Of (Text As String, Mood As String)) From {
             }
-                result.AddRange(.DescribeAttributes)
                 Return result
             End With
         End Get
