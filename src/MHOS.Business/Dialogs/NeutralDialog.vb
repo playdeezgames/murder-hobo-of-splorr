@@ -1,9 +1,13 @@
 ﻿Friend Class NeutralDialog
     Inherits Dialog
 
-    Public Sub New(world As IWorld)
+    Private Sub New(world As IWorld)
         MyBase.New(world)
     End Sub
+
+    Friend Shared Function FromWorld(world As IWorld) As IDialog
+        Return New NeutralDialog(world)
+    End Function
 
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
@@ -19,7 +23,7 @@
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Dim result As New List(Of IChoice) From {
-                New NextChoice(Me, World)
+                NextChoice.Create(Me, World)
             }
             Return result.ToArray
         End Get

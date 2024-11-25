@@ -1,6 +1,6 @@
 ﻿Public MustInherit Class Dialog
     Implements IDialog
-    Sub New(world As IWorld)
+    Protected Sub New(world As IWorld)
         Me.World = world
     End Sub
     Public Property World As IWorld Implements IDialog.World
