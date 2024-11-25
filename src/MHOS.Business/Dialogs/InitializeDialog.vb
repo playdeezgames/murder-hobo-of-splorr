@@ -20,7 +20,7 @@
             New NextChoice(
             If(
                 World.InitializationStepCount = 0,
-                CType(New ChooseRaceDialog(World), IDialog),
+                CType(New NeutralDialog(World), IDialog),
                 New InitializeDialog(World)),
             World)
             }
