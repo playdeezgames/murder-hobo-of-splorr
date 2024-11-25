@@ -29,4 +29,8 @@
     <Import Include="System.Text.Json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

@@ -1,29 +1,31 @@
 ﻿Friend Class NeutralDialog
     Inherits Dialog
-    Private subdialog As IDialog
 
     Public Sub New(world As IWorld)
         MyBase.New(world)
-        If world?.Avatar IsNot Nothing Then
-            subdialog = New NavigationDialog(world)
-        Else
-            subdialog = New UninitializedDialog(world)
-        End If
     End Sub
+
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Return subdialog.Description
+            Dim result As New List(Of (Text As String, Mood As String)) From
+                {
+                    ("Yer Playing the Game!", Moods.Normal)
+                }
+            Return result
         End Get
     End Property
 
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
-            Return subdialog.AvailableChoices
+            Dim result As New List(Of IChoice) From {
+                New NextChoice(Me, World)
+            }
+            Return result.ToArray
         End Get
     End Property
 
     Public Overrides Function GoBack() As IDialog
-        Return subdialog.GoBack
+        Return Nothing
     End Function
 End Class
