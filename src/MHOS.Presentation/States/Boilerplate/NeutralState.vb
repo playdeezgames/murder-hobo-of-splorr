@@ -38,6 +38,11 @@
             {Moods.Normal, BoilerplateHue.LightGray}
         }
 
+    Private Function RenderLine(displayBuffer As IPixelSink, font As Font, y As Integer, text As String, mood As String) As Integer
+        font.WriteText(displayBuffer, (0, y), text, moodHues(mood))
+        Return y + font.Height
+    End Function
+
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         Dim Choices = Context.Model.AvailableChoices
         If currentChoice >= Choices.Length Then
@@ -46,10 +51,9 @@
         displayBuffer.Fill(BoilerplateHue.Black)
 
         Dim font = Context.Font(UIFontName)
-        Dim y As Integer = 0
+        Dim y As Integer = RenderLine(displayBuffer, font, 0, "(Escape -> Game Menu)", Moods.Normal)
         For Each line In Context.Model.Description
-            font.WriteText(displayBuffer, (0, y), line.Text, moodHues(line.Mood))
-            y += font.Height
+            y = RenderLine(displayBuffer, font, y, line.Text, line.Mood)
         Next
 
         Dim rows = (choices.Length + ChoiceColumns - 1) \ ChoiceColumns
