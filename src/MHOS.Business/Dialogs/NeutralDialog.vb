@@ -29,7 +29,8 @@
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Dim result As New List(Of IChoice) From {
-                MurderChoice.Create(Function() Me, World)
+                MurderChoice.Create(Function() Me, World),
+                ShoppeChoice.Create(World)
             }
             Return result.ToArray
         End Get

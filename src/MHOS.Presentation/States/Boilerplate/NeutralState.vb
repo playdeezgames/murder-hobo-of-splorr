@@ -37,7 +37,8 @@
         {
             {Moods.Normal, BoilerplateHue.LightGray},
             {Moods.Success, BoilerplateHue.Green},
-            {Moods.Failure, BoilerplateHue.Red}
+            {Moods.Failure, BoilerplateHue.Red},
+            {Moods.Heading, BoilerplateHue.Orange}
         }
 
     Private Function RenderLine(displayBuffer As IPixelSink, font As Font, y As Integer, text As String, mood As String) As Integer
