@@ -52,9 +52,11 @@ Public Class World
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
         If RNG.FromRange(0, 1) = 1 Then
+            WorldData.ExperiencePoints += 1
             WorldData.MurderCounter += 1
             WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
         Else
+            WorldData.ExperiencePoints += 2
             WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
         End If
     End Sub
