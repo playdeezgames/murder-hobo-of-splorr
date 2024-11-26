@@ -19,4 +19,8 @@ Public Class World
             Return WorldData.MoveCounter
         End Get
     End Property
+
+    Public Sub KeepGoing() Implements IWorld.KeepGoing
+        WorldData.MoveCounter += 1
+    End Sub
 End Class
