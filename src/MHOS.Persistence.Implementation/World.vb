@@ -51,7 +51,7 @@ Public Class World
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
-        If RNG.FromRange(0, 1) = 1 Then
+        If RNG.FromRange(1, WorldData.MurderSkill + WorldData.MurderDifficulty) <= WorldData.MurderSkill Then
             WorldData.ExperiencePoints += 1
             WorldData.MurderCounter += 1
             WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
