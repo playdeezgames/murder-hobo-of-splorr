@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MHOS.Data\MHOS.Data.vbproj" />
     <ProjectReference Include="..\MHOS.Persistence\MHOS.Persistence.vbproj" />
+    <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
-﻿Imports System.Text.Json
+﻿Imports System.Security.Cryptography
+Imports System.Text.Json
 Imports MHOS.Data
+Imports SPLORR.Game
 
 Public Class World
     Implements IWorld
@@ -37,6 +39,8 @@ Public Class World
 
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
-        WorldData.MurderCounter += 1
+        If RNG.FromRange(0, 1) = 1 Then
+            WorldData.MurderCounter += 1
+        End If
     End Sub
 End Class
