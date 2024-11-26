@@ -1,5 +1,7 @@
 Public Interface IWorld
     ReadOnly Property Serialized As String
     ReadOnly Property MurderCounter As Integer
-    Sub Murder()
+    ReadOnly Property AttemptCounter As Integer
+    ReadOnly Property SuccessRate As Integer?
+    Sub AttemptMurder()
 End Interface

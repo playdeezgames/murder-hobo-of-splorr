@@ -18,7 +18,7 @@
     End Property
 
     Public Overrides Function Choose() As IDialog
-        world.Murder()
+        world.AttemptMurder()
         Return nextDialog()
     End Function
 End Class
