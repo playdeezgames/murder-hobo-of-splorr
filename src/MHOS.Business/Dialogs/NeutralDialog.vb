@@ -14,7 +14,8 @@
         Get
             Dim result As New List(Of (Text As String, Mood As String)) From
                 {
-                    ("Yer Playing the Game!", Moods.Normal)
+                    ("Yer Playing the Game!", Moods.Normal),
+                    ($"Move Counter: {World.MoveCounter}", Moods.Normal)
                 }
             Return result
         End Get

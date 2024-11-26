@@ -13,4 +13,10 @@ Public Class World
             Return JsonSerializer.Serialize(WorldData)
         End Get
     End Property
+
+    Public ReadOnly Property MoveCounter As Integer Implements IWorld.MoveCounter
+        Get
+            Return WorldData.MoveCounter
+        End Get
+    End Property
 End Class
