@@ -1,4 +1,4 @@
-﻿Friend Class KeepGoingChoice
+﻿Friend Class MurderChoice
     Inherits Choice
     Private ReadOnly nextDialog As Func(Of IDialog)
 
@@ -8,17 +8,17 @@
     End Sub
 
     Friend Shared Function Create(nextDialog As Func(Of IDialog), world As IWorld) As IChoice
-        Return New KeepGoingChoice(nextDialog, world)
+        Return New MurderChoice(nextDialog, world)
     End Function
 
     Public Overrides ReadOnly Property Text As String
         Get
-            Return "Keep Going..."
+            Return "Murder!"
         End Get
     End Property
 
     Public Overrides Function Choose() As IDialog
-        world.KeepGoing()
+        world.Murder()
         Return nextDialog()
     End Function
 End Class

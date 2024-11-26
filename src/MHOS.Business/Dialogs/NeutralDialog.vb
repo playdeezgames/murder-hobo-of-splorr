@@ -15,7 +15,7 @@
             Dim result As New List(Of (Text As String, Mood As String)) From
                 {
                     ("Yer Playing the Game!", Moods.Normal),
-                    ($"Move Counter: {World.MoveCounter}", Moods.Normal)
+                    ($"Murder Counter: {World.MurderCounter}", Moods.Normal)
                 }
             Return result
         End Get
@@ -24,7 +24,7 @@
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Dim result As New List(Of IChoice) From {
-                KeepGoingChoice.Create(Function() Me, World)
+                MurderChoice.Create(Function() Me, World)
             }
             Return result.ToArray
         End Get

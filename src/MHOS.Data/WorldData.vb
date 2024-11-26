@@ -1,3 +1,3 @@
 Public Class WorldData
-    Public Property MoveCounter As Integer
+    Public Property MurderCounter As Integer
 End Class

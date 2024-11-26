@@ -14,13 +14,13 @@ Public Class World
         End Get
     End Property
 
-    Public ReadOnly Property MoveCounter As Integer Implements IWorld.MoveCounter
+    Public ReadOnly Property MurderCounter As Integer Implements IWorld.MurderCounter
         Get
-            Return WorldData.MoveCounter
+            Return WorldData.MurderCounter
         End Get
     End Property
 
-    Public Sub KeepGoing() Implements IWorld.KeepGoing
-        WorldData.MoveCounter += 1
+    Public Sub Murder() Implements IWorld.Murder
+        WorldData.MurderCounter += 1
     End Sub
 End Class
