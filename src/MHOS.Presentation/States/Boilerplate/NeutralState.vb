@@ -35,7 +35,9 @@
     Private Shared ReadOnly moodHues As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
-            {Moods.Normal, BoilerplateHue.LightGray}
+            {Moods.Normal, BoilerplateHue.LightGray},
+            {Moods.Success, BoilerplateHue.Green},
+            {Moods.Failure, BoilerplateHue.Red}
         }
 
     Private Function RenderLine(displayBuffer As IPixelSink, font As Font, y As Integer, text As String, mood As String) As Integer

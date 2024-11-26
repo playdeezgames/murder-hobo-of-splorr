@@ -47,9 +47,9 @@ Public Class World
         WorldData.Messages.Clear()
         If RNG.FromRange(0, 1) = 1 Then
             WorldData.MurderCounter += 1
-            WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Normal})
+            WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
         Else
-            WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Normal})
+            WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
         End If
     End Sub
 End Class
