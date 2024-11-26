@@ -80,8 +80,17 @@ Public Class World
             WorldData.MurderCounter += 1
             WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
         Else
-            WorldData.ExperiencePoints += WorldData.MurderDifficulty
+            WorldData.ExperiencePoints += WorldData.MurderDifficulty * 2
             WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
         End If
+    End Sub
+
+    Public Sub BuySkillIncrease() Implements IWorld.BuySkillIncrease
+        If Not CanBuySkillIncrease Then
+            Return
+        End If
+        WorldData.ExperiencePoints -= SkillIncreaseCost
+        WorldData.MurderSkill += 1
+        WorldData.SkillIncreaseCost *= 2
     End Sub
 End Class

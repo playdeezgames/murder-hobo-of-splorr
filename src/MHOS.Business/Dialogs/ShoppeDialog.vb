@@ -23,6 +23,9 @@
         Get
             Dim result As New List(Of IChoice)
             result.Add(CancelChoice.Create(Function() NeutralDialog.Create(World), World))
+            If World.CanBuySkillIncrease Then
+                result.Add(New SkillIncreaseChoice(World))
+            End If
             Return result.ToArray
         End Get
     End Property

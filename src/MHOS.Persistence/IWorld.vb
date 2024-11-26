@@ -10,4 +10,5 @@ Public Interface IWorld
     ReadOnly Property ExperiencePoints As Integer
     ReadOnly Property CanBuySkillIncrease As Boolean
     ReadOnly Property SkillIncreaseCost As Integer
+    Sub BuySkillIncrease()
 End Interface
