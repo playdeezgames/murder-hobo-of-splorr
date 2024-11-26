@@ -15,6 +15,8 @@
             Dim result =World.Messages.ToList()
             result.AddRange(
                 {
+                    ($"Murder Skill: {World.MurderSkill}", Moods.Normal),
+                    ($"Murder Difficulty: {World.MurderDifficulty}", Moods.Normal),
                     ($"Murder Counter: {World.MurderCounter}", Moods.Normal),
                     ($"Attempt Counter: {World.AttemptCounter}", Moods.Normal),
                     ($"Success Rate: {If(World.SuccessRate.HasValue, World.SuccessRate.Value.ToString() + "%", "?") }", Moods.Normal),

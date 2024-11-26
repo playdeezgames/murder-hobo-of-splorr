@@ -48,15 +48,27 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property MurderSkill As Integer Implements IWorld.MurderSkill
+        Get
+            Return WorldData.MurderSkill
+        End Get
+    End Property
+
+    Public ReadOnly Property MurderDifficulty As Integer Implements IWorld.MurderDifficulty
+        Get
+            Return WorldData.MurderDifficulty
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
         If RNG.FromRange(1, WorldData.MurderSkill + WorldData.MurderDifficulty) <= WorldData.MurderSkill Then
-            WorldData.ExperiencePoints += 1
+            WorldData.ExperiencePoints += WorldData.MurderDifficulty
             WorldData.MurderCounter += 1
             WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
         Else
-            WorldData.ExperiencePoints += 2
+            WorldData.ExperiencePoints += WorldData.MurderDifficulty
             WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
         End If
     End Sub

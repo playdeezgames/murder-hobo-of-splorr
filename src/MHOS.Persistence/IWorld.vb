@@ -1,5 +1,7 @@
 Public Interface IWorld
     ReadOnly Property Serialized As String
+    ReadOnly Property MurderSkill As Integer
+    ReadOnly Property MurderDifficulty As Integer
     ReadOnly Property MurderCounter As Integer
     ReadOnly Property AttemptCounter As Integer
     ReadOnly Property SuccessRate As Integer?
