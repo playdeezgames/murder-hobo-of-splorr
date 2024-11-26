@@ -1,5 +1,4 @@
-﻿Imports System.Security.Cryptography
-Imports System.Text.Json
+﻿Imports System.Text.Json
 Imports MHOS.Data
 Imports SPLORR.Game
 
@@ -34,6 +33,12 @@ Public Class World
                 Return Nothing
             End If
             Return 100 * MurderCounter \ AttemptCounter
+        End Get
+    End Property
+
+    Public ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String)) Implements IWorld.Messages
+        Get
+            Return WorldData.Messages.Select(Function(x) (x.Text, x.Mood))
         End Get
     End Property
 
