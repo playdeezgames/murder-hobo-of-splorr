@@ -5,4 +5,5 @@ Public Interface IWorld
     ReadOnly Property SuccessRate As Integer?
     Sub AttemptMurder()
     ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String))
+    ReadOnly Property ExperiencePoints As Integer
 End Interface

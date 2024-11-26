@@ -13,11 +13,12 @@
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
             Dim result =World.Messages.ToList()
-            result.Addrange(
+            result.AddRange(
                 {
                     ($"Murder Counter: {World.MurderCounter}", Moods.Normal),
                     ($"Attempt Counter: {World.AttemptCounter}", Moods.Normal),
-                    ($"Success Rate: {If(World.SuccessRate.HasValue, World.SuccessRate.Value.ToString() + "%", "?") }", Moods.Normal)
+                    ($"Success Rate: {If(World.SuccessRate.HasValue, World.SuccessRate.Value.ToString() + "%", "?") }", Moods.Normal),
+                    ($"Experience Points: {World.ExperiencePoints}", Moods.Normal)
                 })
             Return result
         End Get

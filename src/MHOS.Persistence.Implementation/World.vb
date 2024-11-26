@@ -42,6 +42,12 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property ExperiencePoints As Integer Implements IWorld.ExperiencePoints
+        Get
+            Return WorldData.ExperiencePoints
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
