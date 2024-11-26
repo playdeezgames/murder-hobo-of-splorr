@@ -54,7 +54,7 @@
         displayBuffer.Fill(BoilerplateHue.Black)
 
         Dim font = Context.Font(UIFontName)
-        Dim y As Integer = RenderLine(displayBuffer, font, 0, "(Escape -> Game Menu)", Moods.Normal)
+        Dim y As Integer = RenderLine(displayBuffer, font, 0, If(Context.Model.CanEnterGameMenu, "(Escape -> Game Menu)", "(Escape -> Go Back)"), Moods.Normal)
         For Each line In Context.Model.Description
             y = RenderLine(displayBuffer, font, y, line.Text, line.Mood)
         Next

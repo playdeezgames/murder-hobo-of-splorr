@@ -5,4 +5,5 @@ Public Class WorldData
     Public Property ExperiencePoints As Integer
     Public Property MurderSkill As Integer = 1
     Public Property MurderDifficulty As Integer = 1
+    Public Property SkillIncreaseCost As Integer = 50
 End Class

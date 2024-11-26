@@ -9,6 +9,12 @@
         Get
             Dim result As New List(Of (Text As String, Mood As String))
             result.Add(($"Shoppe:", Moods.Heading))
+            If World.CanBuySkillIncrease Then
+                result.Add(($"Skill Increase: {World.SkillIncreaseCost} XP", Moods.Success))
+            Else
+                result.Add(($"Skill Increase: {World.SkillIncreaseCost} XP", Moods.Failure))
+            End If
+            result.Add(($"Experience Points: {World.ExperiencePoints}", Moods.Normal))
             Return result
         End Get
     End Property

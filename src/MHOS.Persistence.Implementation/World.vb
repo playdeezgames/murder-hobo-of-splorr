@@ -60,6 +60,18 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property CanBuySkillIncrease As Boolean Implements IWorld.CanBuySkillIncrease
+        Get
+            Return ExperiencePoints >= SkillIncreaseCost
+        End Get
+    End Property
+
+    Public ReadOnly Property SkillIncreaseCost As Integer Implements IWorld.SkillIncreaseCost
+        Get
+            Return WorldData.SkillIncreaseCost
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
