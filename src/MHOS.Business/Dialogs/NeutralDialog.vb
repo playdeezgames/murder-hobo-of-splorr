@@ -23,7 +23,7 @@
     Public Overrides ReadOnly Property AvailableChoices As IChoice()
         Get
             Dim result As New List(Of IChoice) From {
-                NextChoice.Create(Me, World)
+                NextChoice.Create(Function() Me, World)
             }
             Return result.ToArray
         End Get
