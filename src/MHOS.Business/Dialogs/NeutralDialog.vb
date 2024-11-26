@@ -5,7 +5,7 @@
         MyBase.New(world)
     End Sub
 
-    Friend Shared Function FromWorld(world As IWorld) As IDialog
+    Friend Shared Function Create(world As IWorld) As IDialog
         Return New NeutralDialog(world)
     End Function
 

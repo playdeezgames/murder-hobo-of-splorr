@@ -1,7 +1,7 @@
 ﻿Public Class WorldModel
     Implements IWorldModel
 
-    Private dialog As IDialog = NeutralDialog.FromWorld(Nothing)
+    Private dialog As IDialog = NeutralDialog.Create(Nothing)
     Sub New()
     End Sub
 
