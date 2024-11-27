@@ -19,4 +19,8 @@ Public Interface IWorld
 
     ReadOnly Property SuccessStreak As Integer
     Sub AutoMurder()
+    ReadOnly Property CanBuyAutoMurderIncrease As Boolean
+    Sub BuyAutoMurderIncrease()
+    ReadOnly Property AutoMurderIncreaseCost As Integer
+    ReadOnly Property AutoMurderTimeRemaining As Double?
 End Interface

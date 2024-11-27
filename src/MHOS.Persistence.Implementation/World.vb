@@ -90,6 +90,27 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property CanBuyAutoMurderIncrease As Boolean Implements IWorld.CanBuyAutoMurderIncrease
+        Get
+            Return ExperiencePoints >= AutoMurderIncreaseCost
+        End Get
+    End Property
+
+    Public ReadOnly Property AutoMurderIncreaseCost As Integer Implements IWorld.AutoMurderIncreaseCost
+        Get
+            Return WorldData.AutoMurderIncreaseCost
+        End Get
+    End Property
+
+    Public ReadOnly Property AutoMurderTimeRemaining As Double? Implements IWorld.AutoMurderTimeRemaining
+        Get
+            If Not WorldData.NextAutoMurder.HasValue Then
+                Return Nothing
+            End If
+            Return Math.Max(0.0, (WorldData.NextAutoMurder.Value - DateTimeOffset.Now).TotalSeconds)
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
@@ -164,5 +185,18 @@ Public Class World
                 End While
             End If
         End If
+    End Sub
+
+    Public Sub BuyAutoMurderIncrease() Implements IWorld.BuyAutoMurderIncrease
+        If Not CanBuyAutoMurderIncrease Then
+            Return
+        End If
+        WorldData.ExperiencePoints -= AutoMurderIncreaseCost
+        If WorldData.NextAutoMurder.HasValue Then
+            WorldData.AutoMurderInterval /= 2.0
+        Else
+            WorldData.NextAutoMurder = DateTimeOffset.Now.AddSeconds(WorldData.AutoMurderInterval)
+        End If
+        WorldData.AutoMurderIncreaseCost *= 2
     End Sub
 End Class

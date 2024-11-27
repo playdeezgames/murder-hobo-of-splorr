@@ -24,6 +24,10 @@
                     ($"Success Streak: {World.SuccessStreak}", Moods.Normal),
                     ($"Experience Points: {World.ExperiencePoints}", Moods.Normal)
                 })
+            Dim autoMurderTimeRemaining = World.AutoMurderTimeRemaining
+            If autoMurderTimeRemaining.HasValue Then
+                result.Add(($"Auto-murder Time Remaining: {autoMurderTimeRemaining.Value:f2}", Moods.Normal))
+            End If
             Return result
         End Get
     End Property

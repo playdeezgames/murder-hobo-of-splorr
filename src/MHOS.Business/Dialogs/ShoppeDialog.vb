@@ -19,6 +19,11 @@
             Else
                 result.Add(($"Difficulty Increase: {World.DifficultyIncreaseCost} XP", Moods.Failure))
             End If
+            If World.CanBuyAutoMurderIncrease Then
+                result.Add(($"Auto-murder Increase: {World.AutoMurderIncreaseCost} XP", Moods.Success))
+            Else
+                result.Add(($"Auto-murder Increase: {World.AutoMurderIncreaseCost} XP", Moods.Failure))
+            End If
             result.Add(($"Experience Points: {World.ExperiencePoints}", Moods.Normal))
             Return result
         End Get
@@ -33,6 +38,9 @@
             End If
             If World.CanBuyDifficultyIncrease Then
                 result.Add(New DifficultyIncreaseChoice(World))
+            End If
+            If World.CanBuyAutoMurderIncrease Then
+                result.Add(New AutoMurderIncreaseChoice(World))
             End If
             Return result.ToArray
         End Get
