@@ -101,16 +101,35 @@ Public Class World
     End Sub
 
     Private Sub ProcessFailedMurderAttempt()
-        WorldData.ExperiencePoints += WorldData.MurderDifficulty * 2
+        Dim award = WorldData.MurderDifficulty * 2
         WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
         WorldData.SuccessStreak = 0
+        AwardXP(award)
+    End Sub
+
+    Private Sub AwardXP(award As Integer)
+        AddMessage($"You get {award} XP", Moods.Success)
+        WorldData.ExperiencePoints += award
     End Sub
 
     Private Sub ProcessSuccessfulMurderAttempt()
-        WorldData.ExperiencePoints += WorldData.MurderDifficulty
+        Dim award = WorldData.MurderDifficulty
         WorldData.MurderCounter += 1
-        WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
+        AddMessage("Success!", Moods.Success)
+        If WorldData.SuccessStreak > 0 Then
+            AddMessage($"Streak bonus {WorldData.SuccessStreak} XP!", Moods.Success)
+            award += WorldData.SuccessStreak
+        End If
         WorldData.SuccessStreak += 1
+        If WorldData.SuccessStreak > WorldData.RecordSuccessStreak Then
+            WorldData.RecordSuccessStreak = WorldData.SuccessStreak
+            AddMessage("New Record Success Streak!", Moods.Success)
+        End If
+        AwardXP(award)
+    End Sub
+
+    Private Sub AddMessage(text As String, mood As String)
+        WorldData.Messages.Add(New MessageData With {.Text = text, .Mood = mood})
     End Sub
 
     Private Function RollMurderAttempt() As Boolean

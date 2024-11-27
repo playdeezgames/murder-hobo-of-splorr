@@ -8,4 +8,5 @@ Public Class WorldData
     Public Property SkillIncreaseCost As Integer = 50
     Public Property DifficultyIncreaseCost As Integer = 25
     Public Property SuccessStreak As Integer = 0
+    Public Property RecordSuccessStreak As Integer = 0
 End Class
