@@ -84,6 +84,12 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property SuccessStreak As Integer Implements IWorld.SuccessStreak
+        Get
+            Return WorldData.SuccessStreak
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()

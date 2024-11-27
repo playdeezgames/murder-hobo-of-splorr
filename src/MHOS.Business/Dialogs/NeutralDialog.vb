@@ -20,6 +20,7 @@
                     ($"Murder Counter: {World.MurderCounter}", Moods.Normal),
                     ($"Attempt Counter: {World.AttemptCounter}", Moods.Normal),
                     ($"Success Rate: {If(World.SuccessRate.HasValue, World.SuccessRate.Value.ToString() + "%", "?") }", Moods.Normal),
+                    ($"Success Streak: {World.SuccessStreak}", Moods.Normal),
                     ($"Experience Points: {World.ExperiencePoints}", Moods.Normal)
                 })
             Return result

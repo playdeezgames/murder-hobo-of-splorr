@@ -16,4 +16,6 @@ Public Interface IWorld
     ReadOnly Property CanBuyDifficultyIncrease As Boolean
     ReadOnly Property DifficultyIncreaseCost As Integer
     Sub BuyDifficultyIncrease()
+
+    ReadOnly Property SuccessStreak As Integer
 End Interface
