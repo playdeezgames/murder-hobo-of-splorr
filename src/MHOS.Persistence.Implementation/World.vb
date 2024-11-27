@@ -72,6 +72,18 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property CanBuyDifficultyIncrease As Boolean Implements IWorld.CanBuyDifficultyIncrease
+        Get
+            Return ExperiencePoints >= DifficultyIncreaseCost
+        End Get
+    End Property
+
+    Public ReadOnly Property DifficultyIncreaseCost As Integer Implements IWorld.DifficultyIncreaseCost
+        Get
+            Return WorldData.DifficultyIncreaseCost
+        End Get
+    End Property
+
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
@@ -92,5 +104,14 @@ Public Class World
         WorldData.ExperiencePoints -= SkillIncreaseCost
         WorldData.MurderSkill += 1
         WorldData.SkillIncreaseCost *= 2
+    End Sub
+
+    Public Sub BuyDifficultyIncrease() Implements IWorld.BuyDifficultyIncrease
+        If Not CanBuyDifficultyIncrease Then
+            Return
+        End If
+        WorldData.ExperiencePoints -= DifficultyIncreaseCost
+        WorldData.MurderDifficulty += 1
+        WorldData.DifficultyIncreaseCost *= 2
     End Sub
 End Class

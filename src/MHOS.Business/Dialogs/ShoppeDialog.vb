@@ -14,6 +14,11 @@
             Else
                 result.Add(($"Skill Increase: {World.SkillIncreaseCost} XP", Moods.Failure))
             End If
+            If World.CanBuyDifficultyIncrease Then
+                result.Add(($"Difficulty Increase: {World.DifficultyIncreaseCost} XP", Moods.Success))
+            Else
+                result.Add(($"Difficulty Increase: {World.DifficultyIncreaseCost} XP", Moods.Failure))
+            End If
             result.Add(($"Experience Points: {World.ExperiencePoints}", Moods.Normal))
             Return result
         End Get
@@ -25,6 +30,9 @@
             result.Add(CancelChoice.Create(Function() NeutralDialog.Create(World), World))
             If World.CanBuySkillIncrease Then
                 result.Add(New SkillIncreaseChoice(World))
+            End If
+            If World.CanBuyDifficultyIncrease Then
+                result.Add(New DifficultyIncreaseChoice(World))
             End If
             Return result.ToArray
         End Get

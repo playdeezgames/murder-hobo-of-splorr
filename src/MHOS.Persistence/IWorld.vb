@@ -8,7 +8,12 @@ Public Interface IWorld
     Sub AttemptMurder()
     ReadOnly Property Messages As IEnumerable(Of (Text As String, Mood As String))
     ReadOnly Property ExperiencePoints As Integer
+
     ReadOnly Property CanBuySkillIncrease As Boolean
     ReadOnly Property SkillIncreaseCost As Integer
     Sub BuySkillIncrease()
+
+    ReadOnly Property CanBuyDifficultyIncrease As Boolean
+    ReadOnly Property DifficultyIncreaseCost As Integer
+    Sub BuyDifficultyIncrease()
 End Interface
