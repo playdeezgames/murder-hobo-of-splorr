@@ -12,7 +12,8 @@
 
     Public Overrides ReadOnly Property Description As IEnumerable(Of (Text As String, Mood As String))
         Get
-            Dim result =World.Messages.ToList()
+            World.AutoMurder()
+            Dim result = World.Messages.ToList()
             result.AddRange(
                 {
                     ($"Murder Skill: {World.MurderSkill}", Moods.Normal),

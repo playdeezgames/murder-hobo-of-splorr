@@ -9,4 +9,6 @@ Public Class WorldData
     Public Property DifficultyIncreaseCost As Integer = 25
     Public Property SuccessStreak As Integer = 0
     Public Property RecordSuccessStreak As Integer = 0
+    Public Property NextAutoMurder As DateTimeOffset? = Nothing
+    Public Property AutoMurderInterval As Double = 60.0
 End Class

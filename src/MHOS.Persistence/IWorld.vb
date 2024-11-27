@@ -18,4 +18,5 @@ Public Interface IWorld
     Sub BuyDifficultyIncrease()
 
     ReadOnly Property SuccessStreak As Integer
+    Sub AutoMurder()
 End Interface

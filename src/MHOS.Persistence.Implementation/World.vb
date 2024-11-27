@@ -153,4 +153,16 @@ Public Class World
         WorldData.MurderDifficulty += 1
         WorldData.DifficultyIncreaseCost *= 2
     End Sub
+
+    Public Sub AutoMurder() Implements IWorld.AutoMurder
+        If WorldData.NextAutoMurder.HasValue Then
+            Dim rightNow = DateTimeOffset.Now
+            If rightNow >= WorldData.NextAutoMurder.Value Then
+                While rightNow >= WorldData.NextAutoMurder.Value
+                    AttemptMurder()
+                    WorldData.NextAutoMurder = WorldData.NextAutoMurder.Value.AddSeconds(WorldData.AutoMurderInterval)
+                End While
+            End If
+        End If
+    End Sub
 End Class
