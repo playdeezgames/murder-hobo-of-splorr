@@ -93,15 +93,29 @@ Public Class World
     Public Sub AttemptMurder() Implements IWorld.AttemptMurder
         WorldData.AttemptCounter += 1
         WorldData.Messages.Clear()
-        If RNG.FromRange(1, WorldData.MurderSkill + WorldData.MurderDifficulty) <= WorldData.MurderSkill Then
-            WorldData.ExperiencePoints += WorldData.MurderDifficulty
-            WorldData.MurderCounter += 1
-            WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
+        If RollMurderAttempt() Then
+            ProcessSuccessfulMurderAttempt()
         Else
-            WorldData.ExperiencePoints += WorldData.MurderDifficulty * 2
-            WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
+            ProcessFailedMurderAttempt()
         End If
     End Sub
+
+    Private Sub ProcessFailedMurderAttempt()
+        WorldData.ExperiencePoints += WorldData.MurderDifficulty * 2
+        WorldData.Messages.Add(New MessageData With {.Text = "Failure!", .Mood = Moods.Failure})
+        WorldData.SuccessStreak = 0
+    End Sub
+
+    Private Sub ProcessSuccessfulMurderAttempt()
+        WorldData.ExperiencePoints += WorldData.MurderDifficulty
+        WorldData.MurderCounter += 1
+        WorldData.Messages.Add(New MessageData With {.Text = "Success!", .Mood = Moods.Success})
+        WorldData.SuccessStreak += 1
+    End Sub
+
+    Private Function RollMurderAttempt() As Boolean
+        Return RNG.FromRange(1, WorldData.MurderSkill + WorldData.MurderDifficulty) <= WorldData.MurderSkill
+    End Function
 
     Public Sub BuySkillIncrease() Implements IWorld.BuySkillIncrease
         If Not CanBuySkillIncrease Then
