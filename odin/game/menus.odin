@@ -59,8 +59,11 @@ render_splash :: proc(f: ^Hue_Frame) {
 	draw_status_bar(f, controls_text(CONTINUE_TEXT, ""), .Black, .Light_Gray)
 }
 
-render_about :: proc(f: ^Hue_Frame) {
+// The original had two lines. `with_credit` adds the font credit (m5x7 is CC0 and asks for attribution); the reference
+// test draws it without, to compare with the VB screen.
+render_about :: proc(f: ^Hue_Frame, with_credit := true) {
 	fill_all(f, .Black)
 	draw_text(f, 0, 0, "About Murder Hobo of SPLORR!!", .Orange)
 	draw_text(f, 0, FONT_HEIGHT, "A Production of TheGrumpyGameDev", .White)
+	if with_credit { draw_text(f, 0, FONT_HEIGHT * 3, "Font: m5x7 by Daniel Linssen (managore)", .Light_Gray) }
 }

@@ -130,14 +130,34 @@ ref_shoppe_cursor_last_and_second_row :: proc(t: ^testing.T) {
 }
 
 @(test)
-font_data_matches_the_original_json_shape :: proc(t: ^testing.T) {
+font_is_the_proportional_m5x7 :: proc(t: ^testing.T) {
 	testing.expect_value(t, game.FONT_COUNT, 96)
-	testing.expect_value(t, game.FONT_HEIGHT, 8)
-	// 'A' (index 33): the top row is a single pixel in column 2 (CyFont5x7.json: line 0 is [2])
+	testing.expect_value(t, game.FONT_HEIGHT, 9)
+	// m5x7 advances: i is 3 wide, H 6, M 8 (ink plus one pixel of spacing)
+	testing.expect_value(t, game.text_width("i"), 3)
+	testing.expect_value(t, game.text_width("H"), 6)
+	testing.expect_value(t, game.text_width("M"), 8)
+	testing.expect_value(t, game.text_width("iHM"), 17)
+	testing.expect_value(t, game.text_width(""), 0)
+	// 'H' (index 40): its top row is the two stems, columns 0 and 4 (m5x7 draws a capital 5 wide)
 	rows := game.FONT_ROWS
-	testing.expect_value(t, rows['A' - game.FONT_FIRST][0], u8(1 << 2))
-	testing.expect_value(t, game.text_width("Hello"), 30)
+	testing.expect_value(t, rows['H' - game.FONT_FIRST][0], u8(1 << 0 | 1 << 4))
+	// characters without a glyph take the width of a space and draw nothing
+	testing.expect_value(t, game.text_width("\x01"), game.text_width(" "))
 	_ = fmt.tprintf // keep the import used by -vet
+}
+
+@(test)
+about_screen_credits_the_font :: proc(t: ^testing.T) {
+	f := new(game.Hue_Frame); defer free(f)
+	g := new(game.Hue_Frame); defer free(g)
+	game.render_about(f, with_credit = false)
+	game.render_about(g)
+	differs := false
+	for i in 0 ..< len(f) { if f[i] != g[i] { differs = true; break } }
+	testing.expect(t, differs, "the credit line is drawn")
+	// and it is the only thing that differs: the first two lines are the same
+	for y in 0 ..< game.FONT_HEIGHT * 2 { for x in 0 ..< game.FRAME_WIDTH { testing.expect_value(t, g[y * game.FRAME_WIDTH + x], f[y * game.FRAME_WIDTH + x]) } }
 }
 
 // ---- the menu screens ------------------------------------------------------------------------------------
@@ -164,7 +184,7 @@ ref_splash :: proc(t: ^testing.T) {
 @(test)
 ref_about :: proc(t: ^testing.T) {
 	f := new(game.Hue_Frame); defer free(f)
-	game.render_about(f)
+	game.render_about(f, with_credit = false)
 	reference(t, "about", #load("../../docs/reference/vb/about.txt", string), f)
 }
 

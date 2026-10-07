@@ -89,6 +89,7 @@ src/                   original VB.NET, deleted in its own commit after shipping
 | 6 | Layout | `odin/game` + `platform/web` + `platform/native` (**SDL2**); `src/` deleted in its own commit afterwards |
 | 7 | Shipping | **Decide at ship time**; build both now. Old script's targets: `thegrumpygamedev/murder-hobo-of-splorr:windows|linux|mac`; `README.md` and `shippit.sh` get replaced |
 | 8 | Embark! with a saved game | **Confirm first** ("Embark anew? Your saved game will be lost.", No first); with no save it starts at once |
+| 9 | Font | The original's font came from Windows XP's Small Fonts and could not ship. Replaced by **m5x7** (Daniel Linssen, CC0, credited on About): proportional, 9 px lines, 24 rows. The VB oracle draws with the same font (a generated JSON in the original's font format), so the pixel-for-pixel reference frames still hold |
 
 Consequence of dropping audio: `Content/Audio`, `mux.json`, `sfx.json`, Options volume items go away; Options is only window size/fullscreen on native and is absent on web (so on web the Main Menu has no Options entry).
 

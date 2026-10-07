@@ -150,3 +150,40 @@ soak_on_the_desktop_menus :: proc(t: ^testing.T) { soak(t, true, 2, 8000) }
 soak_with_other_seeds :: proc(t: ^testing.T) {
 	for seed in 10 ..< 14 { soak(t, seed % 2 == 0, u64(seed), 2000) }
 }
+
+// ---- text must fit ------------------------------------------------------------------------------------------
+@(test)
+the_widest_screens_fit_the_view_and_the_choice_columns :: proc(t: ^testing.T) {
+	w := game.world_new()
+	S :: game.SATURATION
+	w.murder_counter, w.attempt_counter, w.experience, w.skill, w.difficulty = S, S, S, S, S
+	w.skill_cost, w.difficulty_cost, w.success_streak, w.record_streak, w.auto_cost = S, S, S, S, S
+	w.has_auto, w.next_auto_ms = true, 1e14
+	game.message_add(&w, .Success, "Streak bonus %d XP!", S)
+	game.message_add(&w, .Success, "You get %d XP", S)
+	v := new(game.View); defer free(v)
+	check :: proc(t: ^testing.T, v: ^game.View) {
+		for i in 0 ..< v.line_count {
+			line := game.view_line_text(&v.lines[i])
+			testing.expectf(t, game.text_width(line) <= game.FRAME_WIDTH, "too wide (%d px): %s", game.text_width(line), line)
+		}
+		for i in 0 ..< v.choice_count {
+			c := game.view_choice_text(&v.choices[i])
+			testing.expectf(t, game.text_width(c) <= game.FRAME_WIDTH / game.CHOICE_COLUMNS, "choice too wide (%d px): %s", game.text_width(c), c)
+		}
+	}
+	game.neutral_view(&w, 0, v)
+	check(t, v)
+	game.shoppe_view(&w, v)
+	check(t, v)
+	core := new(game.Core); defer free(core)
+	game.core_init(core, game.Services{desktop = true})
+	for screen in ([]game.Screen{.Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark, .Options, .Window_Size}) {
+		core.screen = screen
+		testing.expectf(t, game.text_width(game.menu_header(core)) <= game.FRAME_WIDTH, "header too wide on %v", screen)
+		for item in game.menu_items(core) { testing.expectf(t, game.text_width(item) <= game.FRAME_WIDTH, "item too wide: %s", item) }
+		testing.expect(t, game.text_width(game.menu_status(core)) <= game.FRAME_WIDTH)
+	}
+	testing.expect(t, game.text_width("Font: m5x7 by Daniel Linssen (managore)") <= game.FRAME_WIDTH)
+	free_all(context.temp_allocator)
+}

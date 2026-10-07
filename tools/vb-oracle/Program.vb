@@ -6,7 +6,7 @@ Imports MHOS.Data
 Imports MHOS.Presentation
 
 ' Drives the real VB game headlessly and records what it draws: one text file per scenario,
-' 216 lines of 384 characters, each a hue index in hex. Usage: dotnet run -- <fonts dir> <output dir>
+' 216 lines of 384 characters, each a hue index in hex. Usage: dotnet run -- <font json file> <output dir>
 Module Program
     Private Const W = 384
     Private Const H = 216
@@ -87,13 +87,13 @@ Module Program
     End Function
 
     Sub Main(args As String())
-        Dim fontsDir = Path.GetFullPath(args(0))
+        Dim fontFile = Path.GetFullPath(args(0))
         Dim outDir = Path.GetFullPath(args(1))
         Directory.SetCurrentDirectory(Path.GetTempPath())
         Directory.CreateDirectory(outDir)
         For Each scenario In Scenarios()
             Dim context As New MHOSContext(
-                New Dictionary(Of String, String) From {{"UIFont", Path.Combine(fontsDir, "CyFont5x7.json")}}, (W, H))
+                New Dictionary(Of String, String) From {{"UIFont", fontFile}}, (W, H))
             Dim controller As New GameController(New MHOSSettings(), context)
             controller.SetSfxHook(Sub(s) Return)
             controller.SetMuxHook(Sub(s) Return)

@@ -4,6 +4,10 @@
 
 Play it in the browser: https://thegrumpygamedev.itch.io/murder-hobo-of-splorr
 
+## Credits
+
+The text is set in **m5x7** by Daniel Linssen (managore), https://managore.itch.io/m5x7, CC0 (`odin/assets/`). It replaced a font taken from Windows XP's Small Fonts.
+
 ## Layout
 
 - `odin/` is the game: Odin, compiled to `js_wasm32` for the browser and to a native SDL2 window. `odin/game` is the portable core (rules, screens, software renderer, save format); `odin/platform/web` and `odin/platform/native` only show its 384 by 216 frame and pass input in.

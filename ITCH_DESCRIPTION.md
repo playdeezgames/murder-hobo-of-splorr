@@ -8,4 +8,4 @@ There is no ending.
 
 **Saving:** the game saves itself in your browser after every move. Closing the tab is fine; auto-murder catches up (to a point) while you are away. Abandon Game in the Game Menu wipes the save.
 
-Made with Odin, compiled to WebAssembly. A rebuild of the original VB.NET game, which had no saving. A Production of TheGrumpyGameDev.
+Made with Odin, compiled to WebAssembly. A rebuild of the original VB.NET game, which had no saving. Font: m5x7 by Daniel Linssen (managore), https://managore.itch.io/m5x7. A Production of TheGrumpyGameDev.

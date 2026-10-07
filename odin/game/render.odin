@@ -7,6 +7,7 @@ package game
 Hue_Frame :: [FRAME_WIDTH * FRAME_HEIGHT]Hue
 
 font_rows := FONT_ROWS // a constant array cannot be indexed at run time
+font_advance := FONT_ADVANCE
 
 // Pixels outside the view are ignored (as in the original's DisplayBuffer).
 set_pixel :: proc(f: ^Hue_Frame, x, y: int, hue: Hue) {
@@ -22,26 +23,36 @@ fill_rect :: proc(f: ^Hue_Frame, x, y, w, h: int, hue: Hue) {
 
 fill_all :: proc(f: ^Hue_Frame, hue: Hue) { for i in 0 ..< len(f) { f[i] = hue } }
 
-// Characters without a glyph (the original would throw) are drawn as blanks of the same width.
+// The font is proportional: each glyph advances by its own width. Characters without a glyph (the original would throw)
+// are drawn as a blank the width of a space.
+glyph_index :: proc(ch: u8) -> int {
+	if int(ch) >= FONT_FIRST && int(ch) < FONT_FIRST + FONT_COUNT { return int(ch) - FONT_FIRST }
+	return 0
+}
+
 draw_text :: proc(f: ^Hue_Frame, x, y: int, text: string, hue: Hue) -> (end_x: int) {
 	x := x
 	for i in 0 ..< len(text) {
-		ch := int(text[i])
-		if ch >= FONT_FIRST && ch < FONT_FIRST + FONT_COUNT {
-			rows := font_rows[ch - FONT_FIRST]
+		g := glyph_index(text[i])
+		if text[i] >= FONT_FIRST && int(text[i]) < FONT_FIRST + FONT_COUNT {
+			rows := font_rows[g]
 			for row in 0 ..< FONT_HEIGHT {
 				bits := rows[row]
-				for col in 0 ..< FONT_WIDTH {
+				for col in 0 ..< int(font_advance[g]) {
 					if bits & (1 << uint(col)) != 0 { set_pixel(f, x + col, y + row, hue) }
 				}
 			}
 		}
-		x += FONT_WIDTH
+		x += int(font_advance[g])
 	}
 	return x
 }
 
-text_width :: proc(text: string) -> int { return len(text) * FONT_WIDTH }
+text_width :: proc(text: string) -> int {
+	width := 0
+	for i in 0 ..< len(text) { width += int(font_advance[glyph_index(text[i])]) }
+	return width
+}
 
 draw_text_centered :: proc(f: ^Hue_Frame, y: int, text: string, hue: Hue) {
 	draw_text(f, (FRAME_WIDTH - text_width(text)) / 2, y, text, hue)
