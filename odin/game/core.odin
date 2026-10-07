@@ -1,23 +1,21 @@
 package game
 
-// Phase 1 scaffold: a test frame that proves both platforms present the same pixels and deliver input.
-// A row of the 16 hues, an outline of the frame, and a marker moved by the commands (Confirm cycles its hue,
-// Cancel puts it back, a Tap puts it under the pointer).
+// Interim core (phase 3): the neutral and shoppe dialogs of a real world, with the original's cursor movement.
+// Phase 4 replaces the little Screen enum with the full state machine (splash, menus, game menu, ...).
 
-SWATCH_W :: FRAME_WIDTH / 16
-SWATCH_H :: 24
-MARKER_SIZE :: 16
-MARKER_STEP :: 8
+Screen :: enum u8 { Neutral, Shoppe }
 
 Core :: struct {
 	services: Services,
+	hues:     Hue_Frame,
 	frame:    [FRAME_WIDTH * FRAME_HEIGHT]u32,
 	dirty:    bool,
-	marker_x: int,
-	marker_y: int,
-	marker_hue: Hue,
 	world:    World,
 	rng:      Rng,
+	screen:   Screen,
+	cursor:   [Screen]int, // remembered per screen (decision: quirk 6)
+	view:     View,
+	last_ms:  f64,
 }
 
 core_init :: proc(core: ^Core, services: Services) {
@@ -25,58 +23,68 @@ core_init :: proc(core: ^Core, services: Services) {
 	core.services = services
 	core.world = world_new()
 	rng_seed(&core.rng, services.entropy != nil ? services.entropy() : 1)
-	marker_reset(core)
 	core.dirty = true
 }
 
-marker_reset :: proc(core: ^Core) {
-	core.marker_x = (FRAME_WIDTH - MARKER_SIZE) / 2
-	core.marker_y = (FRAME_HEIGHT - MARKER_SIZE) / 2
-	core.marker_hue = .White
+core_build_view :: proc(core: ^Core, now_ms: f64) {
+	switch core.screen {
+	case .Neutral: neutral_view(&core.world, now_ms, &core.view)
+	case .Shoppe:  shoppe_view(&core.world, &core.view)
+	}
 }
 
-marker_move :: proc(core: ^Core, dx, dy: int) {
-	core.marker_x = clamp(core.marker_x + dx, 0, FRAME_WIDTH - MARKER_SIZE)
-	core.marker_y = clamp(core.marker_y + dy, 0, FRAME_HEIGHT - MARKER_SIZE)
+// The original's cursor movement: three columns; Left/Right by one, Up/Down by a row, clamped.
+cursor_move :: proc(cursor, count: int, command: Command) -> int {
+	switch command {
+	case .Right: return min(cursor + 1, count - 1)
+	case .Left:  return max(cursor - 1, 0)
+	case .Up:    return max(cursor - CHOICE_COLUMNS, 0)
+	case .Down:  return min(cursor + CHOICE_COLUMNS, count - 1)
+	case .None, .Confirm, .Cancel:
+	}
+	return cursor
+}
+
+core_choose :: proc(core: ^Core, now_ms: f64) {
+	choice := view_choice_text(&core.view.choices[core.cursor[core.screen]])
+	switch choice {
+	case "Murder!":               attempt_murder(&core.world, &core.rng)
+	case "Shoppe":                core.screen = .Shoppe
+	case "Cancel":                core.screen = .Neutral
+	case "Skill Increase":        buy_skill(&core.world)
+	case "Difficulty Increase":   buy_difficulty(&core.world)
+	case "Auto-murder Increase":  buy_auto(&core.world, now_ms)
+	}
 }
 
 core_step :: proc(core: ^Core, input: Step_Input, out: ^Step_Output) {
+	if auto_tick(&core.world, &core.rng, input.now_ms) > 0 { core.dirty = true }
+	core_build_view(core, input.now_ms)
 	for e in input.events {
-		#partial switch e.kind {
-		case .Command:
-			#partial switch e.command {
-			case .Up:      marker_move(core, 0, -MARKER_STEP)
-			case .Down:    marker_move(core, 0, MARKER_STEP)
-			case .Left:    marker_move(core, -MARKER_STEP, 0)
-			case .Right:   marker_move(core, MARKER_STEP, 0)
-			case .Confirm: core.marker_hue = Hue((int(core.marker_hue) + 1) % len(Hue))
-			case .Cancel:  marker_reset(core)
-			}
-			core.dirty = true
-		case .Tap:
-			core.marker_x = clamp(int(e.x) - MARKER_SIZE / 2, 0, FRAME_WIDTH - MARKER_SIZE)
-			core.marker_y = clamp(int(e.y) - MARKER_SIZE / 2, 0, FRAME_HEIGHT - MARKER_SIZE)
-			core.dirty = true
+		if e.kind != .Command { continue }
+		switch e.command {
+		case .Up, .Down, .Left, .Right:
+			core.cursor[core.screen] = cursor_move(core.cursor[core.screen], core.view.choice_count, e.command)
+		case .Confirm:
+			if core.cursor[core.screen] >= core.view.choice_count { core.cursor[core.screen] = 0 }
+			core_choose(core, input.now_ms)
+			core_build_view(core, input.now_ms)
+		case .Cancel:
+			if core.screen == .Shoppe { core.screen = .Neutral; core_build_view(core, input.now_ms) }
+		case .None:
 		}
+		core.dirty = true
 	}
+	// the countdown line changes with the clock, so the neutral screen redraws while auto-murder runs
+	if core.screen == .Neutral && core.world.has_auto && input.now_ms != core.last_ms { core.dirty = true }
+	core.last_ms = input.now_ms
 	out.frame_changed = core.dirty
-	if core.dirty { render_test_frame(core); core.dirty = false }
+	if core.dirty {
+		if core.cursor[core.screen] >= core.view.choice_count { core.cursor[core.screen] = 0 } // as in the original's Render
+		render_dialog(&core.hues, &core.view, core.cursor[core.screen])
+		frame_to_rgba(&core.hues, &core.frame)
+		core.dirty = false
+	}
 	out.frame = &core.frame
 	out.quit_requested = false
-}
-
-fill_rect :: proc(core: ^Core, x, y, w, h: int, hue: Hue) {
-	for yy in max(y, 0) ..< min(y + h, FRAME_HEIGHT) {
-		for xx in max(x, 0) ..< min(x + w, FRAME_WIDTH) { core.frame[yy * FRAME_WIDTH + xx] = PALETTE[hue] }
-	}
-}
-
-render_test_frame :: proc(core: ^Core) {
-	fill_rect(core, 0, 0, FRAME_WIDTH, FRAME_HEIGHT, .Black)
-	for hue in Hue { fill_rect(core, int(hue) * SWATCH_W, 0, SWATCH_W, SWATCH_H, hue) }
-	// a one pixel outline shows the exact edges of the frame
-	fill_rect(core, 0, FRAME_HEIGHT - 1, FRAME_WIDTH, 1, .White)
-	fill_rect(core, 0, SWATCH_H, 1, FRAME_HEIGHT - SWATCH_H, .White)
-	fill_rect(core, FRAME_WIDTH - 1, SWATCH_H, 1, FRAME_HEIGHT - SWATCH_H, .White)
-	fill_rect(core, core.marker_x, core.marker_y, MARKER_SIZE, MARKER_SIZE, core.marker_hue)
 }

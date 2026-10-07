@@ -4,67 +4,80 @@ package tests
 import "core:testing"
 import "kmh:game"
 
-fake_services :: proc() -> game.Services { return {} }
+fake_services :: proc() -> game.Services { return {entropy = proc() -> u64 { return 5 }} }
 
-step_with :: proc(core: ^game.Core, out: ^game.Step_Output, events: ..game.Input_Event) {
-	game.core_step(core, {dt = 0.016, now_ms = 0, events = events}, out)
+step_with :: proc(core: ^game.Core, out: ^game.Step_Output, now_ms: f64, events: ..game.Input_Event) {
+	game.core_step(core, {dt = 0.016, now_ms = now_ms, events = events}, out)
 }
 
+press :: proc(command: game.Command) -> game.Input_Event { return {kind = .Command, command = command} }
+
 @(test)
-frame_is_presented_in_full :: proc(t: ^testing.T) {
+the_first_frame_shows_the_neutral_dialog :: proc(t: ^testing.T) {
 	core := new(game.Core); defer free(core)
 	out: game.Step_Output
 	game.core_init(core, fake_services())
-	step_with(core, &out)
-	testing.expect(t, out.frame != nil)
+	step_with(core, &out, 0)
+	testing.expect(t, out.frame != nil && out.frame_changed)
+	testing.expect_value(t, game.view_hint_text(&core.view), "(Escape -> Game Menu)")
+	// the first choice is selected: a white box at the bottom left
+	testing.expect_value(t, out.frame[(game.FRAME_HEIGHT - 1) * game.FRAME_WIDTH], game.PALETTE[.White])
+	step_with(core, &out, 0)
+	testing.expect(t, !out.frame_changed, "nothing happened, so nothing is redrawn")
+}
+
+@(test)
+cursor_moves_in_three_columns_and_clamps :: proc(t: ^testing.T) {
+	testing.expect_value(t, game.cursor_move(0, 4, .Right), 1)
+	testing.expect_value(t, game.cursor_move(3, 4, .Right), 3)
+	testing.expect_value(t, game.cursor_move(0, 4, .Left), 0)
+	testing.expect_value(t, game.cursor_move(1, 4, .Down), 3) // 1 + 3 = 4, clamped to the last
+	testing.expect_value(t, game.cursor_move(3, 4, .Up), 0)
+	testing.expect_value(t, game.cursor_move(0, 2, .Down), 1)
+}
+
+@(test)
+playing_through_the_dialogs :: proc(t: ^testing.T) {
+	core := new(game.Core); defer free(core)
+	out: game.Step_Output
+	game.core_init(core, fake_services())
+	step_with(core, &out, 0, press(.Confirm)) // Murder!
+	testing.expect_value(t, core.world.attempt_counter, 1)
+	step_with(core, &out, 0, press(.Right), press(.Confirm)) // Shoppe
+	testing.expect_value(t, core.screen, game.Screen.Shoppe)
+	testing.expect_value(t, game.view_hint_text(&core.view), "(Escape -> Go Back)")
+	step_with(core, &out, 0, press(.Cancel))
+	testing.expect_value(t, core.screen, game.Screen.Neutral)
+	step_with(core, &out, 0, press(.Cancel)) // nothing to go back to yet (the game menu comes in phase 4)
+	testing.expect_value(t, core.screen, game.Screen.Neutral)
+}
+
+@(test)
+each_screen_remembers_its_own_cursor :: proc(t: ^testing.T) {
+	core := new(game.Core); defer free(core)
+	out: game.Step_Output
+	game.core_init(core, fake_services())
+	core.world.experience = 5000
+	step_with(core, &out, 0, press(.Right), press(.Confirm)) // into the Shoppe
+	testing.expect_value(t, core.cursor[.Shoppe], 0) // not the neutral screen's 1: no accidental purchase
+	step_with(core, &out, 0, press(.Right), press(.Confirm)) // buy a skill increase
+	testing.expect_value(t, core.world.skill, 2)
+	testing.expect_value(t, core.cursor[.Shoppe], 1)
+	step_with(core, &out, 0, press(.Cancel))
+	testing.expect_value(t, core.cursor[.Neutral], 1) // back on Shoppe
+}
+
+@(test)
+auto_murder_runs_from_the_frame_step_and_redraws :: proc(t: ^testing.T) {
+	core := new(game.Core); defer free(core)
+	out: game.Step_Output
+	game.core_init(core, fake_services())
+	core.world.experience = 1000
+	step_with(core, &out, 1000)
+	game.buy_auto(&core.world, 1000)
+	step_with(core, &out, 1000 + 30_000)
+	testing.expect_value(t, core.world.attempt_counter, 0)
+	step_with(core, &out, 1000 + 60_000)
+	testing.expect_value(t, core.world.attempt_counter, 1)
 	testing.expect(t, out.frame_changed)
-	// first swatch is Black, last is White; the frame's bottom-right pixel is the outline
-	testing.expect_value(t, out.frame[0], game.PALETTE[.Black])
-	testing.expect_value(t, out.frame[game.SWATCH_W * 15 + 1], game.PALETTE[.White])
-	testing.expect_value(t, out.frame[game.FRAME_WIDTH * game.FRAME_HEIGHT - 1], game.PALETTE[.White])
-	// a second step with no input changes nothing
-	step_with(core, &out)
-	testing.expect(t, !out.frame_changed)
-}
-
-@(test)
-commands_move_and_clamp_the_marker :: proc(t: ^testing.T) {
-	core := new(game.Core); defer free(core)
-	out: game.Step_Output
-	game.core_init(core, fake_services())
-	step_with(core, &out)
-	x0, y0 := core.marker_x, core.marker_y
-	step_with(core, &out, {kind = .Command, command = .Right}, {kind = .Command, command = .Down})
-	testing.expect_value(t, core.marker_x, x0 + game.MARKER_STEP)
-	testing.expect_value(t, core.marker_y, y0 + game.MARKER_STEP)
-	testing.expect(t, out.frame_changed)
-	for _ in 0 ..< 100 { step_with(core, &out, {kind = .Command, command = .Left}, {kind = .Command, command = .Up}) }
-	testing.expect_value(t, core.marker_x, 0)
-	testing.expect_value(t, core.marker_y, 0)
-	step_with(core, &out, {kind = .Command, command = .Confirm})
-	testing.expect_value(t, core.marker_hue, game.Hue.Black) // White wraps to Black
-	step_with(core, &out, {kind = .Command, command = .Cancel})
-	testing.expect_value(t, core.marker_x, x0)
-	testing.expect_value(t, core.marker_hue, game.Hue.White)
-}
-
-@(test)
-tap_puts_the_marker_under_the_pointer_and_stays_inside :: proc(t: ^testing.T) {
-	core := new(game.Core); defer free(core)
-	out: game.Step_Output
-	game.core_init(core, fake_services())
-	step_with(core, &out, {kind = .Tap, x = 100, y = 100})
-	testing.expect_value(t, core.marker_x, 100 - game.MARKER_SIZE / 2)
-	step_with(core, &out, {kind = .Tap, x = 10_000, y = -50})
-	testing.expect_value(t, core.marker_x, game.FRAME_WIDTH - game.MARKER_SIZE)
-	testing.expect_value(t, core.marker_y, 0)
-}
-
-@(test)
-palette_matches_the_original_hue_json :: proc(t: ^testing.T) {
-	// hue.json: Blue 2A4BD7, Orange FF9233, White FFFFFF (stored 0xAABBGGRR)
-	testing.expect_value(t, game.PALETTE[.Blue], u32(0xFFD74B2A))
-	testing.expect_value(t, game.PALETTE[.Orange], u32(0xFF3392FF))
-	testing.expect_value(t, game.PALETTE[.White], u32(0xFFFFFFFF))
-	testing.expect_value(t, len(game.Hue), 16)
 }
