@@ -16,11 +16,15 @@ Core :: struct {
 	marker_x: int,
 	marker_y: int,
 	marker_hue: Hue,
+	world:    World,
+	rng:      Rng,
 }
 
 core_init :: proc(core: ^Core, services: Services) {
 	core^ = {}
 	core.services = services
+	core.world = world_new()
+	rng_seed(&core.rng, services.entropy != nil ? services.entropy() : 1)
 	marker_reset(core)
 	core.dirty = true
 }
