@@ -25,6 +25,9 @@ Core :: struct {
 	fullscreen:     bool,
 	window_scale:   int,
 	quit:           bool,
+	save_failed:    bool,        // a failed save was already reported
+	save_pending:   bool,        // the world may have changed since the last save
+	config_pending: bool,
 }
 
 core_init :: proc(core: ^Core, services: Services) {
@@ -33,6 +36,7 @@ core_init :: proc(core: ^Core, services: Services) {
 	core.world = world_new()
 	core.window_scale = DEFAULT_WINDOW_SCALE
 	rng_seed(&core.rng, services.entropy != nil ? services.entropy() : 1)
+	core_load(core)
 	core.dirty = true
 }
 
@@ -40,17 +44,20 @@ core_step :: proc(core: ^Core, input: Step_Input, out: ^Step_Output) {
 	now := input.now_ms
 	// auto-murder runs while a world is on the neutral screen or in the Shoppe (decision: quirk 3)
 	if core.has_world && (core.screen == .Neutral || core.screen == .Shoppe) {
-		if auto_tick(&core.world, &core.rng, now) > 0 { core.dirty = true }
+		if auto_tick(&core.world, &core.rng, now) > 0 { core.dirty = true; core.save_pending = true }
 	}
 	for e in input.events {
 		if e.kind == .Command && e.command != .None {
 			handle_command(core, e.command, now)
 			core.dirty = true
+			if core.has_world { core.save_pending = true }
 		}
 	}
 	// the countdown line changes with the clock, so the neutral screen redraws while auto-murder runs
 	if core.screen == .Neutral && core.world.has_auto && now != core.last_ms { core.dirty = true }
 	core.last_ms = now
+	if core.save_pending { core_save(core); core.save_pending = false }
+	if core.config_pending { core_save_config(core); core.config_pending = false }
 	out.frame_changed = core.dirty
 	if core.dirty {
 		render_screen(core, now)

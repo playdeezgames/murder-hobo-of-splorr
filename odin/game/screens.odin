@@ -175,6 +175,7 @@ picker_activate :: proc(core: ^Core, item: string) {
 		enter(core, .Confirm_Abandon)
 	case TEXT_FULLSCREEN:
 		core.fullscreen = !core.fullscreen
+		core.config_pending = true
 	case TEXT_WINDOW_SIZE:
 		enter(core, .Window_Size)
 	case TEXT_NO:
@@ -183,13 +184,14 @@ picker_activate :: proc(core: ^Core, item: string) {
 		if core.screen == .Confirm_Abandon {
 			core.world = world_new()
 			core.has_world = false
+			core_store(core, SAVE_KEY, EMPTY_SAVE) // not a removal: the empty marker says the player chose this
 			enter(core, .Main_Menu)
 		} else {
 			core.quit = true
 		}
 	case:
 		// a window size entry
-		if core.screen == .Window_Size { core.window_scale = window_scales[core.menu_index] }
+		if core.screen == .Window_Size { core.window_scale = window_scales[core.menu_index]; core.config_pending = true }
 	}
 }
 

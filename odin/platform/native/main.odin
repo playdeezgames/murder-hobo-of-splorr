@@ -8,8 +8,6 @@ import "core:time"
 import SDL "vendor:sdl2"
 import "kmh:game"
 
-SCALE :: 3 // the original opened at three times the view
-
 wall_clock_ms :: proc() -> f64 { return f64(time.now()._nsec) / 1e6 }
 
 native_services :: proc() -> game.Services {
@@ -36,21 +34,25 @@ command_of_key :: proc(sym: SDL.Keycode) -> game.Command {
 main :: proc() {
 	if SDL.Init({.VIDEO, .EVENTS}) != 0 { fmt.eprintln(SDL.GetError()); os.exit(1) }
 	defer SDL.Quit()
+	data_override := ""
+	for arg, i in os.args { if arg == "--data" && i + 1 < len(os.args) { data_override = os.args[i + 1] } }
+	init_storage(data_override)
+	core := new(game.Core)
+	game.core_init(core, native_services())
 	window := SDL.CreateWindow("Murder Hobo of SPLORR!!", SDL.WINDOWPOS_CENTERED, SDL.WINDOWPOS_CENTERED,
-		game.FRAME_WIDTH * SCALE, game.FRAME_HEIGHT * SCALE, {.SHOWN, .RESIZABLE})
+		i32(game.FRAME_WIDTH * core.window_scale), i32(game.FRAME_HEIGHT * core.window_scale),
+		core.fullscreen ? {.SHOWN, .RESIZABLE, .FULLSCREEN, ._INTERNAL_FULLSCREEN_DESKTOP} : {.SHOWN, .RESIZABLE})
 	renderer := SDL.CreateRenderer(window, -1, {.ACCELERATED, .PRESENTVSYNC})
 	SDL.RenderSetLogicalSize(renderer, game.FRAME_WIDTH, game.FRAME_HEIGHT)
 	SDL.RenderSetIntegerScale(renderer, true)
 	texture := SDL.CreateTexture(renderer, .ABGR8888, .STREAMING, game.FRAME_WIDTH, game.FRAME_HEIGHT) // bytes R,G,B,A in memory
 	defer { SDL.DestroyTexture(texture); SDL.DestroyRenderer(renderer); SDL.DestroyWindow(window) }
 
-	core := new(game.Core)
-	game.core_init(core, native_services())
 	out: game.Step_Output
 	events: [dynamic]game.Input_Event
 	prev := SDL.GetTicks()
-	applied_scale := SCALE
-	applied_fullscreen := false
+	applied_scale := core.window_scale
+	applied_fullscreen := core.fullscreen
 	quit := false
 	for !quit {
 		clear(&events)

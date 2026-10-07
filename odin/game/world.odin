@@ -45,6 +45,6 @@ world_new :: proc() -> World {
 	return World{
 		skill = 1, difficulty = 1,
 		skill_cost = START_SKILL_COST, difficulty_cost = START_DIFFICULTY_COST,
-		auto_cost = START_AUTO_COST, auto_interval_ms = START_AUTO_INTERVAL_MS,
+		auto_cost = START_AUTO_COST, auto_interval_ms = START_AUTO_INTERVAL_MS, scheduled_interval_ms = START_AUTO_INTERVAL_MS,
 	}
 }
