@@ -33,6 +33,8 @@ Step_Output :: struct {
 	frame:          ^[FRAME_WIDTH * FRAME_HEIGHT]u32, // bytes in memory order R,G,B,A (little-endian u32 0xAABBGGRR)
 	frame_changed:  bool,
 	quit_requested: bool,
+	fullscreen:     bool, // desktop only: what the Options menu asks for (the web page ignores both)
+	window_scale:   int,  // desktop only: the window is the view times this
 }
 
 Step_Input :: struct {
@@ -49,6 +51,7 @@ Services :: struct {
 	storage_remove: proc(key: string),
 	entropy:        proc() -> u64, // for seeding; not reproducible
 	log:            proc(message: string),
+	desktop:        bool, // true on the native client: Quit, full screen and window size make sense there
 }
 
 // The core's entry points are core_init and core_step (core.odin).

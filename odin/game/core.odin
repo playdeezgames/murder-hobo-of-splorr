@@ -1,90 +1,64 @@
 package game
 
-// Interim core (phase 3): the neutral and shoppe dialogs of a real world, with the original's cursor movement.
-// Phase 4 replaces the little Screen enum with the full state machine (splash, menus, game menu, ...).
+// The core: one state machine over the screens of the original, driven once per presented frame.
 
-Screen :: enum u8 { Neutral, Shoppe }
+Screen :: enum u8 { Splash, Main_Menu, Neutral, Shoppe, Game_Menu, Confirm_Abandon, About, Options, Window_Size, Confirm_Quit }
+
+// The window sizes of the original's Options menu: the 384 by 216 view times these.
+WINDOW_SCALES :: [9]int{3, 4, 5, 9, 10, 14, 15, 19, 20}
+DEFAULT_WINDOW_SCALE :: 3
 
 Core :: struct {
-	services: Services,
-	hues:     Hue_Frame,
-	frame:    [FRAME_WIDTH * FRAME_HEIGHT]u32,
-	dirty:    bool,
-	world:    World,
-	rng:      Rng,
-	screen:   Screen,
-	cursor:   [Screen]int, // remembered per screen (decision: quirk 6)
-	view:     View,
-	last_ms:  f64,
+	services:       Services,
+	hues:           Hue_Frame,
+	frame:          [FRAME_WIDTH * FRAME_HEIGHT]u32,
+	dirty:          bool,
+	world:          World,
+	has_world:      bool, // a world is in play (Embark! or Continue Game) and not abandoned
+	rng:            Rng,
+	screen:         Screen,
+	menu_index:     int,         // the picker screens' cursor; reset whenever one is entered
+	cursor:         [Screen]int, // the dialogs' cursor, remembered per screen (decision: quirk 6)
+	options_return: Screen,      // where Options returns to (the original pushes it over the caller)
+	view:           View,
+	last_ms:        f64,
+	fullscreen:     bool,
+	window_scale:   int,
+	quit:           bool,
 }
 
 core_init :: proc(core: ^Core, services: Services) {
 	core^ = {}
 	core.services = services
 	core.world = world_new()
+	core.window_scale = DEFAULT_WINDOW_SCALE
 	rng_seed(&core.rng, services.entropy != nil ? services.entropy() : 1)
 	core.dirty = true
 }
 
-core_build_view :: proc(core: ^Core, now_ms: f64) {
-	switch core.screen {
-	case .Neutral: neutral_view(&core.world, now_ms, &core.view)
-	case .Shoppe:  shoppe_view(&core.world, &core.view)
-	}
-}
-
-// The original's cursor movement: three columns; Left/Right by one, Up/Down by a row, clamped.
-cursor_move :: proc(cursor, count: int, command: Command) -> int {
-	switch command {
-	case .Right: return min(cursor + 1, count - 1)
-	case .Left:  return max(cursor - 1, 0)
-	case .Up:    return max(cursor - CHOICE_COLUMNS, 0)
-	case .Down:  return min(cursor + CHOICE_COLUMNS, count - 1)
-	case .None, .Confirm, .Cancel:
-	}
-	return cursor
-}
-
-core_choose :: proc(core: ^Core, now_ms: f64) {
-	choice := view_choice_text(&core.view.choices[core.cursor[core.screen]])
-	switch choice {
-	case "Murder!":               attempt_murder(&core.world, &core.rng)
-	case "Shoppe":                core.screen = .Shoppe
-	case "Cancel":                core.screen = .Neutral
-	case "Skill Increase":        buy_skill(&core.world)
-	case "Difficulty Increase":   buy_difficulty(&core.world)
-	case "Auto-murder Increase":  buy_auto(&core.world, now_ms)
-	}
-}
-
 core_step :: proc(core: ^Core, input: Step_Input, out: ^Step_Output) {
-	if auto_tick(&core.world, &core.rng, input.now_ms) > 0 { core.dirty = true }
-	core_build_view(core, input.now_ms)
+	now := input.now_ms
+	// auto-murder runs while a world is on the neutral screen or in the Shoppe (decision: quirk 3)
+	if core.has_world && (core.screen == .Neutral || core.screen == .Shoppe) {
+		if auto_tick(&core.world, &core.rng, now) > 0 { core.dirty = true }
+	}
 	for e in input.events {
-		if e.kind != .Command { continue }
-		switch e.command {
-		case .Up, .Down, .Left, .Right:
-			core.cursor[core.screen] = cursor_move(core.cursor[core.screen], core.view.choice_count, e.command)
-		case .Confirm:
-			if core.cursor[core.screen] >= core.view.choice_count { core.cursor[core.screen] = 0 }
-			core_choose(core, input.now_ms)
-			core_build_view(core, input.now_ms)
-		case .Cancel:
-			if core.screen == .Shoppe { core.screen = .Neutral; core_build_view(core, input.now_ms) }
-		case .None:
+		if e.kind == .Command && e.command != .None {
+			handle_command(core, e.command, now)
+			core.dirty = true
 		}
-		core.dirty = true
 	}
 	// the countdown line changes with the clock, so the neutral screen redraws while auto-murder runs
-	if core.screen == .Neutral && core.world.has_auto && input.now_ms != core.last_ms { core.dirty = true }
-	core.last_ms = input.now_ms
+	if core.screen == .Neutral && core.world.has_auto && now != core.last_ms { core.dirty = true }
+	core.last_ms = now
 	out.frame_changed = core.dirty
 	if core.dirty {
-		if core.cursor[core.screen] >= core.view.choice_count { core.cursor[core.screen] = 0 } // as in the original's Render
-		render_dialog(&core.hues, &core.view, core.cursor[core.screen])
+		render_screen(core, now)
 		frame_to_rgba(&core.hues, &core.frame)
 		core.dirty = false
 	}
 	out.frame = &core.frame
-	out.quit_requested = false
+	out.quit_requested = core.quit
+	out.fullscreen = core.fullscreen
+	out.window_scale = core.window_scale
 }

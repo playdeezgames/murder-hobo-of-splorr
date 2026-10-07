@@ -69,6 +69,20 @@ Module Program
         Add(result, "shoppe_some", World(Sub(d) d.ExperiencePoints = 30), "Right", "A")
         Add(result, "shoppe_cursor_last", World(Sub(d) d.ExperiencePoints = 5000), "Right", "A", "Right", "Right", "Right")
         Add(result, "shoppe_cursor_row2", World(Sub(d) d.ExperiencePoints = 5000), "Right", "A", "Down")
+        ' Scenarios without a world start at the splash screen.
+        Add(result, "splash", Nothing)
+        Add(result, "main_menu", Nothing, "A")
+        Add(result, "main_menu_item3", Nothing, "A", "Down", "Down", "Down")
+        Add(result, "main_menu_wrapped", Nothing, "A", "Up")
+        Add(result, "about", Nothing, "A", "Down", "Down", "Down", "Down", "A")
+        Add(result, "options", Nothing, "A", "Down", "Down", "Down", "A")
+        Add(result, "window_size", Nothing, "A", "Down", "Down", "Down", "A", "Down", "A")
+        Add(result, "window_size_item4", Nothing, "A", "Down", "Down", "Down", "A", "Down", "A", "Down", "Down", "Down")
+        Add(result, "confirm_quit", Nothing, "A", "B")
+        Add(result, "game_menu", World(), "B")
+        Add(result, "game_menu_wrapped", World(), "B", "Up")
+        Add(result, "confirm_abandon", World(), "B", "Up", "A")
+        Add(result, "confirm_abandon_yes", World(), "B", "Up", "A", "Down")
         Return result
     End Function
 
@@ -83,11 +97,13 @@ Module Program
             Dim controller As New GameController(New MHOSSettings(), context)
             controller.SetSfxHook(Sub(s) Return)
             controller.SetMuxHook(Sub(s) Return)
-            controller.HandleCommand(Command.A) ' splash -> main menu
-            controller.HandleCommand(Command.A) ' Embark!
-            Dim worldPath = Path.Combine(Path.GetTempPath(), "oracle-world.json")
-            File.WriteAllText(worldPath, JsonSerializer.Serialize(scenario.Data))
-            context.Model.Session.Load(worldPath)
+            If scenario.Data IsNot Nothing Then
+                controller.HandleCommand(Command.A) ' splash -> main menu
+                controller.HandleCommand(Command.A) ' Embark!
+                Dim worldPath = Path.Combine(Path.GetTempPath(), "oracle-world.json")
+                File.WriteAllText(worldPath, JsonSerializer.Serialize(scenario.Data))
+                context.Model.Session.Load(worldPath)
+            End If
             For Each command In scenario.Commands
                 controller.HandleCommand(command)
             Next

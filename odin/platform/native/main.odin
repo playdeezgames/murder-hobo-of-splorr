@@ -17,6 +17,7 @@ native_services :: proc() -> game.Services {
 		storage_get = storage_get, storage_set = storage_set, storage_remove = storage_remove,
 		entropy = proc() -> u64 { return u64(SDL.GetPerformanceCounter()) * 2862933555777941757 + u64(SDL.GetTicks()) },
 		log = proc(message: string) { fmt.println(message) },
+		desktop = true,
 	}
 }
 
@@ -48,6 +49,8 @@ main :: proc() {
 	out: game.Step_Output
 	events: [dynamic]game.Input_Event
 	prev := SDL.GetTicks()
+	applied_scale := SCALE
+	applied_fullscreen := false
 	quit := false
 	for !quit {
 		clear(&events)
@@ -70,6 +73,14 @@ main :: proc() {
 		SDL.RenderClear(renderer)
 		SDL.RenderCopy(renderer, texture, nil, nil)
 		SDL.RenderPresent(renderer)
+		if out.window_scale != applied_scale {
+			applied_scale = out.window_scale
+			SDL.SetWindowSize(window, i32(game.FRAME_WIDTH * applied_scale), i32(game.FRAME_HEIGHT * applied_scale))
+		}
+		if out.fullscreen != applied_fullscreen {
+			applied_fullscreen = out.fullscreen
+			SDL.SetWindowFullscreen(window, applied_fullscreen ? {.FULLSCREEN, ._INTERNAL_FULLSCREEN_DESKTOP} : {})
+		}
 		if out.quit_requested { quit = true }
 		free_all(context.temp_allocator)
 	}

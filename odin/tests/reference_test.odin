@@ -139,3 +139,83 @@ font_data_matches_the_original_json_shape :: proc(t: ^testing.T) {
 	testing.expect_value(t, game.text_width("Hello"), 30)
 	_ = fmt.tprintf // keep the import used by -vet
 }
+
+// ---- the menu screens ------------------------------------------------------------------------------------
+// The VB game's own item lists (with Scum Load, Load..., the volume screens), so the picker itself is compared.
+VB_MAIN_MENU :: []string{"Embark!", "Scum Load", "Load...", "Options...", "About...", "Quit"}
+VB_GAME_MENU :: []string{"Continue Game", "Scum Save", "Save...", "Scum Load", "Options...", "Abandon Game"}
+VB_OPTIONS :: []string{"Toggle Full Screen", "Window Size...", "Sfx Volume...", "Mux Volume..."}
+VB_SIZES := []string{"1152x648", "1536x864", "1920x1080", "3456x1944", "3840x2160", "5376x3024", "5760x3240", "7296x4104", "7680x4320"}
+VB_CONTROLS :: "Spc/(A) - Sel | Esc/(B) - Cancel"
+
+draw_menu :: proc(header, status: string, items: []string, index: int) -> ^game.Hue_Frame {
+	f := new(game.Hue_Frame)
+	game.render_menu(f, header, status, items, index)
+	return f
+}
+
+@(test)
+ref_splash :: proc(t: ^testing.T) {
+	f := new(game.Hue_Frame); defer free(f)
+	game.render_splash(f)
+	reference(t, "splash", #load("../../docs/reference/vb/splash.txt", string), f)
+}
+
+@(test)
+ref_about :: proc(t: ^testing.T) {
+	f := new(game.Hue_Frame); defer free(f)
+	game.render_about(f)
+	reference(t, "about", #load("../../docs/reference/vb/about.txt", string), f)
+}
+
+@(test)
+ref_main_menu :: proc(t: ^testing.T) {
+	status := game.controls_text("Sel", "Quit")
+	f0 := draw_menu("Main Menu", status, VB_MAIN_MENU, 0); defer free(f0)
+	reference(t, "main_menu", #load("../../docs/reference/vb/main_menu.txt", string), f0)
+	f3 := draw_menu("Main Menu", status, VB_MAIN_MENU, 3); defer free(f3)
+	reference(t, "main_menu_item3", #load("../../docs/reference/vb/main_menu_item3.txt", string), f3)
+	f5 := draw_menu("Main Menu", status, VB_MAIN_MENU, 5); defer free(f5)
+	reference(t, "main_menu_wrapped", #load("../../docs/reference/vb/main_menu_wrapped.txt", string), f5)
+	free_all(context.temp_allocator)
+}
+
+@(test)
+ref_game_menu_and_confirmations :: proc(t: ^testing.T) {
+	status := game.controls_text("Sel", "Cancel")
+	a := draw_menu("Menu...", status, VB_GAME_MENU, 0); defer free(a)
+	reference(t, "game_menu", #load("../../docs/reference/vb/game_menu.txt", string), a)
+	b := draw_menu("Menu...", status, VB_GAME_MENU, 5); defer free(b)
+	reference(t, "game_menu_wrapped", #load("../../docs/reference/vb/game_menu_wrapped.txt", string), b)
+	c := draw_menu("Are you sure you want to abandon?", status, {"No", "Yes"}, 0); defer free(c)
+	reference(t, "confirm_abandon", #load("../../docs/reference/vb/confirm_abandon.txt", string), c)
+	d := draw_menu("Are you sure you want to abandon?", status, {"No", "Yes"}, 1); defer free(d)
+	reference(t, "confirm_abandon_yes", #load("../../docs/reference/vb/confirm_abandon_yes.txt", string), d)
+	e := draw_menu("Are you sure you want to quit?", status, {"No", "Yes"}, 0); defer free(e)
+	reference(t, "confirm_quit", #load("../../docs/reference/vb/confirm_quit.txt", string), e)
+	free_all(context.temp_allocator)
+}
+
+@(test)
+ref_options_and_window_size :: proc(t: ^testing.T) {
+	status := game.controls_text("Sel", "Cancel")
+	a := draw_menu("Options", status, VB_OPTIONS, 0); defer free(a)
+	reference(t, "options", #load("../../docs/reference/vb/options.txt", string), a)
+	b := draw_menu("Current Size: 1152x648", status, VB_SIZES, 0); defer free(b)
+	reference(t, "window_size", #load("../../docs/reference/vb/window_size.txt", string), b)
+	c := draw_menu("Current Size: 1152x648", status, VB_SIZES, 3); defer free(c)
+	reference(t, "window_size_item4", #load("../../docs/reference/vb/window_size_item4.txt", string), c)
+	free_all(context.temp_allocator)
+}
+
+// The port's own screens produce the same pixels as the reference frames where the item lists agree.
+@(test)
+window_size_screen_is_the_original_list :: proc(t: ^testing.T) {
+	core := new(game.Core); defer free(core)
+	game.core_init(core, game.Services{desktop = true})
+	game.enter(core, .Window_Size)
+	items := game.menu_items(core)
+	testing.expect_value(t, len(items), len(VB_SIZES))
+	for item, i in items { testing.expect_value(t, item, VB_SIZES[i]) }
+	free_all(context.temp_allocator)
+}

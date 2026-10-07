@@ -41,6 +41,7 @@ main :: proc() {
 	if core == nil { return }
 	game.core_step(core, {dt = dt, now_ms = now_ms, events = events[:event_count]}, &out)
 	event_count = 0
+	free_all(context.temp_allocator) // the core builds its strings there
 }
 @(export) platform_frame_ptr :: proc "c" () -> rawptr { return out.frame }
 @(export) platform_frame_changed :: proc "c" () -> bool { return out.frame_changed }
