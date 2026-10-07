@@ -5,9 +5,17 @@
 	const debugLog = new URLSearchParams(location.search).has("log"); // ?log=1 prints every input sent to the game
 	const logInput = (...a) => { if (debugLog) console.log("[input]", ...a); };
 
+	const seedParam = new URLSearchParams(location.search).get("seed");
+	const fixedSeed = seedParam !== null && /^\d{1,9}$/.test(seedParam) ? Number(seedParam) : null;
+	let fixedSeedHalf = 0;
+
 	const mem = new odin.WasmMemoryInterface();
 	const platformImports = {
-		js_entropy_u32() { return crypto.getRandomValues(new Uint32Array(1))[0] | 0; },
+		// ?seed=N fixes the random numbers (bug reports, tests): the high word is 0 and the low word is N
+		js_entropy_u32() {
+			if (fixedSeed !== null) { fixedSeedHalf ^= 1; return fixedSeedHalf ? 0 : fixedSeed; }
+			return crypto.getRandomValues(new Uint32Array(1))[0] | 0;
+		},
 		js_log(p, n) { console.log(mem.loadString(p, n)); },
 	};
 	await odin.runWasm("platform.wasm", null, { ...storageImports(mem), platform: platformImports }, mem);
@@ -44,7 +52,7 @@
 		const r = canvas.getBoundingClientRect();
 		const x = Math.floor((e.clientX - r.left) / r.width * FRAME_W), y = Math.floor((e.clientY - r.top) / r.height * FRAME_H);
 		logInput("tap", x, y, e.pointerType);
-		exports.platform_tap(x, y);
+		exports.platform_tap(x, y, e.pointerType !== "touch"); // a finger is not precise: it selects first
 	});
 	addEventListener("contextmenu", (e) => e.preventDefault());
 

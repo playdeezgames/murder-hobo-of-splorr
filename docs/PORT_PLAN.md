@@ -88,5 +88,13 @@ src/                   original VB.NET, deleted in its own commit after shipping
 | 5 | Audio | **None**; no music, no sfx, no volume screens, no decoder dependency |
 | 6 | Layout | `odin/game` + `platform/web` + `platform/native` (**SDL2**); `src/` deleted in its own commit afterwards |
 | 7 | Shipping | **Decide at ship time**; build both now. Old script's targets: `thegrumpygamedev/murder-hobo-of-splorr:windows|linux|mac`; `README.md` and `shippit.sh` get replaced |
+| 8 | Embark! with a saved game | **Confirm first** ("Embark anew? Your saved game will be lost.", No first); with no save it starts at once |
 
 Consequence of dropping audio: `Content/Audio`, `mux.json`, `sfx.json`, Options volume items go away; Options is only window size/fullscreen on native and is absent on web (so on web the Main Menu has no Options entry).
+
+## QA hooks (phase 6)
+
+- **Web:** `?seed=N` fixes the random numbers (up to 9 digits); `?log=1` prints every input sent to the game.
+- **Native:** `--seed N`, `--data DIR` (save directory instead of the per-user one), `--script "confirm,down,tap:100:50,..."` (one input per frame, then quit) and `--dump FILE` (the last frame as a PPM). Example: `build/native/murder-hobo --data /tmp/x --script "confirm,confirm,confirm" --dump /tmp/x/frame.ppm`.
+- **Pointer:** a mouse press selects and confirms; a finger selects first and confirms on the selected item. The hint line of a dialog and the status bar of a menu act as Escape.
+- `tools/test.sh` runs the generated-data check, the native suite built with `-o:speed` (about 70 tests including three long random "soak" games and a save-fuzzer), and a full build of both platforms with the vet flags. `tools/gen_reference.sh` re-records the VB reference frames (needs dotnet).

@@ -34,7 +34,7 @@ main :: proc() {
 
 // ---- exports called by page/platform.js ---------------------------------------------------------
 @(export) platform_command :: proc "c" (command: i32) { push_event({kind = .Command, command = game.Command(command)}) }
-@(export) platform_tap :: proc "c" (x, y: i32) { push_event({kind = .Tap, x = i16(x), y = i16(y)}) }
+@(export) platform_tap :: proc "c" (x, y: i32, precise: bool) { push_event({kind = .Tap, x = i16(x), y = i16(y), precise = precise}) }
 // now_ms is the wall clock in milliseconds (an f64: int is 32 bits here)
 @(export) platform_frame :: proc "c" (dt, now_ms: f64) {
 	context = runtime.default_context()

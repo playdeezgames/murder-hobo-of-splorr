@@ -2,7 +2,7 @@ package game
 
 // The core: one state machine over the screens of the original, driven once per presented frame.
 
-Screen :: enum u8 { Splash, Main_Menu, Neutral, Shoppe, Game_Menu, Confirm_Abandon, About, Options, Window_Size, Confirm_Quit }
+Screen :: enum u8 { Splash, Main_Menu, Neutral, Shoppe, Game_Menu, Confirm_Abandon, Confirm_Embark, About, Options, Window_Size, Confirm_Quit }
 
 // The window sizes of the original's Options menu: the 384 by 216 view times these.
 WINDOW_SCALES :: [9]int{3, 4, 5, 9, 10, 14, 15, 19, 20}
@@ -47,11 +47,14 @@ core_step :: proc(core: ^Core, input: Step_Input, out: ^Step_Output) {
 		if auto_tick(&core.world, &core.rng, now) > 0 { core.dirty = true; core.save_pending = true }
 	}
 	for e in input.events {
-		if e.kind == .Command && e.command != .None {
-			handle_command(core, e.command, now)
-			core.dirty = true
-			if core.has_world { core.save_pending = true }
+		switch e.kind {
+		case .Command:
+			if e.command != .None { handle_command(core, e.command, now); core.dirty = true }
+		case .Tap:
+			handle_tap(core, int(e.x), int(e.y), e.precise, now); core.dirty = true
+		case .None:
 		}
+		if core.has_world { core.save_pending = true }
 	}
 	// the countdown line changes with the clock, so the neutral screen redraws while auto-murder runs
 	if core.screen == .Neutral && core.world.has_auto && now != core.last_ms { core.dirty = true }

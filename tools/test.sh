@@ -12,7 +12,7 @@ python3 tools/gen/gen_font.py >/dev/null
 cmp -s odin/game/font_data.odin build/font_data.odin.before && echo "ok" || { echo "FAIL: font_data.odin changed when regenerated; commit the result"; fail=1; }
 
 step "native suite (odin test)"
-odin test odin/tests -collection:kmh=odin -out:build/tests_native -define:ODIN_TEST_THREADS=1 2>&1 | tee build/native_tests.log | grep -E "FAIL|passed|failed|Finished" || true
+odin test odin/tests -collection:kmh=odin -o:speed -out:build/tests_native -define:ODIN_TEST_THREADS=1 2>&1 | tee build/native_tests.log | grep -E "FAIL|passed|failed|Finished" || true
 grep -qE "All tests were successful|successful" build/native_tests.log || fail=1
 
 step "both platforms build (with the vet flags, so 32-bit and shadowing mistakes show)"

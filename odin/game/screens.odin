@@ -23,6 +23,7 @@ menu_header :: proc(core: ^Core) -> string {
 	case .Main_Menu:       return "Main Menu"
 	case .Game_Menu:       return "Menu..."
 	case .Confirm_Abandon: return "Are you sure you want to abandon?"
+	case .Confirm_Embark:  return "Embark anew? Your saved game will be lost."
 	case .Confirm_Quit:    return "Are you sure you want to quit?"
 	case .Options:         return "Options"
 	case .Window_Size:     return fmt.tprintf("Current Size: %dx%d", FRAME_WIDTH * core.window_scale, FRAME_HEIGHT * core.window_scale)
@@ -50,7 +51,7 @@ menu_items :: proc(core: ^Core) -> []string {
 		append(&items, TEXT_CONTINUE_GAME)
 		if core.services.desktop { append(&items, TEXT_OPTIONS) }
 		append(&items, TEXT_ABANDON)
-	case .Confirm_Abandon, .Confirm_Quit:
+	case .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark:
 		append(&items, TEXT_NO)
 		append(&items, TEXT_YES)
 	case .Options:
@@ -64,7 +65,7 @@ menu_items :: proc(core: ^Core) -> []string {
 
 is_picker :: proc(s: Screen) -> bool {
 	switch s {
-	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Options, .Window_Size: return true
+	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark, .Options, .Window_Size: return true
 	case .Splash, .Neutral, .Shoppe, .About: return false
 	}
 	return false
@@ -87,7 +88,7 @@ handle_command :: proc(core: ^Core, command: Command, now_ms: f64) {
 		enter(core, .Main_Menu) // any command leaves it
 	case .Neutral, .Shoppe:
 		handle_dialog_command(core, command, now_ms)
-	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Options, .Window_Size:
+	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark, .Options, .Window_Size:
 		handle_picker_command(core, command)
 	}
 }
@@ -151,6 +152,7 @@ picker_cancel :: proc(core: ^Core) {
 	case .Game_Menu:       core.screen = .Neutral
 	case .Confirm_Abandon: enter(core, .Game_Menu)
 	case .Confirm_Quit:    enter(core, .Main_Menu)
+	case .Confirm_Embark:  enter(core, .Main_Menu)
 	case .Options:         enter(core, core.options_return)
 	case .Window_Size:     enter(core, .Options)
 	}
@@ -161,9 +163,7 @@ picker_activate :: proc(core: ^Core, item: string) {
 	case TEXT_CONTINUE_GAME:
 		core.screen = .Neutral
 	case TEXT_EMBARK:
-		core.world = world_new()
-		core.has_world = true
-		core.screen = .Neutral
+		if core.has_world { enter(core, .Confirm_Embark) } else { embark(core) }
 	case TEXT_OPTIONS:
 		core.options_return = core.screen
 		enter(core, .Options)
@@ -181,7 +181,9 @@ picker_activate :: proc(core: ^Core, item: string) {
 	case TEXT_NO:
 		enter(core, core.screen == .Confirm_Abandon ? .Game_Menu : .Main_Menu)
 	case TEXT_YES:
-		if core.screen == .Confirm_Abandon {
+		if core.screen == .Confirm_Embark {
+			embark(core)
+		} else if core.screen == .Confirm_Abandon {
 			core.world = world_new()
 			core.has_world = false
 			core_store(core, SAVE_KEY, EMPTY_SAVE) // not a removal: the empty marker says the player chose this
@@ -195,6 +197,49 @@ picker_activate :: proc(core: ^Core, item: string) {
 	}
 }
 
+embark :: proc(core: ^Core) {
+	core.world = world_new()
+	core.has_world = true
+	core.screen = .Neutral
+}
+
+// ---- taps (mouse and touch) -------------------------------------------------------------------------------
+// Frame pixel coordinates. A precise pointer (mouse) selects and confirms in one press; a finger selects first and
+// confirms on the selected item. The hint line of a dialog and the status bar of a picker act as the Escape key.
+handle_tap :: proc(core: ^Core, x, y: int, precise: bool, now_ms: f64) {
+	switch core.screen {
+	case .Splash:
+		handle_command(core, .Confirm, now_ms)
+	case .About:
+		handle_command(core, .Cancel, now_ms)
+	case .Neutral, .Shoppe:
+		build_dialog_view(core, now_ms)
+		if y < FONT_HEIGHT { handle_command(core, .Cancel, now_ms); return }
+		rows := (core.view.choice_count + CHOICE_COLUMNS - 1) / CHOICE_COLUMNS
+		top := FRAME_HEIGHT - FONT_HEIGHT * rows
+		if y < top || y >= FRAME_HEIGHT || x < 0 || x >= FRAME_WIDTH { return }
+		index := (y - top) / FONT_HEIGHT * CHOICE_COLUMNS + x / (FRAME_WIDTH / CHOICE_COLUMNS)
+		if index >= core.view.choice_count { return }
+		select_then_confirm(core, &core.cursor[core.screen], index, precise, now_ms)
+	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark, .Options, .Window_Size:
+		if y >= FRAME_HEIGHT - FONT_HEIGHT { picker_cancel(core); return }
+		// the selected item sits in the middle row; the others scroll around it
+		middle := FRAME_HEIGHT / 2 - FONT_HEIGHT / 2
+		offset := y - middle
+		row := offset >= 0 ? offset / FONT_HEIGHT : -((-offset + FONT_HEIGHT - 1) / FONT_HEIGHT)
+		index := core.menu_index + row
+		items := menu_items(core)
+		if index < 0 || index >= len(items) || y < FONT_HEIGHT { return }
+		select_then_confirm(core, &core.menu_index, index, precise, now_ms)
+	}
+}
+
+select_then_confirm :: proc(core: ^Core, cursor: ^int, index: int, precise: bool, now_ms: f64) {
+	was_selected := cursor^ == index
+	cursor^ = index
+	if precise || was_selected { handle_command(core, .Confirm, now_ms) }
+}
+
 render_screen :: proc(core: ^Core, now_ms: f64) {
 	switch core.screen {
 	case .Splash: render_splash(&core.hues)
@@ -203,7 +248,7 @@ render_screen :: proc(core: ^Core, now_ms: f64) {
 		build_dialog_view(core, now_ms)
 		if core.cursor[core.screen] >= core.view.choice_count { core.cursor[core.screen] = 0 } // as in the original's Render
 		render_dialog(&core.hues, &core.view, core.cursor[core.screen])
-	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Options, .Window_Size:
+	case .Main_Menu, .Game_Menu, .Confirm_Abandon, .Confirm_Quit, .Confirm_Embark, .Options, .Window_Size:
 		render_menu(&core.hues, menu_header(core), menu_status(core), menu_items(core), core.menu_index)
 	}
 }

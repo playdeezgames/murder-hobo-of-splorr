@@ -135,3 +135,18 @@ auto_tick :: proc(w: ^World, r: ^Rng, now_ms: f64) -> int {
 	}
 	return ran
 }
+
+// The invariants the rules and the loader rely on. Used by the soak test; a world that passes can always be saved and loaded.
+world_valid :: proc(w: ^World) -> bool {
+	in_range :: proc(v, lo: i64) -> bool { return v >= lo && v <= SATURATION }
+	if !in_range(w.murder_counter, 0) || !in_range(w.attempt_counter, 0) || !in_range(w.experience, 0) { return false }
+	if !in_range(w.skill, 1) || !in_range(w.difficulty, 1) { return false }
+	if !in_range(w.skill_cost, 1) || !in_range(w.difficulty_cost, 1) || !in_range(w.auto_cost, 1) { return false }
+	if !in_range(w.success_streak, 0) || !in_range(w.record_streak, 0) { return false }
+	if w.murder_counter > w.attempt_counter || w.success_streak > w.record_streak || w.record_streak > w.murder_counter { return false }
+	if w.auto_interval_ms < MIN_AUTO_INTERVAL_MS || w.auto_interval_ms > START_AUTO_INTERVAL_MS { return false }
+	if w.scheduled_interval_ms < MIN_AUTO_INTERVAL_MS || w.scheduled_interval_ms > START_AUTO_INTERVAL_MS { return false }
+	if !w.has_auto && w.auto_interval_ms != START_AUTO_INTERVAL_MS { return false }
+	if w.message_count < 0 || w.message_count > MAX_MESSAGES { return false }
+	return true
+}

@@ -19,13 +19,15 @@ Command :: enum u8 { None, Up, Down, Left, Right, Confirm, Cancel }
 Input_Kind :: enum u8 {
 	None,
 	Command, // a key, or a gamepad button, already mapped
-	Tap,     // a mouse press or touch: x, y are FRAME pixel coordinates (may be outside the frame)
+	Tap,     // a mouse press or touch: x, y are FRAME pixel coordinates (may be outside the frame).
+	         // `precise` is true for a mouse or pen. A finger is not precise: a first tap selects, a tap on the selected item confirms.
 }
 
 Input_Event :: struct {
 	kind:    Input_Kind,
 	command: Command,
 	x, y:    i16,
+	precise: bool,
 }
 
 // ---- output ------------------------------------------------------------------------------------
