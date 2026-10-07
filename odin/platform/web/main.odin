@@ -27,7 +27,11 @@ main :: proc() {
 	core = new(game.Core)
 	game.core_init(core, game.Services{
 		storage_get = storage_get, storage_set = storage_set, storage_remove = storage_remove,
-		entropy = proc() -> u64 { return u64(js_entropy_u32()) << 32 | u64(js_entropy_u32()) },
+		entropy = proc() -> u64 {
+			high := js_entropy_u32() // two statements: the order of the two calls in one expression is not guaranteed
+			low := js_entropy_u32()
+			return u64(high) << 32 | u64(low)
+		},
 		log = proc(message: string) { js_log(message) },
 	})
 }

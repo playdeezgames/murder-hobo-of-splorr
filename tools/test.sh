@@ -19,5 +19,9 @@ grep -qE "All tests were successful|successful" build/native_tests.log || fail=1
 step "both platforms build (with the vet flags, so 32-bit and shadowing mistakes show)"
 tools/build.sh all >/dev/null && echo "ok" || { echo "FAIL: a platform does not build"; fail=1; }
 
+step "wasm plays exactly like native (the same scripted game under node)"
+ODIN_JS="$(odin root)/core/sys/wasm/js/odin.js" node tools/wasm_parity.js build/web build/parity_wasm.txt
+if cmp -s build/parity_native.txt build/parity_wasm.txt; then echo "ok: $(cat build/parity_native.txt)"; else echo "FAIL: native and wasm digests differ"; cat build/parity_native.txt build/parity_wasm.txt; fail=1; fi
+
 echo
 if [ "$fail" = 0 ]; then echo "ALL TESTS PASSED"; else echo "SOME TESTS FAILED"; exit 1; fi
