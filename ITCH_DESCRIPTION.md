@@ -1,11 +1,27 @@
-*A metaphor about itinerance. And slaughter.* (draft: check it against the live page before pasting)
+In Murder Hobo of SPLORR!!, you are a Murder Hobo!
 
-You are a murder hobo. Attempt a murder: it succeeds or it fails. Either way you get XP, and a run of successes pays a streak bonus. Spend XP in the Shoppe on skill (better odds), difficulty (bigger rewards) and auto-murder (the murders carry on without you). Every upgrade costs twice the last one.
+You can murder, which gives you experience points.
 
-There is no ending.
+You can use yer experience points to increase yer murder skill!
 
-**Controls:** arrow keys or WASD to move, Space or Enter to choose, Escape to go back (it opens the Game Menu from the main screen). Mouse and touch work too: tap a choice, tap the top line for Escape.
+You can also use yer experience points to increase the difficulty of yer murders!
 
-**Saving:** the game saves itself in your browser after every move. Closing the tab is fine; auto-murder catches up (to a point) while you are away. Abandon Game in the Game Menu wipes the save.
+Finally, you can eventually automate yer murder!
 
-Made with Odin, compiled to WebAssembly. A rebuild of the original VB.NET game, which had no saving. Font: m5x7 by Daniel Linssen (managore), https://managore.itch.io/m5x7. A Production of TheGrumpyGameDev.
+And then you can reduce the amount of time between automatic murders!
+
+Did I mention murder?
+
+P.S. This game is about crows.
+
+---
+
+(The text above is the live page's, unchanged. Everything below is new, for the browser version.)
+
+**Controls:** arrow keys or WASD to move, Space or Enter to choose, Escape to go back (on the main screen it opens the Game Menu). The mouse works too: click a choice, or click the top line for Escape. On a touch screen the first tap selects and a second tap on the same thing chooses.
+
+**Saving:** the game saves itself in yer browser after every move. Close the tab whenever; yer auto-murder carries on catching up while yer away, up to a point. Abandon Game in the Game Menu wipes the save.
+
+Font: m5x7 by Daniel Linssen (managore), https://managore.itch.io/m5x7.
+
+When uploading: on the page's Edit game screen, set "Kind of project" to HTML if it is not already, tick "This file will be played in the browser" on the html upload, and remove the old windows, linux and mac zips (version 3, 36 MB each) if they should go. That part is manual.
