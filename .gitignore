@@ -400,3 +400,7 @@ FodyWeavers.xsd
 pub-linux/
 pub-mac/
 pub-windows/
+# odin port
+/build/
+/odin/**/saves/
+saves/

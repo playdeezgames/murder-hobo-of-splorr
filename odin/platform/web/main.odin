@@ -1,0 +1,47 @@
+#+build js
+package main
+
+// Browser platform (js_wasm32). odin.js runs `main` once (init); then page/platform.js calls `platform_frame` every
+// animation frame. Everything crossing the boundary is a number, a (ptr, len) string, or a pointer into wasm memory.
+import "base:runtime"
+import "kmh:game"
+
+foreign import platform_env "platform"
+
+@(default_calling_convention = "contextless")
+foreign platform_env {
+	js_entropy_u32 :: proc() -> u32 ---
+	js_log :: proc(message: string) ---
+}
+
+core: ^game.Core // allocated once at start; never on the stack
+out: game.Step_Output
+events: [64]game.Input_Event
+event_count: int
+
+push_event :: proc "contextless" (e: game.Input_Event) {
+	if event_count < len(events) { events[event_count] = e; event_count += 1 }
+}
+
+main :: proc() {
+	core = new(game.Core)
+	game.core_init(core, game.Services{
+		storage_get = storage_get, storage_set = storage_set, storage_remove = storage_remove,
+		entropy = proc() -> u64 { return u64(js_entropy_u32()) << 32 | u64(js_entropy_u32()) },
+		log = proc(message: string) { js_log(message) },
+	})
+}
+
+// ---- exports called by page/platform.js ---------------------------------------------------------
+@(export) platform_command :: proc "c" (command: i32) { push_event({kind = .Command, command = game.Command(command)}) }
+@(export) platform_tap :: proc "c" (x, y: i32) { push_event({kind = .Tap, x = i16(x), y = i16(y)}) }
+// now_ms is the wall clock in milliseconds (an f64: int is 32 bits here)
+@(export) platform_frame :: proc "c" (dt, now_ms: f64) {
+	context = runtime.default_context()
+	if core == nil { return }
+	game.core_step(core, {dt = dt, now_ms = now_ms, events = events[:event_count]}, &out)
+	event_count = 0
+}
+@(export) platform_frame_ptr :: proc "c" () -> rawptr { return out.frame }
+@(export) platform_frame_changed :: proc "c" () -> bool { return out.frame_changed }
+@(export) platform_quit :: proc "c" () -> bool { return out.quit_requested }
