@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-"Murder Hobo of SPLORR!!": a small idle clicker ("metaphor") by TheGrumpyGameDev. Attempt murders, earn XP, buy skill, difficulty and auto-murder in the Shoppe. **There is no ending, and failing paying double XP is deliberate; do not "fix" either.** The game was rebuilt in Odin in October 2026 (a browser build and a native SDL2 client over one core). The original VB.NET / MonoGame game is still in `src/` as the reference the port was checked against, and is to be deleted after shipping.
+"Murder Hobo of SPLORR!!": a small idle clicker ("metaphor") by TheGrumpyGameDev. Attempt murders, earn XP, buy skill, difficulty and auto-murder in the Shoppe. **There is no ending, and failing paying double XP is deliberate; do not "fix" either.** The game was rebuilt in Odin in October 2026 (a browser build and a native SDL2 client over one core). The original VB.NET / MonoGame game was deleted after shipping (October 8, 2026); it is in git history at commit `32b498e` and earlier, together with the oracle that recorded its screens.
 
 Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr/` (`Games/Murder Hobo of SPLORR!!.md` is this game's page; `Home.md`, `Gotchas.md`, `Tech/Odin wasm recipe.md` and `Tech/Shipping to itch.io.md` are the useful notes). `docs/PORT_PLAN.md` records the port's decisions and `docs/QUIRKS.md` the decided quirks of the original; read them before changing behaviour that looks odd.
 
@@ -13,7 +13,6 @@ Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr
 - **Never run `tools/ship.sh --push`, `shippit.sh --push`, `butler push` or `git push` unless the user says so in chat.** `tools/ship.sh` without `--push` only tests, builds and zips.
 - Commit only when asked. End commit messages with the attribution line the harness gives.
 - Do not describe deliberate design as a bug (see above and the vault page's "Rules for future sessions").
-- Delete `src/` (with `tools/vb-oracle` and `tools/gen_reference.sh`) only after shipping, in its own commit, and only when told.
 
 ## Commands
 
@@ -22,8 +21,7 @@ tools/test.sh                # font-data check, native tests (-o:speed), builds 
 tools/build.sh [web|native]  # output in build/ (git-ignored); ODIN_FLAGS="-o:size" for the shipping build
 tools/serve.sh               # serves build/web on http://localhost:8080 (PORT=... to change; 8080 may be taken, use another)
 tools/ship.sh [--push]       # tests, size-optimized web build, zip to build/murder-hobo-html5.zip; uploads only with --push
-tools/gen_reference.sh       # re-records docs/reference/vb/*.txt from the VB game (needs the dotnet SDK and src/)
-python3 tools/gen/gen_font.py  # regenerates odin/game/font_data.odin and tools/vb-oracle/m5x7.json (needs Pillow)
+python3 tools/gen/gen_font.py  # regenerates odin/game/font_data.odin from odin/assets/m5x7.ttf (needs Pillow)
 ```
 
 `tools/test.sh` takes about a minute; a tool call over 120 s is moved to the background, so run it with `run_in_background` when you also build. Run a single test with `odin test odin/tests -o:speed -collection:kmh=odin -out:build/t -define:ODIN_TEST_THREADS=1 -define:ODIN_TEST_NAMES=tests.<name>` (the thread count must be 1: tests share globals). Odin is `dev-2026-07-nightly` at `/home/yermom/ODIN/odin`; SDL2 must be installed for the native client.
@@ -39,7 +37,7 @@ QA hooks: web `?seed=N` (fixed dice) and `?log=1` (every input to the console); 
   - `save.odin`: one JSON text per key (`mhos:save`, desktop options in `mhos:config`), hand-written so a re-save is byte-identical, every field validated on load; a bad file is ignored and left on disk; Abandon writes an `"empty"` marker instead of removing the key.
 - **`odin/platform/web/`** (`#+build js`): `js_wasm32` main exporting `platform_frame`, `platform_command`, `platform_tap`; `page/` has `index.html`, `platform.js` (own `requestAnimationFrame` loop, canvas blit) and `storage.js` (localStorage shim). **`odin/platform/native/`** (`#+build !js`): SDL2 window, saves in the per-user data directory.
 - **`odin/tests/`**: native tests (`#+build !js`). `reference_test.odin` compares rendered screens pixel for pixel with frames recorded from the real VB game (`docs/reference/vb/*.txt`, loaded with `#load`); `save_test.odin` includes single-rule mutations and a save fuzzer; `play_test.odin` has tap tests and long random "soak" games; `parity_test.odin` plays a scripted game whose digest must equal the one `tools/wasm_parity.js` gets from the built wasm under node.
-- **`tools/vb-oracle/`** drives the original VB game headlessly and records its screens (uses `src/` and `m5x7.json`). Everything under `src/` is the reference VB.NET game; it can no longer run (its font was removed from use), and its `CyFont*.json` files are the unusable Windows XP font.
+- **`docs/reference/vb/*.txt`** are screens recorded from the original VB game (216 lines of 384 hex hue digits), see the README there. The VB source and the oracle that recorded them are gone from the tree; check out `32b498e` to re-record.
 
 ## Conventions and pitfalls
 

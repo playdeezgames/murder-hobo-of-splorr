@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Generates odin/game/font_data.odin and tools/vb-oracle/m5x7.json from odin/assets/m5x7.ttf (needs Pillow).
+"""Generates odin/game/font_data.odin from odin/assets/m5x7.ttf (needs Pillow).
 
 The font is proportional: ASCII 32..126 each with an advance (ink plus one pixel of spacing, from the font itself), 9 pixel rows
-(7 above the baseline, 2 below). ASCII 127 is a blank. The JSON is in the format of the original game's font files, so the VB game
-(the oracle) can draw with the same font."""
-import json, os
+(7 above the baseline, 2 below). ASCII 127 is a blank."""
+import os
 from PIL import Image, ImageDraw, ImageFont
 
 root = os.path.join(os.path.dirname(__file__), "..", "..")
@@ -39,9 +38,4 @@ for c, _, r in glyphs:
 out.append("}")
 open(os.path.join(root, "odin/game/font_data.odin"), "w").write("\n".join(out) + "\n")
 
-js = {"Height": HEIGHT, "Glyphs": {}}
-for c, a, rows in glyphs:
-    lines = {str(y): [x for x in range(a) if rows[y] >> x & 1] for y in range(HEIGHT) if rows[y]}
-    js["Glyphs"][c] = {"Width": a, "Lines": lines}
-json.dump(js, open(os.path.join(root, "tools/vb-oracle/m5x7.json"), "w"), indent=1)
-print("wrote odin/game/font_data.odin and tools/vb-oracle/m5x7.json")
+print("wrote odin/game/font_data.odin")

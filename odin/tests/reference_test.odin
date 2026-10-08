@@ -1,7 +1,7 @@
 #+build !js
 package tests
 
-// The renderer against the real VB game. tools/vb-oracle drives the original headlessly and records what it draws
+// The renderer against the real VB game. an oracle program (removed from the tree; commit 32b498e) drove the original headlessly and recorded what it drew
 // (docs/reference/vb/*.txt: 216 lines of 384 hue digits in hex). These tests build the same world and require every pixel to match.
 
 import "core:fmt"

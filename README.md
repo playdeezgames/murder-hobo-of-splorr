@@ -11,7 +11,7 @@ The text is set in **m5x7** by Daniel Linssen (managore), https://managore.itch.
 ## Layout
 
 - `odin/` is the game: Odin, compiled to `js_wasm32` for the browser and to a native SDL2 window. `odin/game` is the portable core (rules, screens, software renderer, save format); `odin/platform/web` and `odin/platform/native` only show its 384 by 216 frame and pass input in.
-- `src/` is the original VB.NET / MonoGame game. It is kept as the reference the port was checked against (`tools/vb-oracle` drives it headlessly and records frames into `docs/reference/vb`).
+- `docs/reference/vb/` holds screens recorded from the original VB.NET / MonoGame game, which the port is checked against pixel for pixel. The VB source itself was removed after shipping (it is in git history at `32b498e` and earlier).
 - `docs/PORT_PLAN.md` and `docs/QUIRKS.md` record the port's decisions.
 
 ## Commands
@@ -23,4 +23,4 @@ tools/serve.sh              # http://localhost:8080 (PORT=... to change)
 tools/ship.sh [--push]      # tests, optimized web build, zip; uploads only with --push
 ```
 
-Needs the Odin compiler (`dev-2026` nightly), SDL2 for the native client, Python 3 for the font generator, and the dotnet SDK only to re-record the VB reference frames (`tools/gen_reference.sh`).
+Needs the Odin compiler (`dev-2026` nightly), SDL2 for the native client, Python 3 with Pillow for the font generator.
