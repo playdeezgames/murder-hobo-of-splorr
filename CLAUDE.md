@@ -4,40 +4,48 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-"Murder Hobo of SPLORR!!": a VB.NET / MonoGame (DesktopGL) idle-clicker-style game. The player attempts murders, earns XP, and buys skill, difficulty and auto-murder upgrades. Part of TheGrumpyGameDev's "of SPLORR!!" games. Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr/` (start at `Home.md`; `Gotchas.md` and `Tech/Shipping to itch.io.md` are the useful notes). The vault has no page for this game yet.
+"Murder Hobo of SPLORR!!": a small idle clicker ("metaphor") by TheGrumpyGameDev. Attempt murders, earn XP, buy skill, difficulty and auto-murder in the Shoppe. **There is no ending, and failing paying double XP is deliberate; do not "fix" either.** The game was rebuilt in Odin in October 2026 (a browser build and a native SDL2 client over one core). The original VB.NET / MonoGame game is still in `src/` as the reference the port was checked against, and is to be deleted after shipping.
 
-**`README.md` is useless**: it is a copy of the "solitary-ancient-ruins-of-splorr" jam link log and says nothing about this game. `shippit.sh` and `src/MHOS/aboot.txt` (credits, default `keys.json`) also carry that older game's lineage. The `src/SPLORR.Game` project (`Maze/`, `RNG.vb`) comes from the same ancestor; the murder game itself does not use the maze.
+Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr/` (`Games/Murder Hobo of SPLORR!!.md` is this game's page; `Home.md`, `Gotchas.md`, `Tech/Odin wasm recipe.md` and `Tech/Shipping to itch.io.md` are the useful notes). `docs/PORT_PLAN.md` records the port's decisions and `docs/QUIRKS.md` the decided quirks of the original; read them before changing behaviour that looks odd.
+
+## Standing rules
+
+- **Never run `tools/ship.sh --push`, `shippit.sh --push`, `butler push` or `git push` unless the user says so in chat.** `tools/ship.sh` without `--push` only tests, builds and zips.
+- Commit only when asked. End commit messages with the attribution line the harness gives.
+- Do not describe deliberate design as a bug (see above and the vault page's "Rules for future sessions").
+- Delete `src/` (with `tools/vb-oracle` and `tools/gen_reference.sh`) only after shipping, in its own commit, and only when told.
 
 ## Commands
 
-No tests exist. The solution is `src/src.sln`.
-
 ```bash
-dotnet build src/src.sln
-dotnet run --project src/MHOS/MHOS.vbproj
+tools/test.sh                # font-data check, native tests (-o:speed), builds both platforms with vet flags, wasm parity under node
+tools/build.sh [web|native]  # output in build/ (git-ignored); ODIN_FLAGS="-o:size" for the shipping build
+tools/serve.sh               # serves build/web on http://localhost:8080 (PORT=... to change; 8080 may be taken, use another)
+tools/ship.sh [--push]       # tests, size-optimized web build, zip to build/murder-hobo-html5.zip; uploads only with --push
+tools/gen_reference.sh       # re-records docs/reference/vb/*.txt from the VB game (needs the dotnet SDK and src/)
+python3 tools/gen/gen_font.py  # regenerates odin/game/font_data.odin and tools/vb-oracle/m5x7.json (needs Pillow)
 ```
 
-Run from the build output directory (or via `dotnet run`, which copies `Content/`): `Program.vb` reads `Content/keys.json`, `hue.json`, `sfx.json`, `font.json` and `mux.json` by relative path at startup.
+`tools/test.sh` takes about a minute; a tool call over 120 s is moved to the background, so run it with `run_in_background` when you also build. Run a single test with `odin test odin/tests -o:speed -collection:kmh=odin -out:build/t -define:ODIN_TEST_THREADS=1 -define:ODIN_TEST_NAMES=tests.<name>` (the thread count must be 1: tests share globals). Odin is `dev-2026-07-nightly` at `/home/yermom/ODIN/odin`; SDL2 must be installed for the native client.
 
-`shippit.sh` publishes self-contained single-file builds for linux/windows/mac, pushes each to itch.io with `butler`, then commits everything with `git add -A`. **Only run it when the user explicitly says to**: it publishes publicly and commits. It is not executable; use `bash shippit.sh`.
+QA hooks: web `?seed=N` (fixed dice) and `?log=1` (every input to the console); native `--seed N`, `--data DIR` (use a scratch save directory), `--script "confirm,down,tap:100:50,..."` (one input per frame, then quit) and `--dump FILE` (last frame as PPM). The browser pane caches `platform.wasm` hard and does not run frames while hidden; see the vault's Gotchas.
 
-## Architecture
+## Architecture (`odin/`)
 
-Layered projects; dependencies point downward. Everything is `netstandard2.1` except where noted.
+- **`odin/game/`** is the portable core (package `game`, imported as `kmh:game` via `-collection:kmh=odin`; no platform imports). `api.odin` is the whole platform interface: `core_step(core, {dt, now_ms, events}, &out)` once per frame, a `Services` struct given once (storage get/set/remove, entropy, log, `desktop` flag), and a 384 by 216 RGBA frame out. **Time (`now_ms: f64`) and dice are arguments, never read inside**, so tests control them.
+  - `rules.odin`, `world.odin`, `rng.odin` (own splitmix64): the game. All counts are `i64` saturating at 9e15 (`SATURATION`); wasm `int` is 32 bits, so never use `int` for game numbers.
+  - `render.odin`, `views.odin`, `menus.odin`: a software rasterizer on hue indexes (16 hues, converted to RGBA last) with a proportional bitmap font; `font_data.odin` is **generated** from `odin/assets/m5x7.ttf` (m5x7 by Daniel Linssen, CC0, credited on the About screen).
+  - `screens.odin`, `core.odin`: one state machine over ten screens (Splash, Main Menu, Neutral, Shoppe, Game Menu, Confirm Abandon/Embark/Quit, About, Options, Window Size), commands and taps. Web has no Quit/Options; native does.
+  - `save.odin`: one JSON text per key (`mhos:save`, desktop options in `mhos:config`), hand-written so a re-save is byte-identical, every field validated on load; a bad file is ignored and left on disk; Abandon writes an `"empty"` marker instead of removing the key.
+- **`odin/platform/web/`** (`#+build js`): `js_wasm32` main exporting `platform_frame`, `platform_command`, `platform_tap`; `page/` has `index.html`, `platform.js` (own `requestAnimationFrame` loop, canvas blit) and `storage.js` (localStorage shim). **`odin/platform/native/`** (`#+build !js`): SDL2 window, saves in the per-user data directory.
+- **`odin/tests/`**: native tests (`#+build !js`). `reference_test.odin` compares rendered screens pixel for pixel with frames recorded from the real VB game (`docs/reference/vb/*.txt`, loaded with `#load`); `save_test.odin` includes single-rule mutations and a save fuzzer; `play_test.odin` has tap tests and long random "soak" games; `parity_test.odin` plays a scripted game whose digest must equal the one `tools/wasm_parity.js` gets from the built wasm under node.
+- **`tools/vb-oracle/`** drives the original VB game headlessly and records its screens (uses `src/` and `m5x7.json`). Everything under `src/` is the reference VB.NET game; it can no longer run (its font was removed from use), and its `CyFont*.json` files are the unusable Windows XP font.
 
-- **MHOS** (net8.0 exe): `Program.vb` is the composition root. It loads the JSON content config, maps keys and gamepad buttons to abstract commands (`A`, `B`, `Up`, `Down`, `Left`, `Right`), and starts the `Host`.
-- **AOS.Presentation** (net8.0, MonoGame): `Host` is the MonoGame `Game`; `DisplayBuffer` is the pixel surface. This is the only layer that touches MonoGame, apart from `MHOS`.
-- **AOS.UI** (net8.0): the reusable, game-agnostic UI framework ("AOS"). A state-machine game controller (`BaseGameController`, `BaseGameState`, `BasePickerState`), pixel buffers, bitmap fonts, sprites, and a set of stock "Boilerplate" states (splash, main menu, options, save/load, confirm quit/abandon, volume, window size, about). Boilerplate states are keyed by `BoilerplateState` constants. Generic over a world model type.
-- **MHOS.Presentation**: the game's UI. `GameController` extends `BaseGameController(Of IWorldModel)` and registers the game-specific `EmbarkState` and `NeutralState` on top of the boilerplate states. `MHOSContext` and `MHOSSettings` supply fonts, view size and settings.
-- **MHOS.Business**: game logic as a dialog tree. `WorldModel` holds the current `IDialog` (`NeutralDialog`, `ShoppeDialog`); each dialog exposes a description and `IChoice`s (`MurderChoice`, `SkillIncreaseChoice`, `DifficultyIncreaseChoice`, `AutoMurderIncreaseChoice`, `ShoppeChoice`, `CancelChoice`). `MakeChoice` replaces the current dialog with whatever `choice.Choose()` returns; `GoBack` pops it. The UI only sees `IWorldModel`.
-- **MHOS.Persistence**: the `IWorld` interface (murder, skill, XP, streak and auto-murder operations).
-- **MHOS.Persistence.Implementation**: `World` implements `IWorld` over a `WorldData` object. `Moods.vb` supplies message moods.
-- **MHOS.Data** (System.Text.Json): plain serializable data (`WorldData`, `MessageData`). Saving is `JsonSerializer.Serialize(WorldData)`, so a new persisted field must be a public property with a default value on `WorldData` (older saves then load with the default).
-- **FontMaker** (net6.0, System.Drawing): standalone tool that builds the font data from the PNG sources in its folder; not part of the game's runtime.
+## Conventions and pitfalls
 
-Auto-murder is time-based: `WorldData.NextAutoMurder` and `AutoMurderInterval` (seconds) are stored in the save, and `IWorld.AutoMurderTimeRemaining` exposes the countdown to the UI.
-
-## Conventions
-
-- Source files are VB.NET, often with a UTF-8 BOM. Keep the BOM on files that have it.
-- The vault's standing rules apply to sessions here: do not `git push` or run any publish/ship script unless the user explicitly says so, and do not describe a game's deliberate design as a bug.
+- A constant array (`X :: [N]T{...}`) cannot be indexed at run time: copy it to a variable (`font_rows := FONT_ROWS`). Do not put a composite literal in a `for ... in` header.
+- Imports of `core:os` belong only in `!js` files. Put `-vet-shadowing`-clean code in the core: `tools/test.sh` runs the real build with the vet flags (`odin check` does not).
+- Parse saves with `json.parse_string(text, .JSON, true, allocator)` (the default spec is JSON5).
+- Do not rely on the order of two calls in one expression on wasm.
+- Package-level maps in tests must be freed and reset per test (each test has its own allocator).
+- `pkill -f` and `fuser -k` can end the shell or kill someone else's server; check the port first.
