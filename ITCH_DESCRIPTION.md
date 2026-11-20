@@ -4,6 +4,8 @@
 
 (It keeps the page's original text, then adds the browser-version details. Nothing in this section is a note to anyone.)
 
+**Latest version:** https://playdeezgames.github.io/murder-hobo-of-splorr/
+
 In Murder Hobo of SPLORR!!, you are a Murder Hobo!
 
 You can murder, which gives you experience points.
