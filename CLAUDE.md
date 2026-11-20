@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 "Murder Hobo of SPLORR!!": a small idle clicker ("metaphor") by TheGrumpyGameDev. Attempt murders, earn XP, buy skill, difficulty and auto-murder in the Shoppe. **There is no ending, and failing paying double XP is deliberate; do not "fix" either.** The game was rebuilt in Odin in October 2026 (a browser build and a native SDL2 client over one core). The original VB.NET / MonoGame game was deleted after shipping (October 8, 2026); it is in git history at commit `32b498e` and earlier, together with the oracle that recorded its screens.
 
-Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr/` (`Games/Murder Hobo of SPLORR!!.md` is this game's page; `Home.md`, `Gotchas.md`, `Tech/Odin wasm recipe.md` and `Tech/Shipping to itch.io.md` are the useful notes). `docs/PORT_PLAN.md` records the port's decisions and `docs/QUIRKS.md` the decided quirks of the original; read them before changing behaviour that looks odd.
+Background lives in the Obsidian vault at `/home/yermom/git/bok-of-splorr/splorr/` (`Games/Murder Hobo of SPLORR!!.md` is this game's page; `Home.md`, `Gotchas.md`, `Tech/Odin wasm recipe.md` and `Tech/Shipping to itch.io.md` are the useful notes). `design/PORT_PLAN.md` records the port's decisions and `design/QUIRKS.md` the decided quirks of the original; read them before changing behaviour that looks odd.
 
 ## Standing rules
 
@@ -36,8 +36,8 @@ QA hooks: web `?seed=N` (fixed dice) and `?log=1` (every input to the console); 
   - `screens.odin`, `core.odin`: one state machine over ten screens (Splash, Main Menu, Neutral, Shoppe, Game Menu, Confirm Abandon/Embark/Quit, About, Options, Window Size), commands and taps. Web has no Quit/Options; native does.
   - `save.odin`: one JSON text per key (`mhos:save`, desktop options in `mhos:config`), hand-written so a re-save is byte-identical, every field validated on load; a bad file is ignored and left on disk; Abandon writes an `"empty"` marker instead of removing the key.
 - **`odin/platform/web/`** (`#+build js`): `js_wasm32` main exporting `platform_frame`, `platform_command`, `platform_tap`; `page/` has `index.html`, `platform.js` (own `requestAnimationFrame` loop, canvas blit) and `storage.js` (localStorage shim). **`odin/platform/native/`** (`#+build !js`): SDL2 window, saves in the per-user data directory.
-- **`odin/tests/`**: native tests (`#+build !js`). `reference_test.odin` compares rendered screens pixel for pixel with frames recorded from the real VB game (`docs/reference/vb/*.txt`, loaded with `#load`); `save_test.odin` includes single-rule mutations and a save fuzzer; `play_test.odin` has tap tests and long random "soak" games; `parity_test.odin` plays a scripted game whose digest must equal the one `tools/wasm_parity.js` gets from the built wasm under node.
-- **`docs/reference/vb/*.txt`** are screens recorded from the original VB game (216 lines of 384 hex hue digits), see the README there. The VB source and the oracle that recorded them are gone from the tree; check out `32b498e` to re-record.
+- **`odin/tests/`**: native tests (`#+build !js`). `reference_test.odin` compares rendered screens pixel for pixel with frames recorded from the real VB game (`design/reference/vb/*.txt`, loaded with `#load`); `save_test.odin` includes single-rule mutations and a save fuzzer; `play_test.odin` has tap tests and long random "soak" games; `parity_test.odin` plays a scripted game whose digest must equal the one `tools/wasm_parity.js` gets from the built wasm under node.
+- **`design/reference/vb/*.txt`** are screens recorded from the original VB game (216 lines of 384 hex hue digits), see the README there. The VB source and the oracle that recorded them are gone from the tree; check out `32b498e` to re-record.
 
 ## Conventions and pitfalls
 

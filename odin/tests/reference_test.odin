@@ -2,7 +2,7 @@
 package tests
 
 // The renderer against the real VB game. an oracle program (removed from the tree; commit 32b498e) drove the original headlessly and recorded what it drew
-// (docs/reference/vb/*.txt: 216 lines of 384 hue digits in hex). These tests build the same world and require every pixel to match.
+// (design/reference/vb/*.txt: 216 lines of 384 hue digits in hex). These tests build the same world and require every pixel to match.
 
 import "core:fmt"
 import "core:testing"
@@ -49,14 +49,14 @@ draw_shoppe_at :: proc(f: ^game.Hue_Frame, v: ^game.View, cursor: int) -> ^game.
 ref_neutral_fresh :: proc(t: ^testing.T) {
 	w := game.world_new()
 	f := draw_neutral(&w, 0); defer free(f)
-	reference(t, "neutral_fresh", #load("../../docs/reference/vb/neutral_fresh.txt", string), f)
+	reference(t, "neutral_fresh", #load("../../design/reference/vb/neutral_fresh.txt", string), f)
 }
 
 @(test)
 ref_neutral_cursor_on_shoppe :: proc(t: ^testing.T) {
 	w := game.world_new()
 	f := draw_neutral(&w, 1); defer free(f)
-	reference(t, "neutral_cursor_shoppe", #load("../../docs/reference/vb/neutral_cursor_shoppe.txt", string), f)
+	reference(t, "neutral_cursor_shoppe", #load("../../design/reference/vb/neutral_cursor_shoppe.txt", string), f)
 }
 
 @(test)
@@ -65,7 +65,7 @@ ref_neutral_success :: proc(t: ^testing.T) {
 	w.attempt_counter, w.murder_counter, w.success_streak, w.record_streak, w.experience = 1, 1, 1, 1, 1
 	msg(&w, .Success, "Success!"); msg(&w, .Success, "New Record Success Streak!"); msg(&w, .Success, "You get 1 XP")
 	f := draw_neutral(&w, 0); defer free(f)
-	reference(t, "neutral_success", #load("../../docs/reference/vb/neutral_success.txt", string), f)
+	reference(t, "neutral_success", #load("../../design/reference/vb/neutral_success.txt", string), f)
 }
 
 @(test)
@@ -75,7 +75,7 @@ ref_neutral_failure :: proc(t: ^testing.T) {
 	w.skill, w.difficulty = 2, 3
 	msg(&w, .Failure, "Failure!"); msg(&w, .Success, "You get 6 XP")
 	f := draw_neutral(&w, 0); defer free(f)
-	reference(t, "neutral_failure", #load("../../docs/reference/vb/neutral_failure.txt", string), f)
+	reference(t, "neutral_failure", #load("../../design/reference/vb/neutral_failure.txt", string), f)
 }
 
 @(test)
@@ -84,7 +84,7 @@ ref_neutral_streak :: proc(t: ^testing.T) {
 	w.attempt_counter, w.murder_counter, w.success_streak, w.record_streak, w.experience = 9, 7, 5, 5, 123
 	msg(&w, .Success, "Success!"); msg(&w, .Success, "Streak bonus 4 XP!"); msg(&w, .Success, "New Record Success Streak!"); msg(&w, .Success, "You get 5 XP")
 	f := draw_neutral(&w, 0); defer free(f)
-	reference(t, "neutral_streak", #load("../../docs/reference/vb/neutral_streak.txt", string), f)
+	reference(t, "neutral_streak", #load("../../design/reference/vb/neutral_streak.txt", string), f)
 }
 
 @(test)
@@ -93,14 +93,14 @@ ref_neutral_big_numbers :: proc(t: ^testing.T) {
 	w.attempt_counter, w.murder_counter, w.success_streak, w.experience = 12345678, 9876543, 1234567, 2000000000
 	w.skill, w.difficulty = 99999, 88888
 	f := draw_neutral(&w, 0); defer free(f)
-	reference(t, "neutral_big", #load("../../docs/reference/vb/neutral_big.txt", string), f)
+	reference(t, "neutral_big", #load("../../design/reference/vb/neutral_big.txt", string), f)
 }
 
 @(test)
 ref_shoppe_poor :: proc(t: ^testing.T) {
 	w := game.world_new()
 	f := draw_shoppe(&w, 1); defer free(f) // the original's cursor (1) is out of range for the single choice and resets to 0
-	reference(t, "shoppe_poor", #load("../../docs/reference/vb/shoppe_poor.txt", string), f)
+	reference(t, "shoppe_poor", #load("../../design/reference/vb/shoppe_poor.txt", string), f)
 }
 
 @(test)
@@ -108,7 +108,7 @@ ref_shoppe_rich :: proc(t: ^testing.T) {
 	w := game.world_new()
 	w.experience = 5000
 	f := draw_shoppe(&w, 1); defer free(f)
-	reference(t, "shoppe_rich", #load("../../docs/reference/vb/shoppe_rich.txt", string), f)
+	reference(t, "shoppe_rich", #load("../../design/reference/vb/shoppe_rich.txt", string), f)
 }
 
 @(test)
@@ -116,7 +116,7 @@ ref_shoppe_some :: proc(t: ^testing.T) {
 	w := game.world_new()
 	w.experience = 30
 	f := draw_shoppe(&w, 1); defer free(f)
-	reference(t, "shoppe_some", #load("../../docs/reference/vb/shoppe_some.txt", string), f)
+	reference(t, "shoppe_some", #load("../../design/reference/vb/shoppe_some.txt", string), f)
 }
 
 @(test)
@@ -124,9 +124,9 @@ ref_shoppe_cursor_last_and_second_row :: proc(t: ^testing.T) {
 	w := game.world_new()
 	w.experience = 5000
 	f := draw_shoppe(&w, 3); defer free(f)
-	reference(t, "shoppe_cursor_last", #load("../../docs/reference/vb/shoppe_cursor_last.txt", string), f)
+	reference(t, "shoppe_cursor_last", #load("../../design/reference/vb/shoppe_cursor_last.txt", string), f)
 	g := draw_shoppe(&w, 3); defer free(g)
-	reference(t, "shoppe_cursor_row2", #load("../../docs/reference/vb/shoppe_cursor_row2.txt", string), g)
+	reference(t, "shoppe_cursor_row2", #load("../../design/reference/vb/shoppe_cursor_row2.txt", string), g)
 }
 
 @(test)
@@ -178,25 +178,25 @@ draw_menu :: proc(header, status: string, items: []string, index: int) -> ^game.
 ref_splash :: proc(t: ^testing.T) {
 	f := new(game.Hue_Frame); defer free(f)
 	game.render_splash(f)
-	reference(t, "splash", #load("../../docs/reference/vb/splash.txt", string), f)
+	reference(t, "splash", #load("../../design/reference/vb/splash.txt", string), f)
 }
 
 @(test)
 ref_about :: proc(t: ^testing.T) {
 	f := new(game.Hue_Frame); defer free(f)
 	game.render_about(f, with_credit = false)
-	reference(t, "about", #load("../../docs/reference/vb/about.txt", string), f)
+	reference(t, "about", #load("../../design/reference/vb/about.txt", string), f)
 }
 
 @(test)
 ref_main_menu :: proc(t: ^testing.T) {
 	status := game.controls_text("Sel", "Quit")
 	f0 := draw_menu("Main Menu", status, VB_MAIN_MENU, 0); defer free(f0)
-	reference(t, "main_menu", #load("../../docs/reference/vb/main_menu.txt", string), f0)
+	reference(t, "main_menu", #load("../../design/reference/vb/main_menu.txt", string), f0)
 	f3 := draw_menu("Main Menu", status, VB_MAIN_MENU, 3); defer free(f3)
-	reference(t, "main_menu_item3", #load("../../docs/reference/vb/main_menu_item3.txt", string), f3)
+	reference(t, "main_menu_item3", #load("../../design/reference/vb/main_menu_item3.txt", string), f3)
 	f5 := draw_menu("Main Menu", status, VB_MAIN_MENU, 5); defer free(f5)
-	reference(t, "main_menu_wrapped", #load("../../docs/reference/vb/main_menu_wrapped.txt", string), f5)
+	reference(t, "main_menu_wrapped", #load("../../design/reference/vb/main_menu_wrapped.txt", string), f5)
 	free_all(context.temp_allocator)
 }
 
@@ -204,15 +204,15 @@ ref_main_menu :: proc(t: ^testing.T) {
 ref_game_menu_and_confirmations :: proc(t: ^testing.T) {
 	status := game.controls_text("Sel", "Cancel")
 	a := draw_menu("Menu...", status, VB_GAME_MENU, 0); defer free(a)
-	reference(t, "game_menu", #load("../../docs/reference/vb/game_menu.txt", string), a)
+	reference(t, "game_menu", #load("../../design/reference/vb/game_menu.txt", string), a)
 	b := draw_menu("Menu...", status, VB_GAME_MENU, 5); defer free(b)
-	reference(t, "game_menu_wrapped", #load("../../docs/reference/vb/game_menu_wrapped.txt", string), b)
+	reference(t, "game_menu_wrapped", #load("../../design/reference/vb/game_menu_wrapped.txt", string), b)
 	c := draw_menu("Are you sure you want to abandon?", status, {"No", "Yes"}, 0); defer free(c)
-	reference(t, "confirm_abandon", #load("../../docs/reference/vb/confirm_abandon.txt", string), c)
+	reference(t, "confirm_abandon", #load("../../design/reference/vb/confirm_abandon.txt", string), c)
 	d := draw_menu("Are you sure you want to abandon?", status, {"No", "Yes"}, 1); defer free(d)
-	reference(t, "confirm_abandon_yes", #load("../../docs/reference/vb/confirm_abandon_yes.txt", string), d)
+	reference(t, "confirm_abandon_yes", #load("../../design/reference/vb/confirm_abandon_yes.txt", string), d)
 	e := draw_menu("Are you sure you want to quit?", status, {"No", "Yes"}, 0); defer free(e)
-	reference(t, "confirm_quit", #load("../../docs/reference/vb/confirm_quit.txt", string), e)
+	reference(t, "confirm_quit", #load("../../design/reference/vb/confirm_quit.txt", string), e)
 	free_all(context.temp_allocator)
 }
 
@@ -220,11 +220,11 @@ ref_game_menu_and_confirmations :: proc(t: ^testing.T) {
 ref_options_and_window_size :: proc(t: ^testing.T) {
 	status := game.controls_text("Sel", "Cancel")
 	a := draw_menu("Options", status, VB_OPTIONS, 0); defer free(a)
-	reference(t, "options", #load("../../docs/reference/vb/options.txt", string), a)
+	reference(t, "options", #load("../../design/reference/vb/options.txt", string), a)
 	b := draw_menu("Current Size: 1152x648", status, VB_SIZES, 0); defer free(b)
-	reference(t, "window_size", #load("../../docs/reference/vb/window_size.txt", string), b)
+	reference(t, "window_size", #load("../../design/reference/vb/window_size.txt", string), b)
 	c := draw_menu("Current Size: 1152x648", status, VB_SIZES, 3); defer free(c)
-	reference(t, "window_size_item4", #load("../../docs/reference/vb/window_size_item4.txt", string), c)
+	reference(t, "window_size_item4", #load("../../design/reference/vb/window_size_item4.txt", string), c)
 	free_all(context.temp_allocator)
 }
 

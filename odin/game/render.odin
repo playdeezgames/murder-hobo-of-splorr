@@ -2,7 +2,7 @@ package game
 
 // The software rasterizer: a port of the original's pixel sink, Font and the NeutralState layout.
 // The picture is kept as hue indexes (like the original's OffscreenBuffer) and converted to RGBA at the end,
-// so tests can compare it with the frames the VB game drew (docs/reference/vb).
+// so tests can compare it with the frames the VB game drew (design/reference/vb).
 
 Hue_Frame :: [FRAME_WIDTH * FRAME_HEIGHT]Hue
 

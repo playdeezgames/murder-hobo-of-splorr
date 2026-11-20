@@ -31,7 +31,7 @@ odin/platform/web/     js_wasm32 main + page/ (index.html, platform.js)
 odin/platform/native/  SDL2 window; blits the same frame
 odin/tests/            portable tests; native `odin test`
 tools/                 build.sh [web|native|all], test.sh, serve.sh, ship.sh
-docs/                  PORT_PLAN.md, QUIRKS.md
+design/                  PORT_PLAN.md, QUIRKS.md
 (src/ was the original VB.NET; deleted October 8, 2026 after shipping, last present at commit 32b498e)
 ```
 
@@ -98,4 +98,4 @@ Consequence of dropping audio: `Content/Audio`, `mux.json`, `sfx.json`, Options 
 - **Web:** `?seed=N` fixes the random numbers (up to 9 digits); `?log=1` prints every input sent to the game.
 - **Native:** `--seed N`, `--data DIR` (save directory instead of the per-user one), `--script "confirm,down,tap:100:50,..."` (one input per frame, then quit) and `--dump FILE` (the last frame as a PPM). Example: `build/native/murder-hobo --data /tmp/x --script "confirm,confirm,confirm" --dump /tmp/x/frame.ppm`.
 - **Pointer:** a mouse press selects and confirms; a finger selects first and confirms on the selected item. The hint line of a dialog and the status bar of a menu act as Escape.
-- `tools/test.sh` runs the generated-data check, the native suite built with `-o:speed` (about 70 tests including three long random "soak" games and a save-fuzzer), and a full build of both platforms with the vet flags. The VB reference frames in `docs/reference/vb` were recorded by an oracle program that is now only in git history (see the README there).
+- `tools/test.sh` runs the generated-data check, the native suite built with `-o:speed` (about 70 tests including three long random "soak" games and a save-fuzzer), and a full build of both platforms with the vet flags. The VB reference frames in `design/reference/vb` were recorded by an oracle program that is now only in git history (see the README there).

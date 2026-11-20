@@ -4,7 +4,7 @@ package game
 
 import "core:fmt"
 
-// Quirk decisions (docs/QUIRKS.md)
+// Quirk decisions (design/QUIRKS.md)
 AUTO_CATCHUP_CAP :: 1000      // quirk 1: at most this many missed attempts run at once; the rest are forfeited
 MIN_AUTO_INTERVAL_MS :: 1.0   // safety floor so repeated halving can never reach zero
 
